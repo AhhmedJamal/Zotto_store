@@ -8,7 +8,7 @@ const cartSlice = createSlice({
   reducers: {
     getFromLocal: (state, action) => {
       state.items = [];
-      state.items.push(...action.payload);
+      // state.items.push(...action.payload);
     },
     addToCart: (state, action) => {
       state.items.push(action.payload);
