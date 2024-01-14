@@ -64,7 +64,7 @@ const Login = () => {
   };
   // Render the Login component
   return (
-    <div className="w-[70%] h-[100vh] m-auto flex justify-center gap-3 items-center flex-col lg:flex-row ">
+    <div className="w-[70%] h-[90vh] m-auto flex justify-center gap-3 items-center flex-col lg:flex-row ">
       <ToastContainer />
       <img src={Image} alt="Image-Login" className="w-[70%] lg:w-[40%]" />
 
