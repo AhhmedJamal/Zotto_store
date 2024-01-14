@@ -237,17 +237,6 @@ const NavBar = () => {
             </div>
           </button>
           <span className="bg-gray-200 h-[1px] w-full" />
-          <Link
-            to="orders"
-            className="text-[13px] font-bold flex gap-2 justify-start items-center self-start m-2 w-full"
-          >
-            <img
-              src="https://cdn-icons-png.flaticon.com/128/1008/1008014.png"
-              width={20}
-            />
-            Orders
-          </Link>
-          <span className="bg-gray-200 h-[1px] w-full" />
           <input
             type="search"
             placeholder="Search"

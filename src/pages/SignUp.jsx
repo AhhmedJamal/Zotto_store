@@ -2,9 +2,10 @@ import { Link } from "react-router-dom";
 import Image from "../assets/signUp.svg";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { GoogleAuthProvider, createUserWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 import { auth } from "../config/firebase";
 import { ToastContainer, toast } from "react-toastify";
+import { FcGoogle } from "react-icons/fc";
 
 // Define the SignUp component
 const SignUp = () => {
@@ -64,7 +65,17 @@ const SignUp = () => {
       setLoading(false);
     }
   };
-
+const handleGoogle = () => {
+  const googleProvider = new GoogleAuthProvider();
+  signInWithPopup(auth, googleProvider)
+    .then(({ user }) => {
+      localStorage.setItem("tokenGoogle", user.uid);
+      router("/", { replace: true });
+    })
+    .catch((error) => {
+      console.error("Error signing in with Google:", error.message);
+    });
+};
   // Render the SignUp component
   return (
     <div className="w-[70%] h-[100vh] m-auto flex justify-center gap-3 items-center flex-col lg:flex-row">
@@ -83,6 +94,7 @@ const SignUp = () => {
           className="input border outline-none w-full p-2 rounded-md"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
+          required
         />
         {/* Password input */}
         <input
@@ -91,6 +103,7 @@ const SignUp = () => {
           className="input border outline-none w-full p-2 rounded-md"
           value={pass}
           onChange={(e) => setPass(e.target.value)}
+          required
         />
         {/* Password confirmation input */}
         <input
@@ -99,6 +112,7 @@ const SignUp = () => {
           className="input border outline-none w-full p-2 rounded-md"
           value={passConfirmation}
           onChange={(e) => setPassConfirmation(e.target.value)}
+          required
         />
         {/* Link to the login page */}
         <Link
@@ -118,6 +132,14 @@ const SignUp = () => {
           ) : (
             "Join"
           )}
+        </button>{" "}
+        <div className="h-[1px] my-2 bg-gray-500 w-full after:content-['or'] after:font-bold after:border after:border-gray-600  after:relative after:top-[-12px] after:left-[45%] after:bg-[#F7F7FA] after:w-fit after:p-1 after:rounded-full"></div>
+        <button
+          onClick={handleGoogle}
+          type="button"
+          className="bg-gray-300 text-gray-800 text-[14px]  rounded-md p-2 font-bold items-center flex gap-2 justify-center"
+        >
+          <FcGoogle size={24} /> Sign Up with Google
         </button>
       </form>
     </div>

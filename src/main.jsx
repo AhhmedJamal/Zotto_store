@@ -21,6 +21,7 @@ import DetailsProduct from "./pages/DetailsProduct.jsx";
 import Orders from "./pages/Orders.jsx";
 import Checkout from "./pages/Checkout.jsx";
 import Account from "./pages/Account.jsx";
+import Forget from "./pages/Forget.jsx";
 
 // Create BrowserRouter
 const router = createBrowserRouter([
@@ -49,6 +50,7 @@ const router = createBrowserRouter([
         path: "favorite",
         element: <Favorite />,
       },
+
       {
         path: "orders",
         element: <Orders />,
@@ -74,6 +76,10 @@ const router = createBrowserRouter([
   {
     path: "signUp",
     element: <SignUp />,
+  },
+  {
+    path: "forget",
+    element: <Forget />,
   },
   {
     path: "*",

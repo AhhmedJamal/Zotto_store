@@ -13,6 +13,10 @@
 *::-webkit-scrollbar {
   display: none;
 }
+*::selection {
+  user-select: none;
+  background-color: transparent;
+}
 
 body {
   background-color: #f7f7fa;

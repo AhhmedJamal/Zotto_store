@@ -4,7 +4,8 @@ import { useState } from "react";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../config/firebase";
 import { ToastContainer, toast } from "react-toastify";
-
+import { FcGoogle } from "react-icons/fc";
+import {  signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 // Define the Login component
 const Login = () => {
   // State variables for email, password, and router navigation
@@ -50,17 +51,28 @@ const Login = () => {
     }
   };
 
+  const handleGoogle = () => {
+    const googleProvider = new GoogleAuthProvider();
+    signInWithPopup(auth, googleProvider)
+      .then(({ user }) => {
+        localStorage.setItem("tokenGoogle", user.uid);
+        router("/", { replace: true });
+      })
+      .catch((error) => {
+        console.error("Error signing in with Google:", error.message);
+      });
+  };
   // Render the Login component
   return (
     <div className="w-[70%] h-[100vh] m-auto flex justify-center gap-3 items-center flex-col lg:flex-row ">
       <ToastContainer />
-      <img src={Image} alt="Image-Login" className="w-[90%] lg:w-[50%]" />
+      <img src={Image} alt="Image-Login" className="w-[70%] lg:w-[40%]" />
 
       <form
         className="w-full gap-4 flex flex-col md:ml-8 "
         onSubmit={handleLogin}
       >
-        <h1 className="font-bold text-[30px] text-center">Log In</h1>
+        <h1 className="font-bold text-[30px] text-center">Sign In</h1>
         {/* Email input */}
         <input
           type="email"
@@ -68,6 +80,7 @@ const Login = () => {
           className="input border outline-none w-full p-2 rounded-md"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
+          required
         />
         {/* Password input */}
         <input
@@ -76,14 +89,14 @@ const Login = () => {
           className="input border outline-none w-full p-2 rounded-md"
           value={pass}
           onChange={(e) => setPass(e.target.value)}
+          required
         />
-        {/* Link to sign up page */}
+        {/* Link to Forgot Password */}
         <Link
-          to="/signUp"
-          className="text-primary font-bold rounded-md p-1 text-[12px] underline text-end"
-          replace={true}
+          to="/forget"
+          className="text-gray-700 font-bold rounded-md p-1 text-[12px] underline text-end"
         >
-          Create your Zutto account
+          Forgot Password?
         </Link>
         {/* Submit button */}
         <button
@@ -96,6 +109,21 @@ const Login = () => {
             "Login"
           )}
         </button>
+        <div className="h-[1px] my-2 bg-gray-500 w-full after:content-['or'] after:font-bold after:border after:border-gray-600  after:relative after:top-[-12px] after:left-[45%] after:bg-[#F7F7FA] after:w-fit after:p-1 after:rounded-full"></div>
+        <button
+          onClick={handleGoogle}
+          type="button"
+          className="bg-gray-300 text-gray-800 text-[14px]  rounded-md p-2 font-bold items-center flex gap-2 justify-center"
+        >
+          <FcGoogle size={24} /> Sign In with Google
+        </button>
+        {/* Link to sign up page */}
+        <Link
+          to="/signUp"
+          className="text-primary font-bold rounded-md p-1 text-[12px] underline text-center"
+        >
+          Create your Zutto account
+        </Link>
       </form>
     </div>
   );
