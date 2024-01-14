@@ -2,7 +2,11 @@ import { Link } from "react-router-dom";
 import Image from "../assets/signUp.svg";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { GoogleAuthProvider, createUserWithEmailAndPassword, signInWithPopup } from "firebase/auth";
+import {
+  GoogleAuthProvider,
+  createUserWithEmailAndPassword,
+  signInWithPopup,
+} from "firebase/auth";
 import { auth } from "../config/firebase";
 import { ToastContainer, toast } from "react-toastify";
 import { FcGoogle } from "react-icons/fc";
@@ -65,17 +69,17 @@ const SignUp = () => {
       setLoading(false);
     }
   };
-const handleGoogle = () => {
-  const googleProvider = new GoogleAuthProvider();
-  signInWithPopup(auth, googleProvider)
-    .then(({ user }) => {
-      localStorage.setItem("tokenGoogle", user.uid);
-      router("/", { replace: true });
-    })
-    .catch((error) => {
-      console.error("Error signing in with Google:", error.message);
-    });
-};
+  const handleGoogle = () => {
+    const googleProvider = new GoogleAuthProvider();
+    signInWithPopup(auth, googleProvider)
+      .then(({ user }) => {
+        localStorage.setItem("token", user.uid);
+        router("/", { replace: true });
+      })
+      .catch((error) => {
+        console.error("Error signing in with Google:", error.message);
+      });
+  };
   // Render the SignUp component
   return (
     <div className="w-[70%] h-[90vh] m-auto flex justify-center gap-3 items-center flex-col lg:flex-row">

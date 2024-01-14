@@ -55,7 +55,7 @@ const Login = () => {
     const googleProvider = new GoogleAuthProvider();
     signInWithPopup(auth, googleProvider)
       .then(({ user }) => {
-        localStorage.setItem("tokenGoogle", user.uid);
+        localStorage.setItem("token", user.uid);
         router("/", { replace: true });
       })
       .catch((error) => {

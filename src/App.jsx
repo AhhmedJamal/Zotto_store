@@ -8,7 +8,6 @@ import Categories from "./components/Categories";
 import Model from "./components/Model";
 import BottomBar from "./components/BottomBar";
 
-
 const App = () => {
   const router = useNavigate();
 
