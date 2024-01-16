@@ -136,7 +136,11 @@ const NavBar = () => {
                 className="text-[11px] tracking-widest sm:text-[11px] text-start  p-2 "
               >
                 Hello,
-                {email ? <span className="font-bold">{email}</span> : "sign in"}
+                {email ? (
+                  <span className="font-bold">{email.slice(0, -10)}</span>
+                ) : (
+                  "sign in"
+                )}
                 <br />
                 <div className="flex items-center gap-2">
                   Account & List
@@ -148,10 +152,7 @@ const NavBar = () => {
               <MenuItem className="pl-0 focus:bg-transparent text-black">
                 <Link to="/account">Account</Link>
               </MenuItem>
-              <hr />
-              <MenuItem className="pl-0 focus:bg-transparent text-black">
-                <Link to="settings">Settings</Link>
-              </MenuItem>
+
               <hr />
               <MenuItem className="pl-0 focus:bg-transparent text-black">
                 <div onClick={logout}>Log out</div>
@@ -183,37 +184,20 @@ const NavBar = () => {
       >
         <div className="flex flex-col  md:hidden ">
           <Menu open={isMenuOpen2} handler={setIsMenuOpen2}>
-            <MenuHandler>
-              <button
-                color="blue-gray"
-                className="text-[12px] sm:text-[11px] text-start p-2"
-              >
-                Hello,
-                {email ? (
-                  <span className="font-bold text-[13px]">{email}</span>
-                ) : (
-                  "sign in"
-                )}
-                <br />
-                <div className="flex items-center gap-2">
-                  Account & List
-                  <IoMdArrowDropdown size={17} />
-                </div>
-              </button>
-            </MenuHandler>
-            <MenuList className="absolute top-[-100px]">
-              <MenuItem className="pl-0 focus:bg-transparent text-black">
-                <Link to="/account">Account</Link>
-              </MenuItem>
-              <hr />
-              <MenuItem className="pl-0 focus:bg-transparent text-black">
-                <Link to="settings">Settings</Link>
-              </MenuItem>
-              <hr />
-              <MenuItem className="pl-0 focus:bg-transparent text-black">
-                <div onClick={logout}>Log out</div>
-              </MenuItem>
-            </MenuList>
+            <div
+              color="blue-gray"
+              className="text-[12px] sm:text-[11px] text-start p-2"
+            >
+              Hello,{" "}
+              {email ? (
+                <span className="font-bold text-[13px]">
+                  {email.slice(0, -10)}
+                </span>
+              ) : (
+                "sign in"
+              )}
+              <br />
+            </div>
           </Menu>
           <span className="bg-gray-200 h-[1px] w-full" />
           <button className="p-2 text-[11px] text-start">

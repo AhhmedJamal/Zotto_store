@@ -41,15 +41,15 @@ const DetailsProduct = () => {
       />
       {product.length !== 0 ? (
         <div>
-          <div className="p-3  pt-0 mt-4 lg:flex lg:justify-evenly items-center lg:mt-[10px] ">
+          <div className="p-3 pt-0 mt-4 lg:flex lg:justify-evenly items-center lg:mt-[10px] ">
             <Carousel
-              className="rounded-xl  w-full h-[200px] bg-reds-300 lg:w-[600px] mb-3"
+              className="rounded-xl  w-full h-[250px] bg-reds-300 lg:w-[600px] mb-3"
               navigation={({ setActiveIndex, activeIndex, length }) => (
                 <div className="absolute bottom-1 left-2/4  flex -translate-x-2/4 gap-2">
                   {new Array(length).fill("").map((_, i) => (
                     <span
                       key={i}
-                      className={`block h-[4px] cursor-pointer rounded-2xl transition-all content-['']  ${
+                      className={`block h-[4px] cursor-pointer rounded-2xl transition-all content-[''] ${
                         activeIndex === i ? "w-4 bg-primary" : "w-4 bg-gray-400"
                       }`}
                       onClick={() => setActiveIndex(i)}
@@ -124,11 +124,14 @@ const DetailsProduct = () => {
                 {product.description}
               </p>
               <p className="text-[15px] lg:text-[20px] font-bold">
-                ${product.price}
+                <span className="font-normal text-[11px] text-gray-700">
+                  EPG
+                </span>{" "}
+                {product.price?.toLocaleString("en-US")}
                 {product.priceDis && (
                   <del className="text-gray-500 ml-2 text-[12px] lg:text-[15px] font-normal">
                     {" "}
-                    ${product.priceDis}{" "}
+                    ${product.priceDis?.toLocaleString("en-US")}
                   </del>
                 )}
               </p>

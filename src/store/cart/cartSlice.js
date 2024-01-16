@@ -8,17 +8,46 @@ const cartSlice = createSlice({
   reducers: {
     getFromLocal: (state, action) => {
       state.items = [];
-      // state.items.push(...action.payload);
+      state.items.push(...action.payload);
     },
-    addToCart: (state, action) => {
-      state.items.push(action.payload);
 
-      let cart = JSON.parse(localStorage.getItem("shoppingCart")) || [];
-      cart.push(action.payload);
-      localStorage.setItem("shoppingCart", JSON.stringify(cart));
+    addToCart: (state, action) => {
+      const { uid, img, price, rating, description } = action.payload;
+
+      const existingItem = state.items.find((item) => item.uid === uid);
+
+      if (existingItem) {
+        existingItem.count += 1;
+      } else {
+        state.items.push({
+          uid,
+          img,
+          price,
+          rating,
+          description,
+          count: 1,
+        });
+      }
+
+      localStorage.setItem("shoppingCart", JSON.stringify(state.items));
     },
+
     removeFromCart: (state, action) => {
-      state.items = state.items.filter((item) => item.uid !== action.payload.id);
+      const { uid } = action.payload;
+
+      const existingItem = state.items.find((item) => item.uid === uid);
+
+      if (existingItem) {
+        if (existingItem.count !== 1) existingItem.count -= 1;
+      }
+
+      localStorage.setItem("shoppingCart", JSON.stringify(state.items));
+    },
+
+    removeProductCart: (state, action) => {
+      state.items = state.items.filter(
+        (item) => item.uid !== action.payload.id
+      );
 
       let cart = JSON.parse(localStorage.getItem("shoppingCart")) || [];
       let index = cart.findIndex(
@@ -32,5 +61,6 @@ const cartSlice = createSlice({
   },
 });
 
-export const { addToCart, removeFromCart, getFromLocal } = cartSlice.actions;
+export const { addToCart, removeFromCart, getFromLocal, removeProductCart } =
+  cartSlice.actions;
 export default cartSlice.reducer;

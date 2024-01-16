@@ -4,10 +4,11 @@ import CartEmpty from "../assets/emptyCart.svg";
 import CartProduct from "../components/CartProduct";
 import CartCheckout from "../components/CartCheckout";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { getFromLocal } from "../store/cart/cartSlice";
 
 const Cart = () => {
+  const [count, setCount] = useState([]);
   function calculateTotalPrice(cart) {
     // Ensure that the cart is not empty
     if (!cart || cart.length === 0) {
@@ -16,7 +17,7 @@ const Cart = () => {
 
     // Calculate the total price without considering quantity
     const totalPrice = cart.reduce((accumulator, item) => {
-      const itemPrice = item.price || 0; // Assuming each item has a 'price' property
+      const itemPrice = item.price * item.count || 0; // Assuming each item has a 'price' property
       const itemDiscountPercentage = item.discountPercentage || 0; // Assuming each item has a 'discountPercentage' property, default to 0 if not present
 
       const discountedPrice = itemPrice * (1 - itemDiscountPercentage / 100);
@@ -32,7 +33,8 @@ const Cart = () => {
   useEffect(() => {
     const items = JSON.parse(localStorage.getItem("shoppingCart")) || {};
     dispatch(getFromLocal(items));
-  }, [dispatch]);
+    setCount(items);
+  }, [count,dispatch]);
   return (
     <div className="mt-4 flex flex-col lg:flex-row justify-between mb-10 relative ">
       <div className="w-[100%] lg:w-[58%] ">
@@ -45,8 +47,14 @@ const Cart = () => {
 
         {cart.length !== 0 ? (
           <div className="  flex flex-col place-items-center gap-3 sm:mx-0 mx-2 mt-2 max-h-[62vdh] sm:h-[g50vh]  overflow-scroll cartScroll">
-            {cart.map((product) => {
-              return <CartProduct key={product.id} product={product} />;
+            {cart.map((product, i) => {
+              return (
+                <CartProduct
+                  key={i}
+                  product={product}
+                  countProduct={count[i]?.count}
+                />
+              );
             })}
           </div>
         ) : (
@@ -56,7 +64,11 @@ const Cart = () => {
           </div>
         )}
       </div>
-      <CartCheckout cart={cart.length} total={totalWithDiscount.toFixed(2)} />
+      <CartCheckout
+        items={count}
+        cart={cart.length}
+        total={totalWithDiscount?.toLocaleString("en-US")}
+      />
     </div>
   );
 };

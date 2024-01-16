@@ -69,7 +69,7 @@ const Product = ({ product }) => {
             <span className="font-normal text-[11px] text-gray-700">EPG</span>
             <span className="font-[700] text-[15px] text-blue-gray-900">
               {" "}
-              {price}
+              {price.toLocaleString("en-US")}
             </span>
           </div>
         </div>

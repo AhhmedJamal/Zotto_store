@@ -2,6 +2,7 @@ import { NavLink } from "react-router-dom";
 import { MdOutlineFavorite } from "react-icons/md";
 import { FaHome } from "react-icons/fa";
 import { FaBox } from "react-icons/fa";
+import { IoPersonSharp } from "react-icons/io5";
 const BottomBar = () => {
   return (
     <ul className="z-20 md:hidden fixed bottom-0 btnBar bg-white border-t text-gray-900 border-gray-300 w-full pl-2 container flex justify-around items-center  h-[70px] pb-3 [box-shadow:0px_-1px_10px_0px_rgba(32,_32,_32,_0.176)]">
@@ -25,6 +26,13 @@ const BottomBar = () => {
       >
         <MdOutlineFavorite size={25} />
         Favorite
+      </NavLink>
+      <NavLink
+        to="account"
+        className="text-[13px] font-bold flex flex-col justify-center items-center mt-2 mx-3"
+      >
+        <IoPersonSharp size={25} />
+        Account
       </NavLink>
     </ul>
   );
