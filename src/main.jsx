@@ -14,7 +14,6 @@ import NotFoundPage from "./pages/NotFoundPage.jsx";
 import CheckInternet from "./components/CheckInternet.jsx";
 import store from "./store/store.js";
 import Home from "./pages/Home.jsx";
-import Settings from "./pages/Settings.jsx";
 import CategoryPage from "./pages/CategoryPage.jsx";
 import Favorite from "./pages/Favorite.jsx";
 import DetailsProduct from "./pages/DetailsProduct.jsx";
@@ -38,10 +37,7 @@ const router = createBrowserRouter([
         path: "cart",
         element: <Cart />,
       },
-      {
-        path: "settings",
-        element: <Settings />,
-      },
+     
       {
         path: "account",
         element: <Account />,

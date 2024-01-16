@@ -23,6 +23,7 @@ const CartCheckout = ({ total, items }) => {
           type="search"
           name="discount"
           className="h-full w-[70%] border rounded-sm px-4"
+          placeholder="Coupon Code"
         />
         <button className="h-full w-[30%] bg-primary text-white p-2 rounded-sm uppercase">
           APPLY

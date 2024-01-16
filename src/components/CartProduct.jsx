@@ -6,6 +6,8 @@ import {
 } from "../store/cart/cartSlice";
 
 import { RiDeleteBinLine } from "react-icons/ri";
+import { FaPlus } from "react-icons/fa6";
+import { FaMinus } from "react-icons/fa";
 import { useEffect, useState } from "react";
 
 // eslint-disable-next-line react/prop-types
@@ -86,20 +88,20 @@ const CartProduct = ({ product, countProduct }) => {
         <div className="flex flex-row justify-between mt-2 sm:ml-8 text-[12px] sm:text-[15px] sm:flex-col">
           <div id="numbers" value={count} onChange={() => {}}>
             <button
-              className="bg-gray-300 text-blue-gray-800 m-1 px-3 rounded-full text-[15px] "
+              className="text-blue-gray-800 m-1 rounded-full "
               onClick={handleDecrement}
             >
-              -
+              <FaMinus />
             </button>
 
-            <span className="border border-gray-300 w-fit p-2  text-gray-800 bg-[#F7F9FE]">
+            <span className="border border-gray-300 w-fit p-2 mx-2 text-[15px] text-gray-800 bg-[#F7F9FE]">
               {count}
             </span>
             <button
-              className="bg-gray-300 text-blue-gray-800 m-1 px-3 rounded-full text-[15px]"
+              className="text-blue-gray-800 m-1 rounded-full "
               onClick={handleIncrement}
             >
-              +
+              <FaPlus size={14}/>
             </button>
           </div>
           <button
