@@ -19,6 +19,7 @@ const NavBar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isMenuOpen2, setIsMenuOpen2] = useState(false);
   const [email, setEmail] = useState("");
+  const [name, setName] = useState("");
   const Governorate = localStorage.getItem("Governorate");
   const [selectedOption, setSelectedOption] = useState(
     Governorate !== null ? Governorate : ""
@@ -54,6 +55,7 @@ const NavBar = () => {
       "resize",
       () => window.innerWidth >= 960 && setIsNavOpen(false)
     );
+    setName(localStorage.getItem("name"));
     onAuthStateChanged(auth, (user) => {
       setEmail(user.email);
     });
@@ -137,7 +139,7 @@ const NavBar = () => {
               >
                 Hello,
                 {email ? (
-                  <span className="font-bold">{email.slice(0, -10)}</span>
+                  <span className="font-bold"> {name ? name : email}</span>
                 ) : (
                   "sign in"
                 )}
@@ -191,7 +193,7 @@ const NavBar = () => {
               Hello,{" "}
               {email ? (
                 <span className="font-bold text-[13px]">
-                  {email.slice(0, -10)}
+                  {name ? name : email}
                 </span>
               ) : (
                 "sign in"

@@ -16,8 +16,10 @@ const OfferCard = ({ offer }) => {
       <img src={img} alt="img-offer" className="w-[70px] ma m-auto" />
       <p className="text-[10px]">{des}</p>
       <div className="text-[11px] gap-2 flex mt-1 font-bold">
-        <del className="text-[10px] mt-[1px] text-gray-600">{price}</del>
-        <b>{priceDis} EGP </b>
+        <del className="text-[10px] mt-[1px] text-gray-600">
+          {price.toLocaleString("en-US")}
+        </del>
+        <b>{priceDis.toLocaleString("en-US")} EGP </b>
       </div>
     </div>
   );

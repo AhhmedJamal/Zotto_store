@@ -14,6 +14,7 @@ import { FcGoogle } from "react-icons/fc";
 // Define the SignUp component
 const SignUp = () => {
   // State variables for email, password, and router navigation
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [pass, setPass] = useState("");
   const [passConfirmation, setPassConfirmation] = useState("");
@@ -32,6 +33,7 @@ const SignUp = () => {
             // Reset email and password fields
             setEmail("");
             setPass("");
+            localStorage.setItem("name", name);
             // Navigate to the login page
             toast.success("Done Create Account", {
               position: toast.POSITION.TOP_CENTER,
@@ -91,6 +93,15 @@ const SignUp = () => {
         onSubmit={handleSignUp}
       >
         <h1 className="font-bold text-[30px] text-center">Sign Up</h1>
+        {/* Name input */}
+        <input
+          type="text"
+          placeholder="Name"
+          className="input border outline-none w-full p-2 rounded-md"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          required
+        />
         {/* Email input */}
         <input
           type="email"

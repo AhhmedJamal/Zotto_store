@@ -34,7 +34,7 @@ const Cart = () => {
     const items = JSON.parse(localStorage.getItem("shoppingCart")) || {};
     dispatch(getFromLocal(items));
     setCount(items);
-  }, [count,dispatch]);
+  }, [count, dispatch]);
   return (
     <div className="mt-4 flex flex-col lg:flex-row justify-between mb-10 relative ">
       <div className="w-[100%] lg:w-[58%] ">
@@ -46,7 +46,7 @@ const Cart = () => {
         </span>
 
         {cart.length !== 0 ? (
-          <div className="  flex flex-col place-items-center gap-3 sm:mx-0 mx-2 mt-2 max-h-[62vdh] sm:h-[g50vh]  overflow-scroll cartScroll">
+          <div className="  flex flex-col place-items-center gap-3 sm:mx-0 mx-2 mt-2 max-h-[62vdh]  overflow-scroll cartScroll">
             {cart.map((product, i) => {
               return (
                 <CartProduct
@@ -58,9 +58,11 @@ const Cart = () => {
             })}
           </div>
         ) : (
-          <div className="flex flex-col  items-center justify-center h-[60vh] m-auto">
+          <div className="flex flex-col  items-center justify-center h-[50vh] bg-white m-4 mb-0 rounded-lg">
             <img src={CartEmpty} alt="cart" className="w-[200px]  " />
-            <p className="font-bold text-[17px]">Your cart is empty !!</p>
+            <p className="font-bold text-[15px] text-[#37474f]">
+              Your cart is empty !!
+            </p>
           </div>
         )}
       </div>

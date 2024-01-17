@@ -1,43 +1,51 @@
 import { Card, CardBody } from "@material-tailwind/react";
 import { MdAddShoppingCart } from "react-icons/md";
 import { GoStarFill } from "react-icons/go";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { MdOutlineFavorite } from "react-icons/md";
 import { MdFavoriteBorder } from "react-icons/md";
-import { useState } from "react";
+import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../store/cart/cartSlice";
+import { addDoc, collection, doc, updateDoc } from "firebase/firestore";
+import { db } from "../config/firebase";
+
 // eslint-disable-next-line react/prop-types
-const Product = ({ product }) => {
+const Product = ({ product, getData }) => {
   // eslint-disable-next-line react/prop-types
-  const { uid, img, price, rating, description } = product;
-  const [mark, setMark] = useState(false);
+  const { uid, id, img, price, rating, description, favorite } = product;
   const router = useNavigate();
   const dispatch = useDispatch();
-
-  const handleFav = () => {
-    setMark((pre) => !pre);
-  };
+  const { name } = useParams();
   const handleClick = () => {
     window.location.pathname === "/"
       ? router(`/mixProducts/${`${uid}`}`)
       : router(`${`${uid}`}`);
   };
+  const handleFavorite = async () => {
+    const documentRef = doc(db, name, id);
+    const CollectionsRef = collection(db, "favorites");
 
+    !favorite && (await addDoc(CollectionsRef, product));
+    await updateDoc(documentRef, { favorite: !favorite });
+    await getData();
+  };
+
+  useEffect(() => {}, [getData]);
   return (
-    <Card className="rounded-none overflow-hidden  shadow-md relative flex justify-between transition duration-300 bg-white text-black  ">
+    <Card className=" rounded-none overflow-hidden  shadow-md relative flex justify-between transition duration-300 bg-white text-black  ">
       <button
-        onClick={handleFav}
+        onClick={handleFavorite}
         className=" m-2 w-fit bg-white p-[6px] shadow-[0_0px_15px_-1px_rgb(0,0,0,0.3)] rounded-full outline-none"
       >
-        {mark ? (
+        {favorite ? (
           <MdOutlineFavorite size={20} className="text-primary" />
         ) : (
           <MdFavoriteBorder size={20} className="text-gray-600" />
         )}
       </button>
       <img
-        onClick={handleClick}
+        onClick={window.location.pathname !== "/favorite" && handleClick}
         src={img}
         alt="card-image"
         className=" w-[120px] m-auto"
@@ -58,7 +66,7 @@ const Product = ({ product }) => {
       </div>
       <CardBody className="p-4">
         <p
-          onClick={handleClick}
+          onClick={window.location.pathname !== "/favorite" && handleClick}
           className="mb-2 text-[11px] text-gray-600 overflow-hidden line-clamp-2"
         >
           {description}

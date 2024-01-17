@@ -16,7 +16,7 @@ const CartCheckout = ({ total, items }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [items]);
   return (
-    <div className=" border sticky top-[95px] border-blue-gray-100 h-fit w-[95%] m-auto lg:w-[40%]  p-4 mt-8">
+    <div className=" border sticky top-[95px] border-blue-gray-100 h-fit w-[95%] m-auto lg:w-[40%]  p-5 mt-6">
       <b>Order Summary</b>
       <div className="h-[45px] max-w-[100%] m-auto mt-3">
         <input
