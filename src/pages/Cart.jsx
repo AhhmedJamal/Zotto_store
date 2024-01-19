@@ -31,10 +31,11 @@ const Cart = () => {
   const totalWithDiscount = calculateTotalPrice(cart);
   const dispatch = useDispatch();
   useEffect(() => {
-    const items = JSON.parse(localStorage.getItem("shoppingCart")) || {};
+    const items = JSON.parse(localStorage.getItem("shoppingCart")) || [];
     dispatch(getFromLocal(items));
     setCount(items);
-  }, [count, dispatch]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   return (
     <div className="mt-4 flex flex-col lg:flex-row justify-between mb-10 relative ">
       <div className="w-[100%] lg:w-[58%] ">
