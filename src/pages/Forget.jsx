@@ -23,7 +23,6 @@ const Forget = () => {
 
   return (
     <>
-      {" "}
       <ToastContainer />
       <div></div>
       <IoMdArrowBack

@@ -16,58 +16,44 @@ import {
   updateDoc,
 } from "firebase/firestore";
 import { db } from "../config/firebase";
-import GetData from "../hooks/getData";
 
 // eslint-disable-next-line react/prop-types
 const Product = ({ product, data }) => {
   // eslint-disable-next-line react/prop-types
-  const { uid, id, pathName, img, price, rating, description, favorite } =
-    product;
-  const { products, getData } = GetData("favorites");
+  const { uid, id, img, price, rating, description, favorite } = product;
   const router = useNavigate();
   const dispatch = useDispatch();
   const { name } = useParams();
-  // const [pathName, setPathName] = useState("");
+
   const handleClick = () => {
     location.pathname === "/"
       ? router(`/mixProducts/${`${uid}`}`)
       : router(`${`${uid}`}`);
   };
 
-  const handleDeleteFavorite = () => {
-    products.filter(async (item) => {
-      if (item.uid == uid) {
-        if (!item.favorite) {
-          await deleteDoc(doc(db, "favorites", item.id));
-        }
-        const documentRef = doc(db, "phones", id);
-        await updateDoc(documentRef, { favorite: !favorite });
-      }
-      data();
-    });
+  const handleDeleteFavorite = async () => {
+    await deleteDoc(doc(db, "favorites", id));
+    data();
   };
+  /// fix error :
+  //   delete item
+  //   update icon
   const handleFavorite = async () => {
-    const documentRef = doc(db, "phones", id);
-    const CollectionsRef = collection(db, `favorites`);
+    const documentRef = doc(db, name, id);
+    const CollectionsRef = collection(db, "favorites");
     !favorite
-      ? await addDoc(CollectionsRef, { ...product, pathName: name })
-      : handleDeleteFavorite();
-    await updateDoc(documentRef, { favorite: !favorite });
+      ? await addDoc(CollectionsRef, product)
+      : await updateDoc(documentRef, { favorite: !favorite });
     data();
   };
 
   useEffect(() => {
-    getData();
-    if (name === "") {
-      // setPathName("");
-    } else {
-      // setPathName(name);
-    }
+    data();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data]);
   return (
     <Card className=" rounded-none overflow-hidden  shadow-md relative flex justify-between transition duration-300 bg-white text-black  ">
-      {location.pathname === "/favorite" ? (
+      {location.pathname === "/favorites" ? (
         <button
           onClick={handleDeleteFavorite}
           className=" m-2 w-fit bg-white p-[6px] shadow-[0_0px_15px_-1px_rgb(0,0,0,0.3)] rounded-full outline-none"
@@ -88,9 +74,7 @@ const Product = ({ product, data }) => {
       )}
 
       <img
-        onClick={
-          window.location.pathname !== "/favorite" ? handleClick : () => {}
-        }
+        onClick={location.pathname !== "/favorites" ? handleClick : () => {}}
         src={img}
         alt="card-image"
         className=" w-[120px] m-auto"
@@ -132,3 +116,7 @@ const Product = ({ product, data }) => {
 };
 
 export default Product;
+//  <div className="flex flex-col justify-center items-center h-[65vh] bg-white m-4 rounded-lg">
+//    <img src={Image} alt="img" width={250} />
+//    <h2 className="font-bold text-[#37474F]">No Favorite Items !!</h2>
+//  </div>;

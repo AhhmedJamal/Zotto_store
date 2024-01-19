@@ -1,7 +1,7 @@
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { Provider } from "react-redux";
-import { ThemeProvider } from "@material-tailwind/react";
+
 import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
 
@@ -15,7 +15,6 @@ import CheckInternet from "./components/CheckInternet.jsx";
 import store from "./store/store.js";
 import Home from "./pages/Home.jsx";
 import CategoryPage from "./pages/CategoryPage.jsx";
-import Favorite from "./pages/Favorite.jsx";
 import DetailsProduct from "./pages/DetailsProduct.jsx";
 import Orders from "./pages/Orders.jsx";
 import Checkout from "./pages/Checkout.jsx";
@@ -37,16 +36,11 @@ const router = createBrowserRouter([
         path: "cart",
         element: <Cart />,
       },
-     
+
       {
         path: "account",
         element: <Account />,
       },
-      {
-        path: "favorite",
-        element: <Favorite />,
-      },
-
       {
         path: "orders",
         element: <Orders />,
@@ -87,11 +81,9 @@ const router = createBrowserRouter([
 ReactDOM.createRoot(document.getElementById("root")).render(
   <>
     <Provider store={store}>
-      <ThemeProvider>
-        <CheckInternet>
-          <RouterProvider router={router} />
-        </CheckInternet>
-      </ThemeProvider>
+      <CheckInternet>
+        <RouterProvider router={router} />
+      </CheckInternet>
     </Provider>
   </>
 );

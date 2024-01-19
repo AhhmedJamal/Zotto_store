@@ -32,7 +32,7 @@ const BottomBar = () => {
         Orders
       </NavLink>
       <NavLink
-        to="favorite"
+        to="favorites"
         className="text-[10px] font-bold flex flex-col justify-center items-center mt-2 mx-3 relative group "
       >
         <MdFavoriteBorder size={25} />

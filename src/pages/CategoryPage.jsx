@@ -8,9 +8,8 @@ import GetData from "../hooks/getData";
 import ShimmerDetails from "../components/Shimmer";
 
 const CategoryPage = () => {
-  const { name } = useParams();
   const dispatch = useDispatch();
-
+  const { name } = useParams();
   const { products, getData } = GetData(name);
 
   useEffect(() => {
@@ -22,8 +21,8 @@ const CategoryPage = () => {
 
   return (
     <>
-      <CarouselDefault />
-      <div className="  grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 sm:mx-0  pb-3 m-2">
+      {location.pathname !== "/favorites" && <CarouselDefault />}
+      <div className="  grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 sm:mx-0 pb-3 m-2">
         {products.length !== 0 ? (
           products.map((product) => {
             return (
