@@ -20,7 +20,7 @@ import Orders from "./pages/Orders.jsx";
 import Checkout from "./pages/Checkout.jsx";
 import Account from "./pages/Account.jsx";
 import Forget from "./pages/Forget.jsx";
-
+import { PayPalScriptProvider } from "@paypal/react-paypal-js";
 // Create BrowserRouter
 const router = createBrowserRouter([
   {
@@ -80,10 +80,17 @@ const router = createBrowserRouter([
 // Render the application with transitions
 ReactDOM.createRoot(document.getElementById("root")).render(
   <>
-    <Provider store={store}>
-      <CheckInternet>
-        <RouterProvider router={router} />
-      </CheckInternet>
-    </Provider>
+    <PayPalScriptProvider
+      options={{
+        "client-id":
+          "AahhqPNBFsoMNGiboszlRBJoaNylWvM1LZr3uwZw9wDU0X83Ra_lJj6fJ158d2dpiGSks8gey4MIRse-",
+      }}
+    >
+      <Provider store={store}>
+        <CheckInternet>
+          <RouterProvider router={router} />
+        </CheckInternet>
+      </Provider>
+    </PayPalScriptProvider>
   </>
 );

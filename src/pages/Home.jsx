@@ -6,7 +6,7 @@ import { getFromLocal } from "../store/cart/cartSlice";
 const Home = () => {
   const dispatch = useDispatch();
   useEffect(() => {
-    const items = JSON.parse(localStorage.getItem("shoppingCart")) || {};
+    const items = JSON.parse(localStorage.getItem("shoppingCart")) || [];
     dispatch(getFromLocal(items));
   }, [dispatch]);
   return (

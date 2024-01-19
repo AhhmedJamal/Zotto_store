@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 // eslint-disable-next-line react/prop-types
 const CartCheckout = ({ total, items }) => {
@@ -37,9 +38,11 @@ const CartCheckout = ({ total, items }) => {
       <hr className="h-[2px] bg-gray-300 my-3" />
 
       <div className="bg-white p-2 border-2 font-bold">total: EPG {total} </div>
-      <button className="bg-primary text-white p-1 rounded-sm w-full h-[50px] mt-3 uppercase">
-        CheckOut
-      </button>
+      <Link to="/checkout">
+        <button className="bg-primary text-white p-1 rounded-sm w-full h-[50px] mt-3 uppercase">
+          CheckOut
+        </button>
+      </Link>
     </div>
   );
 };
