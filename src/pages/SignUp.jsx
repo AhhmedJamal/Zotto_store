@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import Image from "../assets/signUp.svg";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { createUserWithEmailAndPassword, signInWithPopup } from "firebase/auth";
+import { browserPopupRedirectResolver, createUserWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 import { auth, facebookProvider, googleProvider } from "../config/firebase";
 import { ToastContainer, toast } from "react-toastify";
 import { FcGoogle } from "react-icons/fc";
@@ -28,8 +28,10 @@ const SignUp = () => {
         createUserWithEmailAndPassword(auth, email, pass)
           .then(() => {
             // Reset email and password fields
+            setName("");
             setEmail("");
             setPass("");
+            setPassConfirmation("");
             localStorage.setItem("name", name);
             // Navigate to the login page
             toast.success("Done Create Account", {
@@ -69,7 +71,7 @@ const SignUp = () => {
     }
   };
   const handleGoogle = () => {
-    signInWithPopup(auth, googleProvider)
+    signInWithPopup(auth, googleProvider, browserPopupRedirectResolver)
       .then(({ user }) => {
         localStorage.setItem("token", user.uid);
         router("/", { replace: true });

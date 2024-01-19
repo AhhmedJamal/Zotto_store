@@ -1,7 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import Image from "../assets/login.svg";
 import { useState } from "react";
-import { signInWithEmailAndPassword } from "firebase/auth";
+import { browserPopupRedirectResolver, signInWithEmailAndPassword } from "firebase/auth";
 import { auth, facebookProvider } from "../config/firebase";
 import { ToastContainer, toast } from "react-toastify";
 import { FcGoogle } from "react-icons/fc";
@@ -54,7 +54,7 @@ const Login = () => {
 
   const handleGoogle = () => {
     const googleProvider = new GoogleAuthProvider();
-    signInWithPopup(auth, googleProvider)
+    signInWithPopup(auth, googleProvider, browserPopupRedirectResolver)
       .then(({ user }) => {
         localStorage.setItem("token", user.uid);
         router("/", { replace: true });
