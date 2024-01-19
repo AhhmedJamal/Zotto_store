@@ -5,7 +5,7 @@ import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "./config/firebase";
 import { ToastContainer, toast } from "react-toastify";
 import Categories from "./components/Categories";
-import Model from "./components/Model";
+
 import BottomBar from "./components/BottomBar";
 
 const App = () => {
@@ -41,7 +41,6 @@ const App = () => {
   return (
     <div className="container m-auto overflow-y-scroll h-[100vh] pb-14 sm:pb-0">
       <ToastContainer />
-      <Model />
       <NavBar />
       <Categories />
       <Outlet />

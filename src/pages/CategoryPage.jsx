@@ -27,7 +27,7 @@ const CategoryPage = () => {
         {products.length !== 0 ? (
           products.map((product) => {
             return (
-              <Product key={product.uid} product={product} getData={getData} />
+              <Product key={product.uid} product={product} data={getData} />
             );
           })
         ) : (

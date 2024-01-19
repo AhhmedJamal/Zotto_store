@@ -2,15 +2,12 @@ import { Link } from "react-router-dom";
 import Image from "../assets/signUp.svg";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import {
-  GoogleAuthProvider,
-  createUserWithEmailAndPassword,
-  signInWithPopup,
-} from "firebase/auth";
-import { auth } from "../config/firebase";
+import { createUserWithEmailAndPassword, signInWithPopup } from "firebase/auth";
+import { auth, facebookProvider, googleProvider } from "../config/firebase";
 import { ToastContainer, toast } from "react-toastify";
 import { FcGoogle } from "react-icons/fc";
-
+import { SiFacebook } from "react-icons/si";
+import { IoMdArrowBack } from "react-icons/io";
 // Define the SignUp component
 const SignUp = () => {
   // State variables for email, password, and router navigation
@@ -72,7 +69,6 @@ const SignUp = () => {
     }
   };
   const handleGoogle = () => {
-    const googleProvider = new GoogleAuthProvider();
     signInWithPopup(auth, googleProvider)
       .then(({ user }) => {
         localStorage.setItem("token", user.uid);
@@ -82,10 +78,26 @@ const SignUp = () => {
         console.error("Error signing in with Google:", error.message);
       });
   };
+  const handleFacebook = async () => {
+    try {
+      const result = await signInWithPopup(auth, facebookProvider);
+      const user = result.user;
+      console.log(user);
+    } catch (error) {
+      console.error(error.message);
+    }
+  };
   // Render the SignUp component
   return (
-    <div className="w-[70%] h-[90vh] m-auto flex justify-center gap-3 items-center flex-col lg:flex-row">
+    <div className="w-[70%] h-[95vh] m-auto flex justify-center gap-3 items-center flex-col lg:flex-row relative">
       <ToastContainer />
+      <IoMdArrowBack
+        size={30}
+        className="md:hidden absolute left-[-40px] top-5 p-[2px] self-start bg-gray-200 rounded-lg text-gray-800"
+        onClick={() => {
+          router(-1);
+        }}
+      />
       <img src={Image} alt="Image-SignUp" className="w-[70%] lg:w-[40%]" />
 
       <form
@@ -97,7 +109,7 @@ const SignUp = () => {
         <input
           type="text"
           placeholder="Name"
-          className="input border outline-none w-full p-2 rounded-md"
+          className="input border outline-none w-full p-1 rounded-md text-[14px]"
           value={name}
           onChange={(e) => setName(e.target.value)}
           required
@@ -106,7 +118,7 @@ const SignUp = () => {
         <input
           type="email"
           placeholder="Email"
-          className="input border outline-none w-full p-2 rounded-md"
+          className="input border outline-none w-full p-1 rounded-md text-[14px]"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required
@@ -115,7 +127,7 @@ const SignUp = () => {
         <input
           type="password"
           placeholder="Password"
-          className="input border outline-none w-full p-2 rounded-md"
+          className="input border outline-none w-full p-1 rounded-md text-[14px]"
           value={pass}
           onChange={(e) => setPass(e.target.value)}
           required
@@ -124,7 +136,7 @@ const SignUp = () => {
         <input
           type="password"
           placeholder="Confirmation Password"
-          className="input border outline-none w-full p-2 rounded-md"
+          className="input border outline-none w-full p-1 rounded-md text-[14px]"
           value={passConfirmation}
           onChange={(e) => setPassConfirmation(e.target.value)}
           required
@@ -149,13 +161,22 @@ const SignUp = () => {
           )}
         </button>{" "}
         <div className="h-[1px] my-2 bg-gray-500 w-full after:content-['or'] after:font-bold after:border after:border-gray-600  after:relative after:top-[-12px] after:left-[45%] after:bg-[#F7F7FA] after:w-fit after:p-1 after:rounded-full"></div>
-        <button
-          onClick={handleGoogle}
-          type="button"
-          className="bg-gray-300 text-gray-800 text-[14px]  rounded-md p-2 font-bold items-center flex gap-2 justify-center"
-        >
-          <FcGoogle size={24} /> Sign Up with Google
-        </button>
+        <div className="flex justify-center gap-2">
+          <button
+            onClick={handleGoogle}
+            type="button"
+            className="bg-gray-300 text-gray-800 text-[14px]  rounded-md p-2 font-bold items-center flex gap-2 justify-center"
+          >
+            <FcGoogle size={24} />
+          </button>
+          <button
+            onClick={handleFacebook}
+            type="button"
+            className="bg-gray-300 text-gray-800 text-[14px]  rounded-md p-2 font-bold items-center flex gap-2 justify-center"
+          >
+            <SiFacebook size={24} className="text-[#1877F2]" />
+          </button>
+        </div>
       </form>
     </div>
   );

@@ -1,22 +1,15 @@
 import { useState, useEffect } from "react";
-import {
-  Collapse,
-  Menu,
-  MenuHandler,
-  MenuList,
-  MenuItem,
-} from "@material-tailwind/react";
-import { onAuthStateChanged, signOut } from "firebase/auth";
+import { Collapse, Menu } from "@material-tailwind/react";
+import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../config/firebase";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Cart from "../assets/cart.png";
 import { useSelector } from "react-redux";
 import { FiMapPin } from "react-icons/fi";
-import { IoMdArrowDropdown } from "react-icons/io";
+
 import { RiMenu5Fill } from "react-icons/ri";
 import { TbBrandAmazon } from "react-icons/tb";
 const NavBar = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isMenuOpen2, setIsMenuOpen2] = useState(false);
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
@@ -24,7 +17,7 @@ const NavBar = () => {
   const [selectedOption, setSelectedOption] = useState(
     Governorate !== null ? Governorate : ""
   );
-  const router = useNavigate();
+
   const cartItems = useSelector((state) => state.cart.items);
   const options = [
     { value: "Cairo", text: "Cairo" },
@@ -40,23 +33,13 @@ const NavBar = () => {
     localStorage.setItem("Governorate", value);
   };
 
-  const logout = async () => {
-    try {
-      await signOut(auth);
-      localStorage.removeItem("token");
-      router("/login");
-    } catch (error) {
-      console.error("Error signing out:", error);
-    }
-  };
-
   useEffect(() => {
     window.addEventListener(
       "resize",
       () => window.innerWidth >= 960 && setIsNavOpen(false)
     );
-    setName(localStorage.getItem("name"));
     onAuthStateChanged(auth, (user) => {
+      setName(user.displayName);
       setEmail(user.email);
     });
   }, []);
@@ -131,36 +114,20 @@ const NavBar = () => {
             placeholder="Search"
             className="border px-4 h-[35px] text-[15px] rounded-md outline-none m-1"
           />
-          <Menu open={isMenuOpen} handler={setIsMenuOpen}>
-            <MenuHandler>
-              <button
-                color="blue-gray"
-                className="text-[11px] tracking-widest sm:text-[11px] text-start  p-2 "
-              >
-                Hello,
-                {email ? (
-                  <span className="font-bold"> {name ? name : email}</span>
-                ) : (
-                  "sign in"
-                )}
-                <br />
-                <div className="flex items-center gap-2">
-                  Account & List
-                  <IoMdArrowDropdown size={20} />
-                </div>
-              </button>
-            </MenuHandler>
-            <MenuList className="p-2">
-              <MenuItem className="pl-0 focus:bg-transparent text-black">
-                <Link to="/account">Account</Link>
-              </MenuItem>
 
-              <hr />
-              <MenuItem className="pl-0 focus:bg-transparent text-black">
-                <div onClick={logout}>Log out</div>
-              </MenuItem>
-            </MenuList>
-          </Menu>
+          <Link
+            color="blue-gray"
+            className="text-[11px] tracking-widest sm:text-[11px] text-start  p-2 "
+            to={"/account"}
+          >
+            Hello,
+            {email ? (
+              <span className="font-bold"> {name ? name : email}</span>
+            ) : (
+              "sign in"
+            )}
+            <br />
+          </Link>
         </div>
 
         <Link

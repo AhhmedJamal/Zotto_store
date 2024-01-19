@@ -22,31 +22,13 @@ const CartProduct = ({ product, countProduct }) => {
   }, [countProduct]);
   const handleIncrement = () => {
     setCount(count + 1);
-    dispatch(
-      addToCart({
-        uid,
-        img,
-        title,
-        price,
-        priceDis,
-        description,
-      })
-    );
+    dispatch(addToCart(product));
   };
 
   const handleDecrement = () => {
     if (count > 1) {
       setCount(count - 1);
-      dispatch(
-        removeFromCart({
-          uid,
-          img,
-          title,
-          price,
-          priceDis,
-          description,
-        })
-      );
+      dispatch(removeFromCart(product));
     }
   };
   return (
@@ -101,7 +83,7 @@ const CartProduct = ({ product, countProduct }) => {
               className="text-blue-gray-800 m-1 rounded-full "
               onClick={handleIncrement}
             >
-              <FaPlus size={14}/>
+              <FaPlus size={14} />
             </button>
           </div>
           <button

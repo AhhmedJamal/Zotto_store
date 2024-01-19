@@ -13,7 +13,6 @@ const cartSlice = createSlice({
 
     addToCart: (state, action) => {
       const { uid, img, price, rating, description } = action.payload;
-
       const existingItem = state.items.find((item) => item.uid === uid);
 
       if (existingItem) {

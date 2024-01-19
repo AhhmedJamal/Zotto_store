@@ -4,48 +4,93 @@ import { GoStarFill } from "react-icons/go";
 import { useNavigate, useParams } from "react-router-dom";
 import { MdOutlineFavorite } from "react-icons/md";
 import { MdFavoriteBorder } from "react-icons/md";
+import { AiTwotoneDelete } from "react-icons/ai";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../store/cart/cartSlice";
-import { addDoc, collection, doc, updateDoc } from "firebase/firestore";
+import {
+  addDoc,
+  collection,
+  deleteDoc,
+  doc,
+  updateDoc,
+} from "firebase/firestore";
 import { db } from "../config/firebase";
+import GetData from "../hooks/getData";
 
 // eslint-disable-next-line react/prop-types
-const Product = ({ product, getData }) => {
+const Product = ({ product, data }) => {
   // eslint-disable-next-line react/prop-types
-  const { uid, id, img, price, rating, description, favorite } = product;
+  const { uid, id, pathName, img, price, rating, description, favorite } =
+    product;
+  const { products, getData } = GetData("favorites");
   const router = useNavigate();
   const dispatch = useDispatch();
   const { name } = useParams();
+  // const [pathName, setPathName] = useState("");
   const handleClick = () => {
-    window.location.pathname === "/"
+    location.pathname === "/"
       ? router(`/mixProducts/${`${uid}`}`)
       : router(`${`${uid}`}`);
   };
-  const handleFavorite = async () => {
-    const documentRef = doc(db, name, id);
-    const CollectionsRef = collection(db, "favorites");
 
-    !favorite && (await addDoc(CollectionsRef, product));
+  const handleDeleteFavorite = () => {
+    products.filter(async (item) => {
+      if (item.uid == uid) {
+        if (!item.favorite) {
+          await deleteDoc(doc(db, "favorites", item.id));
+        }
+        const documentRef = doc(db, "phones", id);
+        await updateDoc(documentRef, { favorite: !favorite });
+      }
+      data();
+    });
+  };
+  const handleFavorite = async () => {
+    const documentRef = doc(db, "phones", id);
+    const CollectionsRef = collection(db, `favorites`);
+    !favorite
+      ? await addDoc(CollectionsRef, { ...product, pathName: name })
+      : handleDeleteFavorite();
     await updateDoc(documentRef, { favorite: !favorite });
-    await getData();
+    data();
   };
 
-  useEffect(() => {}, [getData]);
+  useEffect(() => {
+    getData();
+    if (name === "") {
+      // setPathName("");
+    } else {
+      // setPathName(name);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [data]);
   return (
     <Card className=" rounded-none overflow-hidden  shadow-md relative flex justify-between transition duration-300 bg-white text-black  ">
-      <button
-        onClick={handleFavorite}
-        className=" m-2 w-fit bg-white p-[6px] shadow-[0_0px_15px_-1px_rgb(0,0,0,0.3)] rounded-full outline-none"
-      >
-        {favorite ? (
-          <MdOutlineFavorite size={20} className="text-primary" />
-        ) : (
-          <MdFavoriteBorder size={20} className="text-gray-600" />
-        )}
-      </button>
+      {location.pathname === "/favorite" ? (
+        <button
+          onClick={handleDeleteFavorite}
+          className=" m-2 w-fit bg-white p-[6px] shadow-[0_0px_15px_-1px_rgb(0,0,0,0.3)] rounded-full outline-none"
+        >
+          <AiTwotoneDelete size={20} />
+        </button>
+      ) : (
+        <button
+          onClick={handleFavorite}
+          className=" m-2 w-fit bg-white p-[6px] shadow-[0_0px_15px_-1px_rgb(0,0,0,0.3)] rounded-full outline-none"
+        >
+          {favorite ? (
+            <MdOutlineFavorite size={20} className="text-primary" />
+          ) : (
+            <MdFavoriteBorder size={20} className="text-gray-700" />
+          )}
+        </button>
+      )}
+
       <img
-        onClick={window.location.pathname !== "/favorite" && handleClick}
+        onClick={
+          window.location.pathname !== "/favorite" ? handleClick : () => {}
+        }
         src={img}
         alt="card-image"
         className=" w-[120px] m-auto"
