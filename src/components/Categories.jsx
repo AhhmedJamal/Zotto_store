@@ -12,7 +12,7 @@ const Categories = () => {
   ]);
 
   return (
-    <div className="flex justify-between gap-4 overflow-y-scroll h-[40px]  px-2  border mt-[72px] sm:mt-[93px]  bg-white">
+    <div className="flex justify-between gap-4 overflow-y-scroll h-[40px]  px-2  border mt-[75px]   bg-white">
       {categories &&
         categories.map((item, index) => {
           return (

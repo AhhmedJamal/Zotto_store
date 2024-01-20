@@ -1,18 +1,15 @@
-import { useState, useEffect } from "react";
-import { Collapse, Menu } from "@material-tailwind/react";
-import { onAuthStateChanged } from "firebase/auth";
-import { auth } from "../config/firebase";
-import { Link } from "react-router-dom";
+import { useState } from "react";
+import { Link, NavLink } from "react-router-dom";
 import Cart from "../assets/cart.png";
 import { useSelector } from "react-redux";
 import { FiMapPin } from "react-icons/fi";
-
-import { RiMenu5Fill } from "react-icons/ri";
+import { CgSearch } from "react-icons/cg";
+import { BsPerson } from "react-icons/bs";
+import { MdOutlineDoneOutline } from "react-icons/md";
+import { IoMdHeartEmpty } from "react-icons/io";
 import { TbBrandAmazon } from "react-icons/tb";
+import { BsBox2 } from "react-icons/bs";
 const NavBar = () => {
-  const [isMenuOpen2, setIsMenuOpen2] = useState(false);
-  const [email, setEmail] = useState("");
-  const [name, setName] = useState("");
   const Governorate = localStorage.getItem("Governorate");
   const [selectedOption, setSelectedOption] = useState(
     Governorate !== null ? Governorate : ""
@@ -33,51 +30,12 @@ const NavBar = () => {
     localStorage.setItem("Governorate", value);
   };
 
-  useEffect(() => {
-    window.addEventListener(
-      "resize",
-      () => window.innerWidth >= 960 && setIsNavOpen(false)
-    );
-    onAuthStateChanged(auth, (user) => {
-      setName(user.displayName);
-      setEmail(user.email);
-    });
-  }, []);
-
-  const [isNavOpen, setIsNavOpen] = useState(false);
-
-  const toggleIsNavOpen = () => setIsNavOpen((cur) => !cur);
-
   return (
-    <nav className=" fixed  z-10 pt-4 p-2 rounded-none border-none text bg-white w-full container sm:shadow-none shadow">
-      <div className="relative mx-auto flex items-center justify-between text-dark-100 px-2  sm:p-0">
-        <div
-          onClick={toggleIsNavOpen}
-          className="h-6 w-6 md:hidden text-dark-100 "
-        >
-          {isNavOpen ? (
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={1.5}
-              stroke="currentColor"
-              className="w-7"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M6 18L18 6M6 6l12 12"
-              />
-            </svg>
-          ) : (
-            <RiMenu5Fill size={30} />
-          )}
-        </div>
-
+    <nav className=" fixed  z-10 pt-4 p-2 rounded-none border-none text bg-white w-full container  shadow">
+      <div className="relative mx-auto flex  items-center justify-between text-dark-100 px-2  sm:p-0">
         <Link
           to="/"
-          className="relative flex text-[22px] items-center font-[800] "
+          className="relative mb-1 flex text-[22px] items-center font-[800] "
         >
           <div>
             <TbBrandAmazon
@@ -86,8 +44,8 @@ const NavBar = () => {
             />
           </div>
           ZUTTO
-        </Link>
-        <div className="hidden md:flex items-center">
+        </Link>{" "}
+        <div className="flex items-center gap-2">
           <button className="p-2 text-[11px]  text-start">
             <span className="ml-[2px]"> Deliver to</span>
             <br />
@@ -98,7 +56,7 @@ const NavBar = () => {
                 id="location"
                 value={selectedOption}
                 onChange={(e) => handleOptionChange(e.target.value)}
-                className="w-[75px] text-[10px] bg-transparent"
+                className="w-[70px] text-[10px] bg-transparent"
               >
                 {options.map((option) => (
                   <option key={option.value} value={option.value}>
@@ -109,27 +67,44 @@ const NavBar = () => {
             </div>
           </button>
 
+          <div  className="h-6 w-6 md:hidden text-dark-100 ">
+            <CgSearch size={25} className="transform rotate- " />
+          </div>
+        </div>
+        <div  className="hidden md:flex items-center">
           <input
             type="search"
-            placeholder="Search"
-            className="border px-4 h-[35px] text-[15px] rounded-md outline-none m-1"
+            placeholder="What are you looking for ?"
+            className="border placeholder:text-blue-gray-200 placeholder:text-[12px] border-blue-gray-100 px-4 h-[35px] text-[15px] rounded-md outline-none m-1 mr-7 "
           />
-
-          <Link
+          <NavLink
+            to="orders"
+            className="text-[9px] font-bold flex flex-col justify-center items-center m-2 mt-[10px] relative"
+          >
+            <BsBox2 className="mb-[2px]" size={21} />
+            <MdOutlineDoneOutline
+              className="mb-[2px] absolute top-[7px]"
+              size={12}
+            />
+            Orders
+          </NavLink>
+          <NavLink
             color="blue-gray"
-            className="text-[11px] tracking-widest sm:text-[11px] text-start  p-2 "
+            className="flex items-center flex-col text-[9px] font-bold  text-start  p-2 "
+            to={"/favorites"}
+          >
+            <IoMdHeartEmpty size={25} />
+            Favorites
+          </NavLink>
+          <NavLink
+            color="blue-gray"
+            className="flex items-center  flex-col text-[9px] font-bold  text-start  p-2 "
             to={"/account"}
           >
-            Hello,
-            {email ? (
-              <span className="font-bold"> {name ? name : email}</span>
-            ) : (
-              "sign in"
-            )}
-            <br />
-          </Link>
+            <BsPerson size={25} />
+            Account
+          </NavLink>
         </div>
-
         <Link
           to="/cart"
           type="button"
@@ -147,56 +122,6 @@ const NavBar = () => {
           </div>
         </Link>
       </div>
-      <Collapse
-        open={isNavOpen}
-        className="overflow-scroll rounded mt-3 bg-gray-100 "
-      >
-        <div className="flex flex-col  md:hidden ">
-          <Menu open={isMenuOpen2} handler={setIsMenuOpen2}>
-            <div
-              color="blue-gray"
-              className="text-[12px] sm:text-[11px] text-start p-2"
-            >
-              Hello,{" "}
-              {email ? (
-                <span className="font-bold text-[13px]">
-                  {name ? name : email}
-                </span>
-              ) : (
-                "sign in"
-              )}
-              <br />
-            </div>
-          </Menu>
-          <span className="bg-gray-200 h-[1px] w-full" />
-          <button className="p-2 text-[11px] text-start">
-            <span className="ml-[2px]"> Deliver to</span>
-            <br />
-            <div className="flex items-center font-bold">
-              <FiMapPin />
-              <select
-                name="location"
-                id="location"
-                value={selectedOption}
-                onChange={(e) => handleOptionChange(e.target.value)}
-                className="w-[75px] text-[10px] bg-transparent"
-              >
-                {options.map((option) => (
-                  <option key={option.value} value={option.value}>
-                    {option.text}
-                  </option>
-                ))}
-              </select>
-            </div>
-          </button>
-          <span className="bg-gray-200 h-[1px] w-full" />
-          <input
-            type="search"
-            placeholder="Search"
-            className=" px-4 h-[35px] text-[15px] rounded-md outline-none m-1"
-          />
-        </div>
-      </Collapse>
     </nav>
   );
 };

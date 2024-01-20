@@ -1,12 +1,11 @@
-import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
+import { onAuthStateChanged, signOut } from "firebase/auth";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { auth } from "../config/firebase";
 
 const Account = () => {
   const [user, setUser] = useState("");
-
   const router = useNavigate();
-  const auth = getAuth();
 
   const handleLogOut = () => {
     signOut(auth);
@@ -32,9 +31,7 @@ const Account = () => {
           </div>
         </div>
       </div>
-      {/* <div className="bg-white w-full mt-3 p-2 rounded-md">
-        <Link to={"/forget"}>Change Password</Link>
-      </div> */}
+  
       <div className="bg-white w-full mt-[50px] p-3 rounded-md flex justify-center">
         <button
           onClick={handleLogOut}
