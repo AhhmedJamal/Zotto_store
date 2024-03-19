@@ -2,12 +2,14 @@ import { Link } from "react-router-dom";
 import Image from "../assets/signUp.svg";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { browserPopupRedirectResolver, createUserWithEmailAndPassword, signInWithPopup } from "firebase/auth";
-import { auth, facebookProvider, googleProvider } from "../config/firebase";
+import {
+  createUserWithEmailAndPassword,
+  fetchSignInMethodsForEmail,
+} from "firebase/auth";
+import { auth, db } from "../config/firebase";
 import { ToastContainer, toast } from "react-toastify";
-import { FcGoogle } from "react-icons/fc";
-import { SiFacebook } from "react-icons/si";
 import { IoMdArrowBack } from "react-icons/io";
+import { collection, addDoc } from "firebase/firestore";
 // Define the SignUp component
 const SignUp = () => {
   // State variables for email, password, and router navigation
@@ -22,17 +24,40 @@ const SignUp = () => {
   const handleSignUp = (e) => {
     e.preventDefault();
     setLoading(true);
-    if (email && pass && passConfirmation) {
+    if (name && email && pass && passConfirmation) {
       // Create a new user and handle success
       if (pass === passConfirmation) {
         createUserWithEmailAndPassword(auth, email, pass)
-          .then(() => {
+          .then(async ({ user }) => {
+            try {
+              const signInMethods = await fetchSignInMethodsForEmail(
+                auth,
+                user.email
+              );
+
+              if (!signInMethods.length > 0) {
+                try {
+                  await addDoc(collection(db, "users"), {
+                    id: user.uid,
+                    name: name,
+                    email: user.email,
+                    favorite: [],
+                    cart: [],
+                  });
+                  console.log("Document added successfully");
+                } catch (e) {
+                  console.error("Error adding document: ", e);
+                }
+              }
+            } catch (error) {
+              console.error(error);
+            }
             // Reset email and password fields
+
             setName("");
             setEmail("");
             setPass("");
             setPassConfirmation("");
-            localStorage.setItem("name", name);
             // Navigate to the login page
             toast.success("Done Create Account", {
               position: toast.POSITION.TOP_CENTER,
@@ -44,7 +69,7 @@ const SignUp = () => {
             }, 3000);
           })
           .catch(() => {
-            toast.error("Check Email and Password!", {
+            toast.error("The Email Found !", {
               position: toast.POSITION.TOP_CENTER,
               delay: 100,
               className: "text-[15px]",
@@ -70,25 +95,7 @@ const SignUp = () => {
       setLoading(false);
     }
   };
-  const handleGoogle = () => {
-    signInWithPopup(auth, googleProvider, browserPopupRedirectResolver)
-      .then(({ user }) => {
-        localStorage.setItem("token", user.uid);
-        router("/", { replace: true });
-      })
-      .catch((error) => {
-        console.error("Error signing in with Google:", error.message);
-      });
-  };
-  const handleFacebook = async () => {
-    try {
-      const result = await signInWithPopup(auth, facebookProvider);
-      const user = result.user;
-      console.log(user);
-    } catch (error) {
-      console.error(error.message);
-    }
-  };
+
   // Render the SignUp component
   return (
     <div className="w-[70%] h-[95vh] m-auto flex justify-center gap-3 items-center flex-col lg:flex-row relative">
@@ -162,23 +169,6 @@ const SignUp = () => {
             "Join"
           )}
         </button>{" "}
-        <div className="h-[1px] my-2 bg-gray-500 w-full after:content-['or'] after:font-bold after:border after:border-gray-600  after:relative after:top-[-12px] after:left-[45%] after:bg-[#F7F7FA] after:w-fit after:p-1 after:rounded-full"></div>
-        <div className="flex justify-center gap-2">
-          <button
-            onClick={handleGoogle}
-            type="button"
-            className="bg-gray-300 text-gray-800 text-[14px]  rounded-md p-2 font-bold items-center flex gap-2 justify-center"
-          >
-            <FcGoogle size={24} />
-          </button>
-          <button
-            onClick={handleFacebook}
-            type="button"
-            className="bg-gray-300 text-gray-800 text-[14px]  rounded-md p-2 font-bold items-center flex gap-2 justify-center"
-          >
-            <SiFacebook size={24} className="text-[#1877F2]" />
-          </button>
-        </div>
       </form>
     </div>
   );

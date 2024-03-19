@@ -12,6 +12,7 @@ const App = () => {
   const router = useNavigate();
 
   useEffect(() => {
+    localStorage.setItem("Favorites", JSON.stringify([]));
     // Prevent navigating back in the browser
     const handleBackButton = () => history.pushState(null, null, document.URL);
     window.addEventListener("popstate", handleBackButton);

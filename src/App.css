@@ -15,7 +15,8 @@
 }
 *::selection {
   user-select: none;
-  background-color: transparent;
+  background-color: #e61030;
+  color: white;
 }
 
 body {

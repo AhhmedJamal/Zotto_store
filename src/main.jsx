@@ -21,7 +21,7 @@ import Checkout from "./pages/Checkout.jsx";
 import Account from "./pages/Account.jsx";
 import Forget from "./pages/Forget.jsx";
 import { PayPalScriptProvider } from "@paypal/react-paypal-js";
-
+import Favorites from "./pages/Favorites.jsx";
 
 // Create BrowserRouter
 const router = createBrowserRouter([
@@ -43,10 +43,14 @@ const router = createBrowserRouter([
         path: "account",
         element: <Account />,
       },
-  
+
       {
         path: "orders",
         element: <Orders />,
+      },
+      {
+        path: "/favorites",
+        element: <Favorites />,
       },
       {
         path: "/:name",

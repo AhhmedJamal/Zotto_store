@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { Card, CardBody } from "@material-tailwind/react";
 import { MdAddShoppingCart } from "react-icons/md";
 import { GoStarFill } from "react-icons/go";
@@ -5,26 +6,21 @@ import { useNavigate, useParams } from "react-router-dom";
 import { MdOutlineFavorite } from "react-icons/md";
 import { MdFavoriteBorder } from "react-icons/md";
 import { AiTwotoneDelete } from "react-icons/ai";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../store/cart/cartSlice";
-import {
-  addDoc,
-  collection,
-  deleteDoc,
-  doc,
-  updateDoc,
-} from "firebase/firestore";
-import { db } from "../config/firebase";
+import { collection, doc, getDocs, updateDoc } from "firebase/firestore";
+import { auth, db } from "../config/firebase";
+import { onAuthStateChanged } from "firebase/auth";
 
-// eslint-disable-next-line react/prop-types
 const Product = ({ product, data }) => {
-  // eslint-disable-next-line react/prop-types
   const { uid, id, img, price, rating, description, favorite } = product;
+  const [idDoc, setIdDoc] = useState("");
   const router = useNavigate();
   const dispatch = useDispatch();
   const { name } = useParams();
 
+  const collectionsRef = collection(db, "users");
   const handleClick = () => {
     location.pathname === "/"
       ? router(`/mixProducts/${`${uid}`}`)
@@ -32,25 +28,72 @@ const Product = ({ product, data }) => {
   };
 
   const handleDeleteFavorite = async () => {
-    await deleteDoc(doc(db, "favorites", id));
-    data();
-  };
-  /// fix error :
-  //   delete item
-  //   update icon
-  const handleFavorite = async () => {
-    const documentRef = doc(db, name, id);
-    const CollectionsRef = collection(db, "favorites");
-    !favorite
-      ? await addDoc(CollectionsRef, product)
-      : await updateDoc(documentRef, { favorite: !favorite });
+    const oldFavorites = localStorage.getItem("Favorites");
+    if (!oldFavorites) return; // If no favorites exist, there's nothing to remove
+
+    const favorites = JSON.parse(oldFavorites);
+
+    // Filter out the item with the specified ID
+    const filteredFavorites = favorites.filter((fav) => fav.id !== id);
+
+    // Update localStorage with the filtered favorites
+    localStorage.setItem("Favorites", JSON.stringify(filteredFavorites));
+
     data();
   };
 
+
+  const addFavorite = async () => {
+    onAuthStateChanged(auth, async (user) => {
+      if (user) {
+        try {
+          const dataFromCollection = await getDocs(collectionsRef);
+          const data = dataFromCollection.docs.map((doc) => doc.data());
+          const filteredData = data.find((item) => item.id === user.uid);
+          const docRef = doc(db, "users", idDoc);
+          const newFavorites = {
+            favorite: [...filteredData.favorite, product],
+          };
+          updateDoc(docRef, newFavorites)
+            .then(() => {
+              console.log("Document updated successfully");
+            })
+            .catch((error) => {
+              console.error("Error updating document:", error);
+            });
+        } catch (error) {
+          console.error("Error getting or updating document:", error);
+        }
+      }
+    });
+  };
+
+  const updateFavorite = () => {
+    const documentRef = doc(db, name, id);
+    updateDoc(documentRef, { favorite: false });
+  };
+  const handleFavorite = async () => {
+    !favorite ? addFavorite() : updateFavorite();
+    data();
+  };
+  // const handleFavorite = async () => {
+  //   const documentRef = doc(db, name, id);
+  //   const CollectionsRef = collection(db, "favorites");
+  //   !favorite
+  //     : // await addDoc(CollectionsRef, product)
+  //    await updateDoc(documentRef, { favorite: !favorite });
+  //   data();
+  // };
+
   useEffect(() => {
+    getDocs(collectionsRef).then((querySnapshot) => {
+      const documentIds = querySnapshot.docs.map((doc) => doc.id);
+      setIdDoc(...documentIds);
+    });
+
     data();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [data]);
+  }, []);
   return (
     <Card className=" rounded-none overflow-hidden  shadow-md relative flex justify-between transition duration-300 bg-white text-black  ">
       {location.pathname === "/favorites" ? (
@@ -114,7 +157,6 @@ const Product = ({ product, data }) => {
     </Card>
   );
 };
-
 export default Product;
 //  <div className="flex flex-col justify-center items-center h-[65vh] bg-white m-4 rounded-lg">
 //    <img src={Image} alt="img" width={250} />

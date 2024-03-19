@@ -1,12 +1,16 @@
 import { Link, useNavigate } from "react-router-dom";
 import Image from "../assets/login.svg";
 import { useState } from "react";
-import { browserPopupRedirectResolver, signInWithEmailAndPassword } from "firebase/auth";
-import { auth, facebookProvider } from "../config/firebase";
+import {
+  fetchSignInMethodsForEmail,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
+import { auth, db, facebookProvider } from "../config/firebase";
 import { ToastContainer, toast } from "react-toastify";
 import { FcGoogle } from "react-icons/fc";
 import { SiFacebook } from "react-icons/si";
 import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import { addDoc, collection } from "firebase/firestore";
 // Define the Login component
 const Login = () => {
   // State variables for email, password, and router navigation
@@ -22,10 +26,9 @@ const Login = () => {
     if (email && pass) {
       // Authenticate user and handle success
       signInWithEmailAndPassword(auth, email, pass)
-        .then(({ user }) => {
+        .then(async ({ user }) => {
           // Store user token in local storage
           localStorage.setItem("token", user.uid);
-
           // Reset email and password fields
           setEmail("");
           setPass("");
@@ -54,8 +57,30 @@ const Login = () => {
 
   const handleGoogle = () => {
     const googleProvider = new GoogleAuthProvider();
-    signInWithPopup(auth, googleProvider, browserPopupRedirectResolver)
-      .then(({ user }) => {
+    signInWithPopup(auth, googleProvider)
+      .then(async ({ user }) => {
+        await fetchSignInMethodsForEmail(auth, user.email)
+          .then(async (signInMethods) => {
+            if (signInMethods.length > 0) {
+              console.log(signInMethods);
+            } else {
+              try {
+                await addDoc(collection(db, "/users"), {
+                  id: user.uid,
+                  name: user.displayName,
+                  email: user.email,
+                  photoURL: user.photoURL,
+                  favorite: [],
+                  cart: [],
+                });
+                console.log("Document added successfully");
+              } catch (e) {
+                console.error("Error adding document: ", e);
+              }
+            }
+          })
+          .catch((err) => console.log("error: " + err));
+
         localStorage.setItem("token", user.uid);
         router("/", { replace: true });
       })
@@ -68,7 +93,30 @@ const Login = () => {
     try {
       const result = await signInWithPopup(auth, facebookProvider);
       const user = result.user;
-      console.log(user);
+      try {
+        const signInMethods = await fetchSignInMethodsForEmail(
+          auth,
+          user.email
+        );
+
+        if (!signInMethods) {
+          try {
+            await addDoc(collection(db, "users"), {
+              id: user.uid,
+              name: user.displayName,
+              email: user.email,
+              photoURL: user.photoURL,
+              favorite: [],
+              cart: [],
+            });
+            console.log("Document added successfully");
+          } catch (e) {
+            console.error("Error adding document: ", e);
+          }
+        }
+      } catch (error) {
+        console.error(error);
+      }
     } catch (error) {
       console.error(error.message);
     }

@@ -25,7 +25,7 @@ const DetailsProduct = () => {
   };
   useEffect(() => {
     getData();
-    const items = JSON.parse(localStorage.getItem("shoppingCart")) || {};
+    const items = JSON.parse(localStorage.getItem("shoppingCart")) || [];
     dispatch(getFromLocal(items));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id, dispatch]);
