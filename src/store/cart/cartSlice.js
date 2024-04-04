@@ -1,4 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { auth, db } from "../../config/firebase";
+import { doc, getDoc, updateDoc } from "firebase/firestore";
 
 const cartSlice = createSlice({
   name: "cart",
@@ -7,8 +9,16 @@ const cartSlice = createSlice({
   },
   reducers: {
     getFromLocal: (state, action) => {
-      state.items = [];
-      state.items.push(...action.payload);
+      if (
+        action.payload &&
+        typeof action.payload[Symbol.iterator] === "function"
+      ) {
+        state.items = [];
+        state.items.push(...action.payload);
+      } else {
+        console.error("Invalid payload received:", action.payload);
+        // Optionally handle the case where payload is not iterable
+      }
     },
 
     addToCart: (state, action) => {
@@ -28,7 +38,9 @@ const cartSlice = createSlice({
         });
       }
 
-      localStorage.setItem("shoppingCart", JSON.stringify(state.items));
+      const user = auth.currentUser;
+      const docRef = doc(db, "users", user.email);
+      updateDoc(docRef, { cart: state.items });
     },
 
     removeFromCart: (state, action) => {
@@ -39,22 +51,27 @@ const cartSlice = createSlice({
       if (existingItem) {
         if (existingItem.count !== 1) existingItem.count -= 1;
       }
-
-      localStorage.setItem("shoppingCart", JSON.stringify(state.items));
+      const user = auth.currentUser;
+      const docRef = doc(db, "users", user.email);
+      updateDoc(docRef, { cart: state.items });
     },
 
-    removeProductCart: (state, action) => {
+    removeProductCart: async (state, action) => {
       state.items = state.items.filter(
         (item) => item.uid !== action.payload.id
       );
+      const user = auth.currentUser;
+      const docRef = doc(db, "users", user.email);
+      const docSnapshot = await getDoc(docRef);
 
-      let cart = JSON.parse(localStorage.getItem("shoppingCart")) || [];
+      const userData = docSnapshot.data();
+      let cart = userData.cart || [];
       let index = cart.findIndex(
         (cartItem) => cartItem.uid === action.payload.id
       );
       if (index !== -1) {
         cart.splice(index, 1);
-        localStorage.setItem("shoppingCart", JSON.stringify(cart));
+        updateDoc(docRef, { cart: cart });
       }
     },
   },

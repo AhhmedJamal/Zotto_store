@@ -9,7 +9,7 @@ import {
 import { auth, db } from "../config/firebase";
 import { ToastContainer, toast } from "react-toastify";
 import { IoMdArrowBack } from "react-icons/io";
-import { collection, addDoc } from "firebase/firestore";
+import { doc, setDoc } from "firebase/firestore";
 // Define the SignUp component
 const SignUp = () => {
   // State variables for email, password, and router navigation
@@ -37,13 +37,14 @@ const SignUp = () => {
 
               if (!signInMethods.length > 0) {
                 try {
-                  await addDoc(collection(db, "users"), {
+                  await setDoc(doc(db, "users", user.email), {
                     id: user.uid,
                     name: name,
                     email: user.email,
                     favorite: [],
                     cart: [],
                   });
+
                   console.log("Document added successfully");
                 } catch (e) {
                   console.error("Error adding document: ", e);
@@ -54,10 +55,6 @@ const SignUp = () => {
             }
             // Reset email and password fields
 
-            setName("");
-            setEmail("");
-            setPass("");
-            setPassConfirmation("");
             // Navigate to the login page
             toast.success("Done Create Account", {
               position: toast.POSITION.TOP_CENTER,
@@ -65,6 +62,10 @@ const SignUp = () => {
               autoClose: 1500,
             });
             setTimeout(() => {
+              setName("");
+              setEmail("");
+              setPass("");
+              setPassConfirmation("");
               router("/login");
             }, 3000);
           })

@@ -161,4 +161,4 @@ const DetailsProduct = () => {
 
 export default DetailsProduct;
 
-// جلب بيانات لكل منتج في صفحه التفتصيل
+

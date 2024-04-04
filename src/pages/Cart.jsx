@@ -1,11 +1,12 @@
 import { useDispatch, useSelector } from "react-redux";
 import CartEmpty from "../assets/emptyCart.svg";
-
 import CartProduct from "../components/CartProduct";
 import CartCheckout from "../components/CartCheckout";
-
 import { useEffect, useState } from "react";
 import { getFromLocal } from "../store/cart/cartSlice";
+import { doc, getDoc } from "firebase/firestore";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth, db } from "../config/firebase";
 
 const Cart = () => {
   const [count, setCount] = useState([]);
@@ -31,9 +32,16 @@ const Cart = () => {
   const totalWithDiscount = calculateTotalPrice(cart);
   const dispatch = useDispatch();
   useEffect(() => {
-    const items = JSON.parse(localStorage.getItem("shoppingCart")) || [];
-    dispatch(getFromLocal(items));
-    setCount(items);
+    onAuthStateChanged(auth, async (user) => {
+      const docRef = doc(db, "users", user.email);
+      const docSnapshot = await getDoc(docRef);
+      const userData = docSnapshot.data();
+      if (user) {
+        dispatch(getFromLocal(userData.cart));
+        setCount(userData?.cart);
+      }
+    });
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
@@ -78,3 +86,5 @@ const Cart = () => {
 
 export default Cart;
 // sm:h-[62vh] h-[34vh]  overflow-scroll
+
+// array عند حذف يتم حذف من ال 

@@ -5,12 +5,12 @@ import {
   fetchSignInMethodsForEmail,
   signInWithEmailAndPassword,
 } from "firebase/auth";
-import { auth, db, facebookProvider } from "../config/firebase";
+import { auth, db, facebookProvider, googleProvider } from "../config/firebase";
 import { ToastContainer, toast } from "react-toastify";
 import { FcGoogle } from "react-icons/fc";
 import { SiFacebook } from "react-icons/si";
-import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
-import { addDoc, collection } from "firebase/firestore";
+import { signInWithPopup } from "firebase/auth";
+import { doc, getDoc, setDoc } from "firebase/firestore";
 // Define the Login component
 const Login = () => {
   // State variables for email, password, and router navigation
@@ -55,38 +55,36 @@ const Login = () => {
     }
   };
 
-  const handleGoogle = () => {
-    const googleProvider = new GoogleAuthProvider();
-    signInWithPopup(auth, googleProvider)
-      .then(async ({ user }) => {
-        await fetchSignInMethodsForEmail(auth, user.email)
-          .then(async (signInMethods) => {
-            if (signInMethods.length > 0) {
-              console.log(signInMethods);
-            } else {
-              try {
-                await addDoc(collection(db, "/users"), {
-                  id: user.uid,
-                  name: user.displayName,
-                  email: user.email,
-                  photoURL: user.photoURL,
-                  favorite: [],
-                  cart: [],
-                });
-                console.log("Document added successfully");
-              } catch (e) {
-                console.error("Error adding document: ", e);
-              }
-            }
-          })
-          .catch((err) => console.log("error: " + err));
+  const handleGoogle = async () => {
+    try {
+      const { user } = await signInWithPopup(auth, googleProvider);
 
+      // Check if the user exists in Firestore
+      const userDocRef = doc(db, "users", user.email);
+      const userDocSnapshot = await getDoc(userDocRef);
+
+      if (userDocSnapshot.exists()) {
+        // User exists, do something (e.g., set user info in local storage)
         localStorage.setItem("token", user.uid);
-        router("/", { replace: true });
-      })
-      .catch((error) => {
-        console.error("Error signing in with Google:", error.message);
-      });
+        console.log("User logged in successfully");
+        router("/", { replace: true }); // Assuming you have 'router' imported and it's used for navigation
+      } else {
+        // User doesn't exist, create a new document for the user
+        await setDoc(userDocRef, {
+          id: user.uid,
+          name: user.displayName,
+          email: user.email,
+          photoURL: user.photoURL,
+          favorite: [],
+          cart: [],
+        });
+        localStorage.setItem("token", user.uid);
+        console.log("New user added successfully");
+        router("/", { replace: true }); // Navigate to a different route after creating the user document
+      }
+    } catch (error) {
+      console.error("Error signing in with Google:", error.message);
+    }
   };
 
   const handleFacebook = async () => {
@@ -101,7 +99,7 @@ const Login = () => {
 
         if (!signInMethods) {
           try {
-            await addDoc(collection(db, "users"), {
+            await setDoc(doc(db, "users", user.email), {
               id: user.uid,
               name: user.displayName,
               email: user.email,
@@ -109,6 +107,7 @@ const Login = () => {
               favorite: [],
               cart: [],
             });
+
             console.log("Document added successfully");
           } catch (e) {
             console.error("Error adding document: ", e);
