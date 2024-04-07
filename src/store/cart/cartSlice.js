@@ -1,30 +1,20 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { auth, db } from "../../config/firebase";
-import { doc, getDoc, updateDoc } from "firebase/firestore";
-
+import { auth } from "../../config/firebase.js";
 const cartSlice = createSlice({
   name: "cart",
+
   initialState: {
     items: [],
   },
   reducers: {
     getFromLocal: (state, action) => {
-      if (
-        action.payload &&
-        typeof action.payload[Symbol.iterator] === "function"
-      ) {
-        state.items = [];
-        state.items.push(...action.payload);
-      } else {
-        console.error("Invalid payload received:", action.payload);
-        // Optionally handle the case where payload is not iterable
-      }
+      state.items = [];
+      state.items.push(...action.payload);
     },
 
     addToCart: (state, action) => {
       const { uid, img, price, rating, description } = action.payload;
       const existingItem = state.items.find((item) => item.uid === uid);
-
       if (existingItem) {
         existingItem.count += 1;
       } else {
@@ -37,46 +27,43 @@ const cartSlice = createSlice({
           count: 1,
         });
       }
-
       const user = auth.currentUser;
-      const docRef = doc(db, "users", user.email);
-      updateDoc(docRef, { cart: state.items });
+      localStorage.setItem(
+        `shoppingCart_${user.uid}`,
+        JSON.stringify(state.items)
+      );
     },
 
     removeFromCart: (state, action) => {
       const { uid } = action.payload;
-
       const existingItem = state.items.find((item) => item.uid === uid);
-
       if (existingItem) {
         if (existingItem.count !== 1) existingItem.count -= 1;
       }
       const user = auth.currentUser;
-      const docRef = doc(db, "users", user.email);
-      updateDoc(docRef, { cart: state.items });
+      localStorage.setItem(
+        `shoppingCart_${user.uid}`,
+        JSON.stringify(state.items)
+      );
     },
 
-    removeProductCart: async (state, action) => {
+    deleteProductCart: (state, action) => {
       state.items = state.items.filter(
         (item) => item.uid !== action.payload.id
       );
       const user = auth.currentUser;
-      const docRef = doc(db, "users", user.email);
-      const docSnapshot = await getDoc(docRef);
-
-      const userData = docSnapshot.data();
-      let cart = userData.cart || [];
+      let cart = JSON.parse(localStorage.getItem( `shoppingCart_${user.uid}`)) || [];
       let index = cart.findIndex(
         (cartItem) => cartItem.uid === action.payload.id
       );
       if (index !== -1) {
         cart.splice(index, 1);
-        updateDoc(docRef, { cart: cart });
+   
+        localStorage.setItem(`shoppingCart_${user.uid}`, JSON.stringify(cart));
       }
     },
   },
 });
-
-export const { addToCart, removeFromCart, getFromLocal, removeProductCart } =
+export const { addToCart, removeFromCart, getFromLocal, deleteProductCart } =
   cartSlice.actions;
 export default cartSlice.reducer;

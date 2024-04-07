@@ -2,7 +2,7 @@ import { useDispatch } from "react-redux";
 import {
   addToCart,
   removeFromCart,
-  removeProductCart,
+  deleteProductCart,
 } from "../store/cart/cartSlice";
 
 import { RiDeleteBinLine } from "react-icons/ri";
@@ -68,7 +68,7 @@ const CartProduct = ({ product, countProduct }) => {
           </p>
         </div>
         <div className="flex flex-row justify-between mt-2 sm:ml-8 text-[12px] sm:text-[15px] sm:flex-col">
-          <div id="numbers" value={count} onChange={() => {}}>
+          <div id="numbers" value={count}>
             <button
               className="text-blue-gray-800 m-1 rounded-full "
               onClick={handleDecrement}
@@ -88,7 +88,7 @@ const CartProduct = ({ product, countProduct }) => {
           </div>
           <button
             className="flex items-center text-[11px] font-bold text-gray-600 "
-            onClick={() => dispatch(removeProductCart({ id: uid }))}
+            onClick={() => dispatch(deleteProductCart({ id: uid }))}
           >
             <RiDeleteBinLine className="text-[13px] text-gray-600 mr-1" />
             Remove

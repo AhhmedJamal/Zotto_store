@@ -12,7 +12,7 @@ const App = () => {
   const router = useNavigate();
 
   useEffect(() => {
-    localStorage.setItem("Favorites", JSON.stringify([]));
+ 
     // Prevent navigating back in the browser
     const handleBackButton = () => history.pushState(null, null, document.URL);
     window.addEventListener("popstate", handleBackButton);
@@ -28,7 +28,7 @@ const App = () => {
         toast.error("Authorization Failed !!", {
           position: toast.POSITION.BOTTOM_CENTER,
         });
-        setTimeout(() => router("/login"), 6000);
+        setTimeout(() => router("/login"), 5000);
       }
     });
 

@@ -4,12 +4,11 @@ import CartProduct from "../components/CartProduct";
 import CartCheckout from "../components/CartCheckout";
 import { useEffect, useState } from "react";
 import { getFromLocal } from "../store/cart/cartSlice";
-import { doc, getDoc } from "firebase/firestore";
-import { onAuthStateChanged } from "firebase/auth";
-import { auth, db } from "../config/firebase";
+import { auth } from "../config/firebase";
+
 
 const Cart = () => {
-  const [count, setCount] = useState([]);
+  const [countProduct, setCountProduct] = useState([]);
   function calculateTotalPrice(cart) {
     // Ensure that the cart is not empty
     if (!cart || cart.length === 0) {
@@ -24,26 +23,20 @@ const Cart = () => {
       const discountedPrice = itemPrice * (1 - itemDiscountPercentage / 100);
       return accumulator + discountedPrice;
     }, 0);
-
     return totalPrice;
   }
-
   const cart = useSelector((state) => state.cart.items);
   const totalWithDiscount = calculateTotalPrice(cart);
   const dispatch = useDispatch();
-  useEffect(() => {
-    onAuthStateChanged(auth, async (user) => {
-      const docRef = doc(db, "users", user.email);
-      const docSnapshot = await getDoc(docRef);
-      const userData = docSnapshot.data();
-      if (user) {
-        dispatch(getFromLocal(userData.cart));
-        setCount(userData?.cart);
-      }
-    });
 
+  useEffect(() => {
+   const user = auth.currentUser;
+    const items = JSON.parse(localStorage.getItem( `shoppingCart_${user.uid}`)) || [];
+    dispatch(getFromLocal(items));
+    setCountProduct(items);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
   return (
     <div className="mt-4 flex flex-col lg:flex-row justify-between mb-10 relative ">
       <div className="w-[100%] lg:w-[58%] ">
@@ -61,7 +54,7 @@ const Cart = () => {
                 <CartProduct
                   key={i}
                   product={product}
-                  countProduct={count[i]?.count}
+                  countProduct={countProduct[i]?.count}
                 />
               );
             })}
@@ -76,7 +69,7 @@ const Cart = () => {
         )}
       </div>
       <CartCheckout
-        items={count}
+        items={cart}
         cart={cart.length}
         total={totalWithDiscount?.toLocaleString("en-US")}
       />
@@ -87,4 +80,3 @@ const Cart = () => {
 export default Cart;
 // sm:h-[62vh] h-[34vh]  overflow-scroll
 
-// array عند حذف يتم حذف من ال 
