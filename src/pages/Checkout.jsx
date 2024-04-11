@@ -1,10 +1,8 @@
 import { onAuthStateChanged } from "firebase/auth";
 import { useEffect, useState } from "react";
-import { IoMdArrowRoundBack } from "react-icons/io";
 import { CiLocationOn } from "react-icons/ci";
 import { FaCheckCircle } from "react-icons/fa";
 import { IoAddCircleOutline } from "react-icons/io5";
-import { Link } from "react-router-dom";
 import { auth } from "../config/firebase";
 import PaypalBtn from "../components/PaypalBtn";
 
@@ -32,12 +30,8 @@ const Checkout = () => {
   }, []);
   return (
     <>
-      <Link to={-1} className="flex items-center gap-2 font-bold m-4 mt-7">
-        <IoMdArrowRoundBack size={25} />
-        Back To Cart
-      </Link>
-      <div className="p-4 md:flex  justify-center items-center mt-[40px] w-fit m-auto">
-        <div className="flex items-center  gap-3 text-blue-gray-400 border border-blue-gray-100 p-3 rounded-lg ">
+      <div className="p-4 md:flex  gap-5  justify-center items-center h-[70vh] w-fit m-auto ">
+        <div className="flex items-center bg-white  gap-3 text-blue-gray-400 border border-blue-gray-100 p-3 rounded-lg ">
           <CiLocationOn size={30} />
           <div>
             <p className=" text-[13px] font-bold">{user.displayName}</p>
@@ -77,7 +71,7 @@ const Checkout = () => {
             </form>
           </div>
         </div>
-        <div className="p-5 md:mt-9 w-full ">
+        <div className="p-4  md:mt-6 w-full ">
           <PaypalBtn />
         </div>
       </div>

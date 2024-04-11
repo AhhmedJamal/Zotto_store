@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
+import Model from "./Model";
 
 // eslint-disable-next-line react/prop-types
 const CartCheckout = ({ total, items }) => {
   const [countItems, setCountItems] = useState(0);
+  const [showModel, setShowModel] = useState(false);
   const calculateTotalItems = () => {
     setCountItems(
       // eslint-disable-next-line react/prop-types
@@ -38,11 +40,26 @@ const CartCheckout = ({ total, items }) => {
       <hr className="h-[2px] bg-gray-300 my-3" />
 
       <div className="bg-white p-2 border-2 font-bold">total: EPG {total} </div>
-      <Link to="/checkout">
-        <button className="bg-primary text-white p-1 rounded-sm w-full h-[50px] mt-3 uppercase">
-          CheckOut
-        </button>
-      </Link>
+      {/* <Link to="/checkout"> */}
+      <button
+        onClick={() => setShowModel(true)}
+        className="bg-primary text-white p-1 rounded-sm w-full h-[50px] mt-3 uppercase"
+      >
+        CheckOut
+      </button>
+      {/* </Link> */}
+      {showModel && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.5 }}
+          onClick={() => setShowModel(false)}
+          className="fixed top-0 left-0 w-full h-screen  bg-[#00000090] flex justify-center items-center"
+        >
+          <Model />
+        </motion.div>
+      )}
     </div>
   );
 };

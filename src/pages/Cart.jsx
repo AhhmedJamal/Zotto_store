@@ -6,7 +6,6 @@ import { useEffect, useState } from "react";
 import { getFromLocal } from "../store/cart/cartSlice";
 import { auth } from "../config/firebase";
 
-
 const Cart = () => {
   const [countProduct, setCountProduct] = useState([]);
   function calculateTotalPrice(cart) {
@@ -28,10 +27,11 @@ const Cart = () => {
   const cart = useSelector((state) => state.cart.items);
   const totalWithDiscount = calculateTotalPrice(cart);
   const dispatch = useDispatch();
+  const user = auth.currentUser;
 
   useEffect(() => {
-   const user = auth.currentUser;
-    const items = JSON.parse(localStorage.getItem( `shoppingCart_${user.uid}`)) || [];
+    const items =
+      JSON.parse(localStorage.getItem(`shoppingCart_${user?.uid}`)) || [];
     dispatch(getFromLocal(items));
     setCountProduct(items);
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -79,4 +79,3 @@ const Cart = () => {
 
 export default Cart;
 // sm:h-[62vh] h-[34vh]  overflow-scroll
-
