@@ -162,11 +162,3 @@ const Product = ({ product, data }) => {
   );
 };
 export default Product;
-//  <div className="flex flex-col justify-center items-center h-[65vh] bg-white m-4 rounded-lg">
-//    <img src={Image} alt="img" width={250} />
-//    <h2 className="font-bold text-[#37474F]">No Favorite Items !!</h2>
-//  </div>;
-
-// 1  path name for mixProduct
-// 2  handle btn delete in favorites
-// 3  model in checkout
