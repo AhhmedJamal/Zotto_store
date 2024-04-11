@@ -5,6 +5,7 @@ const cartSlice = createSlice({
 
   initialState: {
     items: [],
+    totalPrice: 0,
   },
   reducers: {
     getFromLocal: (state, action) => {
@@ -52,16 +53,27 @@ const cartSlice = createSlice({
         (item) => item.uid !== action.payload.id
       );
       const user = auth.currentUser;
-      let cart = JSON.parse(localStorage.getItem( `shoppingCart_${user.uid}`)) || [];
+      let cart =
+        JSON.parse(localStorage.getItem(`shoppingCart_${user.uid}`)) || [];
       let index = cart.findIndex(
         (cartItem) => cartItem.uid === action.payload.id
       );
       if (index !== -1) {
         cart.splice(index, 1);
-   
+
         localStorage.setItem(`shoppingCart_${user.uid}`, JSON.stringify(cart));
       }
     },
+    // getTotalPrice: (state) => {
+    //   const totalPrice = state.items.reduce((accumulator, item) => {
+    //     const itemPrice = item.price || 0;
+    //     const itemDiscountPercentage = item.discountPercentage || 0;
+
+    //     const discountedPrice = itemPrice * (1 - itemDiscountPercentage / 100);
+    //     return accumulator + discountedPrice * item.count; // Multiply by item count
+    //   }, 0);
+    //   state.totalPrice = totalPrice; // Update the totalPrice in the state
+    // },
   },
 });
 export const { addToCart, removeFromCart, getFromLocal, deleteProductCart } =

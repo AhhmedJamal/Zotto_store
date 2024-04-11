@@ -7,6 +7,7 @@ import { getFromLocal } from "../store/cart/cartSlice";
 import { auth } from "../config/firebase";
 
 const Cart = () => {
+  const user = auth.currentUser;
   const [countProduct, setCountProduct] = useState([]);
   function calculateTotalPrice(cart) {
     // Ensure that the cart is not empty
@@ -27,7 +28,6 @@ const Cart = () => {
   const cart = useSelector((state) => state.cart.items);
   const totalWithDiscount = calculateTotalPrice(cart);
   const dispatch = useDispatch();
-  const user = auth.currentUser;
 
   useEffect(() => {
     const items =
@@ -35,7 +35,7 @@ const Cart = () => {
     dispatch(getFromLocal(items));
     setCountProduct(items);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [user]);
 
   return (
     <div className="mt-4 flex flex-col lg:flex-row justify-between mb-10 relative ">

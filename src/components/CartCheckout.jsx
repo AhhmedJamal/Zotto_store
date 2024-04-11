@@ -19,7 +19,7 @@ const CartCheckout = ({ total, items }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [items]);
   return (
-    <div className=" border sticky top-[95px] border-blue-gray-100 h-fit w-[95%] m-auto lg:w-[40%]  p-5 mt-6">
+    <div className=" border sticky top-[100px] border-blue-gray-100 h-fit w-[95%] m-auto lg:w-[40%]  p-5 mt-6">
       <b>Order Summary</b>
       <div className="h-[45px] max-w-[100%] m-auto mt-3">
         <input
@@ -40,14 +40,17 @@ const CartCheckout = ({ total, items }) => {
       <hr className="h-[2px] bg-gray-300 my-3" />
 
       <div className="bg-white p-2 border-2 font-bold">total: EPG {total} </div>
-      {/* <Link to="/checkout"> */}
+
       <button
+        disabled={items === 0 ? true : false}
         onClick={() => setShowModel(true)}
-        className="bg-primary text-white p-1 rounded-sm w-full h-[50px] mt-3 uppercase"
+        className={`${
+          items === 0 ? "opacity-65" : "opacity-100"
+        } bg-primary text-white p-1 rounded-sm w-full h-[50px] mt-3 uppercase`}
       >
         CheckOut
       </button>
-      {/* </Link> */}
+
       {showModel && (
         <motion.div
           initial={{ opacity: 0 }}
@@ -55,7 +58,7 @@ const CartCheckout = ({ total, items }) => {
           exit={{ opacity: 0 }}
           transition={{ duration: 0.5 }}
           onClick={() => setShowModel(false)}
-          className="fixed top-0 left-0 w-full h-screen  bg-[#00000090] flex justify-center items-center"
+          className="fixed top-0 left-0 w-full h-screen bg-[#00000090] flex justify-center items-center"
         >
           <Model />
         </motion.div>

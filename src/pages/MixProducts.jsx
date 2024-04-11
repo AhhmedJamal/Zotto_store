@@ -1,8 +1,8 @@
 import { useEffect } from "react";
-import Shimmer from "./Shimmer";
-import CarouselDefault from "./Carousel";
-import OfferProducts from "./OfferProducts";
-import Product from "./Product";
+import Shimmer from "../components/Shimmer";
+import CarouselDefault from "../components/Carousel";
+import OfferProducts from "../components/OfferProducts";
+import Product from "../components/Product";
 import GetData from "../hooks/getData";
 import { getFromLocal } from "../store/cart/cartSlice";
 import { auth } from "../config/firebase";

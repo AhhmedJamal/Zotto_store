@@ -30,7 +30,7 @@ const Checkout = () => {
   }, []);
   return (
     <>
-      <div className="p-4 md:flex  gap-5  justify-center items-center h-[70vh] w-fit m-auto bg-white rounded-lg overflow-y-scroll">
+      <div className="p-4 md:flex  gap-5  justify-center items-center h-[60vh] w-fit m-auto bg-white rounded-lg overflow-y-scroll">
         <div className="flex items-center   gap-3 text-blue-gray-400 border border-blue-gray-100 p-3 rounded-lg ">
           <CiLocationOn size={30} />
           <div>

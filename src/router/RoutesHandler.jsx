@@ -11,13 +11,13 @@ import Checkout from "../components/Checkout.jsx";
 import Account from "../pages/Account.jsx";
 import Forget from "../pages/Forget.jsx";
 import Favorites from "../pages/Favorites.jsx";
-import MixProducts from "../components/MixProducts.jsx";
+import MixProducts from "../pages/MixProducts.jsx";
 
 const RouterHandler = () => {
   const router = createBrowserRouter([
     {
       path: "/",
-      element: <App />,
+      element: <App />, 
       errorElement: <NotFoundPage />,
       children: [
         {

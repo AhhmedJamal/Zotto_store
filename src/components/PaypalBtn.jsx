@@ -1,6 +1,6 @@
 import { PayPalButtons } from "@paypal/react-paypal-js";
-
 const PaypalBtn = () => {
+
   const style = { layout: "vertical" };
   // window.paypal.Buttons().render("#paypal-button-container");
   const createOrder = (data, actions) => {

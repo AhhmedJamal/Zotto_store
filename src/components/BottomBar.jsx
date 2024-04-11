@@ -9,10 +9,10 @@ import { auth, db } from "../config/firebase";
 import { doc, getDoc } from "firebase/firestore";
 const BottomBar = () => {
   const [favorites, setFavorites] = useState([]);
+  const user = auth.currentUser;
 
   const fetchFavorites = async () => {
     try {
-      const user = auth.currentUser;
       if (user) {
         const docRef = doc(db, "users", user.email);
         const docSnapshot = await getDoc(docRef);
@@ -27,7 +27,8 @@ const BottomBar = () => {
   };
   useEffect(() => {
     fetchFavorites();
-  }, []); // Empty dependency array to run once on mount only
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <ul className="z-20 md:hidden fixed bottom-0 btnBar bg-white border-t text-gray-900 border-gray-300 w-full pl-2 container flex justify-around items-center h-[70px] pb-3 box-shadow:0px_-1px_10px_0px_rgba(32, 32, 32, 0.176)">
