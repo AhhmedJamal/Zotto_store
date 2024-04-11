@@ -10,7 +10,7 @@ import { doc, getDoc } from "firebase/firestore";
 const BottomBar = () => {
   const [favorites, setFavorites] = useState([]);
 
-  const fetchData = async () => {
+  const fetchFavorites = async () => {
     try {
       const user = auth.currentUser;
       if (user) {
@@ -26,20 +26,20 @@ const BottomBar = () => {
     }
   };
   useEffect(() => {
-    fetchData();
+    fetchFavorites();
   }, []); // Empty dependency array to run once on mount only
 
   return (
     <ul className="z-20 md:hidden fixed bottom-0 btnBar bg-white border-t text-gray-900 border-gray-300 w-full pl-2 container flex justify-around items-center h-[70px] pb-3 box-shadow:0px_-1px_10px_0px_rgba(32, 32, 32, 0.176)">
       <NavLink
-        to="/"
+        to={"/" || "/"}
         className="text-[10px] font-bold flex flex-col justify-center items-center mt-2 mx-3"
       >
         <BsShopWindow size={25} />
         Shop
       </NavLink>
       <NavLink
-        to="orders"
+        to="/orders"
         className="text-[10px] font-bold flex flex-col justify-center items-center mt-[12px] mx-3 relative"
       >
         <BsBox2 className="mb-[2px]" size={22} />
@@ -47,7 +47,7 @@ const BottomBar = () => {
         Orders
       </NavLink>
       <NavLink
-        to="favorites"
+        to="/favorites"
         className="text-[10px] font-bold flex flex-col justify-center items-center mt-2 mx-3 relative group"
       >
         <MdFavoriteBorder size={25} />
@@ -63,7 +63,7 @@ const BottomBar = () => {
         Favorite
       </NavLink>
       <NavLink
-        to="account"
+        to="/account"
         className="text-[10px] font-bold flex flex-col justify-center items-center mt-2 mx-3"
       >
         <BsPerson size={25} />

@@ -4,7 +4,6 @@ import Cart from "../pages/Cart.jsx";
 import Login from "../pages/Login.jsx";
 import SignUp from "../pages/SignUp.jsx";
 import NotFoundPage from "../pages/NotFoundPage.jsx";
-import Home from "../pages/Home.jsx";
 import CategoryPage from "../pages/CategoryPage.jsx";
 import DetailsProduct from "../pages/DetailsProduct.jsx";
 import Orders from "../pages/Orders.jsx";
@@ -12,6 +11,7 @@ import Checkout from "../pages/Checkout.jsx";
 import Account from "../pages/Account.jsx";
 import Forget from "../pages/Forget.jsx";
 import Favorites from "../pages/Favorites.jsx";
+import MixProducts from "../components/MixProducts.jsx";
 
 const RouterHandler = () => {
   const router = createBrowserRouter([
@@ -22,20 +22,20 @@ const RouterHandler = () => {
       children: [
         {
           index: true,
-          element: <Home />,
+          element: <MixProducts />,
         },
         {
-          path: "cart",
+          path: "/cart",
           element: <Cart />,
         },
 
         {
-          path: "account",
+          path: "/account",
           element: <Account />,
         },
 
         {
-          path: "orders",
+          path: "/orders",
           element: <Orders />,
         },
         {
@@ -53,19 +53,19 @@ const RouterHandler = () => {
       ],
     },
     {
-      path: "checkout",
+      path: "/checkout",
       element: <Checkout />,
     },
     {
-      path: "login",
+      path: "/login",
       element: <Login />,
     },
     {
-      path: "signUp",
+      path: "/signUp",
       element: <SignUp />,
     },
     {
-      path: "forget",
+      path: "/forget",
       element: <Forget />,
     },
     {

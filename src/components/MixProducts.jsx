@@ -4,15 +4,24 @@ import CarouselDefault from "./Carousel";
 import OfferProducts from "./OfferProducts";
 import Product from "./Product";
 import GetData from "../hooks/getData";
+import { getFromLocal } from "../store/cart/cartSlice";
+import { auth } from "../config/firebase";
+import { useDispatch } from "react-redux";
 
 const MixProducts = () => {
+  const user = auth.currentUser;
   const { products, getData } = GetData("mixProducts");
+  const dispatch = useDispatch();
   useEffect(() => {
+    const items =
+      JSON.parse(localStorage.getItem(`shoppingCart_${user?.uid}`)) || [];
+    dispatch(getFromLocal(items));
     getData();
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [user]);
   return (
-    <>
+    <section>
       <CarouselDefault />
       {products.length !== 0 && <OfferProducts />}
 
@@ -37,7 +46,7 @@ const MixProducts = () => {
           </>
         )}
       </div>
-    </>
+    </section>
   );
 };
 

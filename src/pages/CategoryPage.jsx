@@ -9,21 +9,21 @@ import { auth } from "../config/firebase";
 import GetData from "../hooks/getData";
 
 const CategoryPage = () => {
+  const user = auth.currentUser;
   const dispatch = useDispatch();
   const { name } = useParams();
   const { products, getData } = GetData(name);
 
   useEffect(() => {
     getData();
-    const user = auth.currentUser;
     const items =
       JSON.parse(localStorage.getItem(`shoppingCart_${user?.uid}`)) || [];
     dispatch(getFromLocal(items));
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [name, dispatch]);
+  }, [name, user]);
 
   return (
-    <>
+    <section>
       {location.pathname !== "/favorites" && <CarouselDefault />}
       <div className="  grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 sm:mx-0 pb-3 m-2">
         {products.length !== 0 ? (
@@ -45,7 +45,7 @@ const CategoryPage = () => {
           </>
         )}
       </div>
-    </>
+    </section>
   );
 };
 
