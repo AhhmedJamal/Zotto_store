@@ -4,9 +4,9 @@ import Product from "../components/Product";
 import CarouselDefault from "../components/Carousel";
 import { getFromLocal } from "../store/cart/cartSlice";
 import { useDispatch } from "react-redux";
-import GetData from "../hooks/getData";
 import ShimmerDetails from "../components/Shimmer";
 import { auth } from "../config/firebase";
+import GetData from "../hooks/getData";
 
 const CategoryPage = () => {
   const dispatch = useDispatch();
@@ -17,7 +17,7 @@ const CategoryPage = () => {
     getData();
     const user = auth.currentUser;
     const items =
-      JSON.parse(localStorage.getItem(`shoppingCart_${user.uid}`)) || [];
+      JSON.parse(localStorage.getItem(`shoppingCart_${user?.uid}`)) || [];
     dispatch(getFromLocal(items));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [name, dispatch]);

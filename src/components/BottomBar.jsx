@@ -5,15 +5,31 @@ import { BsBox2 } from "react-icons/bs";
 import { BsPerson } from "react-icons/bs";
 import { MdOutlineDoneOutline } from "react-icons/md";
 import { useEffect, useState } from "react";
-import GetData from "../hooks/getData";
+import { auth, db } from "../config/firebase";
+import { doc, getDoc } from "firebase/firestore";
 const BottomBar = () => {
   const [favorites, setFavorites] = useState([]);
-  const { products, getData } = GetData("favorites");
+  const getFavorites = async () => {
+    try {
+      const user = auth.currentUser;
+      if (user) {
+        const docRef = doc(db, "users", user.email);
+        const docSnapshot = await getDoc(docRef);
+        const userData = docSnapshot.data();
+        setFavorites(userData.favorite);
+      } else {
+        console.log("Document does not exist");
+      }
+    } catch (error) {
+      console.error("Error fetching document:", error.message);
+      // You can log the full error object for more details: console.error(error);
+    }
+  };
   useEffect(() => {
-    getData();
-    setFavorites(products);
+    getFavorites();
+    setFavorites(favorites);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [products]);
+  }, []);
   return (
     <ul className="z-20 md:hidden  fixed bottom-0 btnBar bg-white border-t text-gray-900 border-gray-300 w-full pl-2 container flex justify-around items-center  h-[70px] pb-3 [box-shadow:0px_-1px_10px_0px_rgba(32,_32,_32,_0.176)]">
       <NavLink
@@ -39,7 +55,7 @@ const BottomBar = () => {
         {favorites.length !== 0 && (
           <span
             className={`transition-all ${
-              products.length !== 0
+              favorites.length !== 0
                 ? "group-hover:scale-0"
                 : "group-hover:scale-100"
             } w-2 h-2 flex items-center  pt-[2px] justify-center rounded-full bg-primary text-white z-10 absolute top-[1px] right-[6px]`}

@@ -6,7 +6,7 @@ import { addToCart, getFromLocal } from "../store/cart/cartSlice";
 import { useParams, useNavigate } from "react-router-dom";
 import ShimmerDetails from "../components/Shimmer";
 import { IoMdArrowBack } from "react-icons/io";
-import { db } from "../config/firebase";
+import { auth, db } from "../config/firebase";
 import { collection, getDocs } from "firebase/firestore";
 const DetailsProduct = () => {
   const [product, setProduct] = useState({});
@@ -17,6 +17,7 @@ const DetailsProduct = () => {
   const handleCart = () => {
     dispatch(addToCart(product));
   };
+
   const CollectionsRef = collection(db, `/${name}`);
   const getData = async () => {
     const getData = await getDocs(CollectionsRef);
@@ -25,8 +26,11 @@ const DetailsProduct = () => {
   };
   useEffect(() => {
     getData();
-    const items = JSON.parse(localStorage.getItem("shoppingCart")) || [];
+    const user = auth.currentUser;
+    const items =
+      JSON.parse(localStorage.getItem(`shoppingCart_${user?.uid}`)) || [];
     dispatch(getFromLocal(items));
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id, dispatch]);
 
@@ -160,5 +164,3 @@ const DetailsProduct = () => {
 };
 
 export default DetailsProduct;
-
-

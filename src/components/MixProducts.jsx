@@ -2,14 +2,13 @@ import { useEffect } from "react";
 import Shimmer from "./Shimmer";
 import CarouselDefault from "./Carousel";
 import OfferProducts from "./OfferProducts";
-import GetData from "../hooks/getData";
 import Product from "./Product";
+import GetData from "../hooks/getData";
 
 const MixProducts = () => {
   const { products, getData } = GetData("mixProducts");
   useEffect(() => {
     getData();
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (

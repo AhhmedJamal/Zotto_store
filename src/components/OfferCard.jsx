@@ -1,9 +1,9 @@
 import { useNavigate } from "react-router-dom";
-
 // eslint-disable-next-line react/prop-types
 const OfferCard = ({ offer }) => {
   // eslint-disable-next-line react/prop-types
   const { uid, img, des, price, priceDis } = offer;
+
   const router = useNavigate();
   const handleClick = () => {
     router(`/offer/${uid}`);
@@ -17,9 +17,9 @@ const OfferCard = ({ offer }) => {
       <p className="text-[10px]">{des}</p>
       <div className="text-[11px] gap-2 flex mt-1 font-bold">
         <del className="text-[10px] mt-[1px] text-gray-600">
-          {price.toLocaleString("en-US")}
+          {price?.toLocaleString("en-US")}
         </del>
-        <b>{priceDis.toLocaleString("en-US")} EGP </b>
+        <b>{priceDis?.toLocaleString("en-US")} EGP </b>
       </div>
     </div>
   );

@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { MdOutlineFavorite } from "react-icons/md";
 import { MdFavoriteBorder } from "react-icons/md";
 import { AiTwotoneDelete } from "react-icons/ai";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../store/cart/cartSlice";
 import {
@@ -17,20 +17,27 @@ import {
   updateDoc,
 } from "firebase/firestore";
 import { auth, db } from "../config/firebase";
-
+import { useParams } from "react-router-dom";
 const Product = ({ product, data }) => {
   const { uid, id, img, price, rating, description, favorite } = product;
   const router = useNavigate();
+  const { name } = useParams();
+  const [pathName, setPathName] = useState("");
   const dispatch = useDispatch();
-
   const collectionsRef = collection(db, "users");
+
   const handleClick = () => {
     location.pathname === "/"
       ? router(`/mixProducts/${`${uid}`}`)
       : router(`${`${uid}`}`);
   };
 
-  const handleDeleteFavorite = async (idToDelete) => {
+  const updateFavorite = async (isValue) => {
+    const documentRef = doc(db, pathName, id);
+    await updateDoc(documentRef, { favorite: isValue });
+    data();
+  };
+  const handleDeleteFavorite = async () => {
     const user = auth.currentUser;
     if (user) {
       try {
@@ -39,9 +46,10 @@ const Product = ({ product, data }) => {
         if (docSnapshot.exists()) {
           const userData = docSnapshot.data();
           const updatedFavorites = userData.favorite.filter(
-            (item) => item.id !== idToDelete
+            (item) => item.id !== id
           );
           await updateDoc(docRef, { favorite: updatedFavorites });
+          updateFavorite(false);
           data();
         } else {
           console.log("User document does not exist");
@@ -65,7 +73,7 @@ const Product = ({ product, data }) => {
         const newFavorites = {
           favorite: [...filteredData.favorite, product],
         };
-        updateDoc(docRef, newFavorites)
+        await updateDoc(docRef, newFavorites)
           .then(() => {
             console.log("Document updated successfully");
           })
@@ -76,27 +84,25 @@ const Product = ({ product, data }) => {
         console.error("Error getting or updating document:", error);
       }
     }
+    updateFavorite(true);
+    data();
   };
 
-  const updateFavorite = () => {
-    const documentRef = doc(db, "userss", id);
-    updateDoc(documentRef, { favorite: false });
-  };
-  const handleFavorite = async () => {
-    !favorite ? addFavorite() : updateFavorite();
-    data();
+  const handleFavorite = () => {
+    favorite ? handleDeleteFavorite() : addFavorite();
   };
 
   useEffect(() => {
     data();
+    setPathName(name === undefined ? "mixProducts" : name);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [pathName]);
   return (
     <Card className=" rounded-none overflow-hidden  shadow-md relative flex justify-between transition duration-300 bg-white text-black  ">
       {location.pathname === "/favorites" ? (
         <button
-          onClick={() => handleDeleteFavorite(id)}
+          onClick={() => handleDeleteFavorite()}
           className=" m-2 w-fit bg-white p-[6px] shadow-[0_0px_15px_-1px_rgb(0,0,0,0.3)] rounded-full outline-none"
         >
           <AiTwotoneDelete size={20} />
@@ -147,7 +153,7 @@ const Product = ({ product, data }) => {
             <span className="font-normal text-[11px] text-gray-700">EPG</span>
             <span className="font-[700] text-[15px] text-blue-gray-900">
               {" "}
-              {price.toLocaleString("en-US")}
+              {price?.toLocaleString("en-US")}
             </span>
           </div>
         </div>
@@ -160,3 +166,7 @@ export default Product;
 //    <img src={Image} alt="img" width={250} />
 //    <h2 className="font-bold text-[#37474F]">No Favorite Items !!</h2>
 //  </div>;
+
+// 1  path name for mixProduct
+// 2  handle btn delete in favorites
+// 3  model in checkout

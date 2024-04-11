@@ -1,9 +1,10 @@
-import GetData from "../hooks/getData";
 import OfferCard from "./OfferCard";
 import { useEffect } from "react";
+import GetData from "../hooks/getData";
 
 const OfferProducts = () => {
   const { products, getData } = GetData("offer");
+
   useEffect(() => {
     getData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
