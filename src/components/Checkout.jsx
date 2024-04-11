@@ -4,7 +4,7 @@ import { CiLocationOn } from "react-icons/ci";
 import { FaCheckCircle } from "react-icons/fa";
 import { IoAddCircleOutline } from "react-icons/io5";
 import { auth } from "../config/firebase";
-import PaypalBtn from "../components/PaypalBtn";
+import PaypalBtn from "./PaypalBtn";
 
 const Checkout = () => {
   const [user, setUser] = useState([]);
@@ -30,8 +30,8 @@ const Checkout = () => {
   }, []);
   return (
     <>
-      <div className="p-4 md:flex  gap-5  justify-center items-center h-[80vh] w-fit m-auto ">
-        <div className="flex items-center bg-white  gap-3 text-blue-gray-400 border border-blue-gray-100 p-3 rounded-lg ">
+      <div className="p-4 md:flex  gap-5  justify-center items-center h-[70vh] w-fit m-auto bg-white rounded-lg overflow-y-scroll">
+        <div className="flex items-center   gap-3 text-blue-gray-400 border border-blue-gray-100 p-3 rounded-lg ">
           <CiLocationOn size={30} />
           <div>
             <p className=" text-[13px] font-bold">{user.displayName}</p>
