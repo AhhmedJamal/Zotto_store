@@ -33,14 +33,14 @@ const Account = () => {
             <img
               src={user.photoURL}
               alt="Image-user"
-              className="rounded-full"
+              className="rounded-full w-[60px]"
             />
           ) : (
             <PiUserCircle size={80} />
           )}
           <div className="text-center md:text-start">
-            <h1 className="font-bold text-xl mb-1">{user.name}</h1>
-            <h2 className="text-gray-700 ">{user.email}</h2>
+            <h1 className="font-bold  mb-1">{user.name}</h1>
+            <h4 className="text-gray-700 text-[12px] ">{user.email}</h4>
           </div>
         </div>
       </div>
@@ -49,7 +49,7 @@ const Account = () => {
         <button
           onClick={handleLogOut}
           type="button"
-          className="bg-primary text-white rounded-md p-1 font-[600] text-[14px] w-[200px] shadow-[0_0px_9px_0px_rgba(0,0,0,0.3)]"
+          className="bg-primary text-white rounded-md p-1 font-[600] text-[16px] w-[240px] shadow-[0_0px_9px_0px_rgba(0,0,0,0.3)]"
         >
           Log Out
         </button>

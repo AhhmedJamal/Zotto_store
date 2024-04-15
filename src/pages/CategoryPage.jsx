@@ -23,9 +23,10 @@ const CategoryPage = () => {
   }, [name, user]);
 
   return (
-    <section>
+    <main>
       {location.pathname !== "/favorites" && <CarouselDefault />}
-      <div className="  grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 sm:mx-0 pb-3 m-2">
+
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 sm:mx-0 pb-3 m-2">
         {products.length !== 0 ? (
           products.map((product) => {
             return (
@@ -45,7 +46,7 @@ const CategoryPage = () => {
           </>
         )}
       </div>
-    </section>
+    </main>
   );
 };
 

@@ -72,6 +72,7 @@ const Product = ({ product, data }) => {
     } else {
       console.log("User not logged in");
     }
+    data();
   };
 
   const addFavorite = async () => {
