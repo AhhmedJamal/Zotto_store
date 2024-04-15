@@ -19,25 +19,39 @@ import {
 import { auth, db } from "../config/firebase";
 import { useParams } from "react-router-dom";
 const Product = ({ product, data }) => {
-  const { uid, id, img, price, rating, description, favorite } = product;
+  const { uid, id, img, price, rating, description } = product;
   const router = useNavigate();
   const { name } = useParams();
   const [pathName, setPathName] = useState("");
+  const [booleanIcon, setBooleanIcon] = useState("");
   const dispatch = useDispatch();
   const collectionsRef = collection(db, "users");
-
+  const user = auth.currentUser;
   const handleClick = () => {
     location.pathname === "/"
       ? router(`/mixProducts/${`${uid}`}`)
       : router(`${`${uid}`}`);
   };
 
-  const updateFavorite = async (isValue) => {
-    const documentRef = doc(db, pathName, id);
-    await updateDoc(documentRef, { favorite: isValue });
-    data();
+  const getBooleanIconFavorite = async () => {
+    try {
+      if (user) {
+        const docRef = doc(db, "users", user.email);
+        const docSnapshot = await getDoc(docRef);
+        const userData = docSnapshot.data();
+        userData.favorite.map((item) => {
+          item.id === id && setBooleanIcon(item.favorite);
+        });
+      } else {
+        console.log("Document does not exist");
+      }
+    } catch (error) {
+      console.error("Error fetching document:", error.message);
+      // You can log the full error object for more details: console.error(error);
+    }
   };
   const handleDeleteFavorite = async () => {
+    setBooleanIcon(false);
     const user = auth.currentUser;
     if (user) {
       try {
@@ -49,8 +63,6 @@ const Product = ({ product, data }) => {
             (item) => item.id !== id
           );
           await updateDoc(docRef, { favorite: updatedFavorites });
-          updateFavorite(false);
-          data();
         } else {
           console.log("User document does not exist");
         }
@@ -71,28 +83,28 @@ const Product = ({ product, data }) => {
         const filteredData = data.find((item) => item.id === user.uid) || [];
         const docRef = doc(db, "users", user.email);
         const newFavorites = {
-          favorite: [...filteredData.favorite, product],
+          favorite: [...filteredData.favorite, { ...product, favorite: true }],
         };
         await updateDoc(docRef, newFavorites)
           .then(() => {
-            console.log("Document updated successfully");
+            console.log("updateDoc successfully");
           })
           .catch((error) => {
-            console.error("Error updating document:", error);
+            console.error("Error updateDoc document:", error);
           });
       } catch (error) {
-        console.error("Error getting or updating document:", error);
+        console.error("Error getting or updateDoc document:", error);
       }
     }
-    updateFavorite(true);
-    data();
+    getBooleanIconFavorite();
   };
 
   const handleFavorite = () => {
-    favorite ? handleDeleteFavorite() : addFavorite();
+    booleanIcon ? handleDeleteFavorite() : addFavorite();
   };
 
   useEffect(() => {
+    getBooleanIconFavorite();
     data();
     setPathName(name === undefined ? "mixProducts" : name);
 
@@ -112,7 +124,7 @@ const Product = ({ product, data }) => {
           onClick={handleFavorite}
           className=" m-2 w-fit bg-white p-[6px] shadow-[0_0px_15px_-1px_rgb(0,0,0,0.3)] rounded-full outline-none"
         >
-          {favorite ? (
+          {booleanIcon ? (
             <MdOutlineFavorite size={20} className="text-primary" />
           ) : (
             <MdFavoriteBorder size={20} className="text-gray-700" />
