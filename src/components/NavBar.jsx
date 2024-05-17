@@ -43,7 +43,7 @@ const NavBar = () => {
               size={40}
             />
           </div>
-          ZUTTO
+          ZOTTO
         </Link>{" "}
         <div className="flex items-center gap-2">
           <button className="p-2 text-[11px]  text-start">
