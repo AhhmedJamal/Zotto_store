@@ -1,24 +1,19 @@
-import { Link } from "react-router-dom";
-import Image from "../assets/signUp.svg";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import {
   createUserWithEmailAndPassword,
   fetchSignInMethodsForEmail,
 } from "firebase/auth";
 import { auth, db } from "../config/firebase";
 import { ToastContainer, toast } from "react-toastify";
-import { IoMdArrowBack } from "react-icons/io";
 import { doc, setDoc } from "firebase/firestore";
-// Define the SignUp component
-const SignUp = () => {
-  // State variables for email, password, and router navigation
+
+// eslint-disable-next-line react/prop-types
+const SignUp = ({ setSelect }) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [pass, setPass] = useState("");
   const [passConfirmation, setPassConfirmation] = useState("");
   const [loading, setLoading] = useState(false);
-  const router = useNavigate();
 
   // Handle function for sign up
   const handleSignUp = (e) => {
@@ -66,7 +61,7 @@ const SignUp = () => {
               setEmail("");
               setPass("");
               setPassConfirmation("");
-              router("/login");
+              setSelect(false);
             }, 3000);
           })
           .catch(() => {
@@ -97,24 +92,13 @@ const SignUp = () => {
     }
   };
 
-  // Render the SignUp component
   return (
-    <div className="w-[70%] h-[95vh] m-auto flex justify-center gap-3 items-center flex-col lg:flex-row relative">
+    <div className="w-[80%] h-[268px] flex justify-center gap-3 items-center flex-col lg:flex-row relative">
       <ToastContainer />
-      <IoMdArrowBack
-        size={30}
-        className="md:hidden absolute left-[-40px] top-5 p-[2px] self-start bg-gray-200 rounded-lg text-gray-800"
-        onClick={() => {
-          router(-1);
-        }}
-      />
-      <img src={Image} alt="Image-SignUp" className="w-[70%] lg:w-[40%]" />
-
       <form
         className="w-full gap-4 flex flex-col  md:ml-8"
         onSubmit={handleSignUp}
       >
-        <h1 className="font-bold text-[30px] text-center">Sign Up</h1>
         {/* Name input */}
         <input
           type="text"
@@ -151,14 +135,6 @@ const SignUp = () => {
           onChange={(e) => setPassConfirmation(e.target.value)}
           required
         />
-        {/* Link to the login page */}
-        <Link
-          to="/login"
-          className="text-primary font-bold rounded-md p-1 text-[12px] underline text-end"
-          replace={true}
-        >
-          I have an account in Zutto
-        </Link>
         {/* Submit button */}
         <button
           type="submit"
