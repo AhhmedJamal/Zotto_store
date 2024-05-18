@@ -1,4 +1,4 @@
-import Image from "../assets/notFound.svg";
+import Image from "/assets/notFound.svg";
 const NotFoundPage = () => {
   return (
     <div className="w-[300px] h-[100vh] m-auto flex justify-center items-center flex-col">

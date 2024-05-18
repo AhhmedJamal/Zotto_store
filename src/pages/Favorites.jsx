@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import Product from "../components/Product";
-import FavoriteEmpty from "../assets/EmptyFavorite.svg";
+import FavoriteEmpty from "/assets/EmptyFavorite.svg";
 import { doc, getDoc } from "firebase/firestore";
 import { auth, db } from "../config/firebase";
 import ShimmerDetails from "../components/Shimmer";

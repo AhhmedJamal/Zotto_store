@@ -12,7 +12,6 @@ const App = () => {
   const router = useNavigate();
 
   useEffect(() => {
- 
     // Prevent navigating back in the browser
     const handleBackButton = () => history.pushState(null, null, document.URL);
     window.addEventListener("popstate", handleBackButton);
@@ -40,7 +39,7 @@ const App = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
-    <div className="container m-auto overflow-y-scroll h-[90vh] sm:h-screen pb-14 sm:pb-0">
+    <div className="container m-auto overflow-y-scroll h-[100vh] sm:h-screen pb-16 sm:pb-0">
       <ToastContainer />
       <NavBar />
       <Categories />

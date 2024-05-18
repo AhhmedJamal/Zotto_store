@@ -1,7 +1,7 @@
 import { sendPasswordResetEmail } from "firebase/auth";
 import { useState } from "react";
 import { auth } from "../config/firebase";
-import Image from "../assets/forgotPassword.svg";
+import Image from "/assets/forgotPassword.svg";
 import { useNavigate } from "react-router-dom";
 import { IoMdArrowBack } from "react-icons/io";
 import { ToastContainer, toast } from "react-toastify";

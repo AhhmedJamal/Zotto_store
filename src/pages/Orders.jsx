@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Image from "../assets/order.svg";
+import Image from "/assets/order.svg";
 const Orders = () => {
   // eslint-disable-next-line no-unused-vars
   const [orders, setOrders] = useState([]);

@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useParams } from "react-router-dom";
 import { MdFavoriteBorder } from "react-icons/md";
 import { BsShopWindow } from "react-icons/bs";
 import { BsBox2 } from "react-icons/bs";
@@ -10,7 +10,7 @@ import { doc, getDoc } from "firebase/firestore";
 const BottomBar = () => {
   const [favorites, setFavorites] = useState([]);
   const user = auth.currentUser;
-
+  const { id } = useParams();
   const fetchFavorites = async () => {
     try {
       if (user) {
@@ -31,7 +31,13 @@ const BottomBar = () => {
   }, []);
 
   return (
-    <ul className="z-20 md:hidden fixed bottom-0 btnBar bg-white border-t text-gray-900 border-gray-300 w-full pl-2 container flex justify-around items-center h-[70px] pb-3 box-shadow:0px_-1px_10px_0px_rgba(32, 32, 32, 0.176)">
+    <ul
+      className={
+        window.location.pathname == `/mixProducts/${id}`
+          ? "hidden"
+          : `z-20 md:hidden fixed bottom-0 btnBar bg-white border-t text-gray-900 border-gray-300 w-full pl-2 container flex justify-around items-center h-[70px] pb-3 box-shadow:0px_-1px_10px_0px_rgba(32, 32, 32, 0.176)`
+      }
+    >
       <NavLink
         to={"/" || "/"}
         className="text-[10px] font-bold flex flex-col justify-center items-center mt-2 mx-3"

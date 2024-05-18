@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
-import Cart from "../assets/cart.png";
+import Cart from "/assets/cart.png";
 import { useSelector } from "react-redux";
 import { FiMapPin } from "react-icons/fi";
 import { CgSearch } from "react-icons/cg";

@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import CartEmpty from "../assets/emptyCart.svg";
+import CartEmpty from "/assets/emptyCart.svg";
 import CartProduct from "../components/CartProduct";
 import CartCheckout from "../components/CartCheckout";
 import { useEffect, useState } from "react";
