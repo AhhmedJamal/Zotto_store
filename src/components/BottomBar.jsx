@@ -9,6 +9,7 @@ import { auth, db } from "../config/firebase";
 import { doc, getDoc } from "firebase/firestore";
 const BottomBar = () => {
   const [favorites, setFavorites] = useState([]);
+  const [isShowBottomBar, setIsShowBottomBar] = useState(false);
   const user = auth.currentUser;
   const { id } = useParams();
   const fetchFavorites = async () => {
@@ -27,13 +28,19 @@ const BottomBar = () => {
   };
   useEffect(() => {
     fetchFavorites();
+    if (
+      window.location.pathname === `/mixProducts/${id}` ||
+      window.location.pathname === "/cart"
+    ) {
+      setIsShowBottomBar(true);
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
     <ul
       className={
-        window.location.pathname == `/mixProducts/${id}`
+        isShowBottomBar
           ? "hidden"
           : `z-20 md:hidden fixed bottom-0 btnBar bg-white border-t text-gray-900 border-gray-300 w-full pl-2 container flex justify-around items-center h-[70px] pb-3 box-shadow:0px_-1px_10px_0px_rgba(32, 32, 32, 0.176)`
       }

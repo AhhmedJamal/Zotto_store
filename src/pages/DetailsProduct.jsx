@@ -35,7 +35,7 @@ const DetailsProduct = () => {
   }, [id, dispatch]);
 
   return (
-    <div className="bg-white pt-1 mt-2">
+    <div className="bg-white py-1 mt-2">
       <IoMdArrowBack
         size={30}
         className=" m-4 p-[2px] self-start bg-gray-200 rounded-lg"

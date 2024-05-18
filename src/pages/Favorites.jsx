@@ -18,7 +18,6 @@ function Favorites() {
         const docSnapshot = await getDoc(docRef);
         const userData = docSnapshot.data();
         setFavorites(userData.favorite);
-      
       } else {
         console.log("Document does not exist");
       }
@@ -33,7 +32,7 @@ function Favorites() {
     setTimeout(() => {
       setLisLoading(false);
     }, 1000);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
     <div className="  grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 sm:mx-0 pb-3 m-2">

@@ -9,18 +9,16 @@ import "./App.css";
 
 // Render the application with transitions
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <>
-    <PayPalScriptProvider
-      options={{
-        "client-id":
-          "AahhqPNBFsoMNGiboszlRBJoaNylWvM1LZr3uwZw9wDU0X83Ra_lJj6fJ158d2dpiGSks8gey4MIRse-",
-      }}
-    >
-      <Provider store={store}>
-        <CheckInternet>
-          <RouterHandler />
-        </CheckInternet>
-      </Provider>
-    </PayPalScriptProvider>
-  </>
+  <PayPalScriptProvider
+    options={{
+      "client-id":
+        "AahhqPNBFsoMNGiboszlRBJoaNylWvM1LZr3uwZw9wDU0X83Ra_lJj6fJ158d2dpiGSks8gey4MIRse-",
+    }}
+  >
+    <Provider store={store}>
+      <CheckInternet>
+        <RouterHandler />
+      </CheckInternet>
+    </Provider>
+  </PayPalScriptProvider>
 );

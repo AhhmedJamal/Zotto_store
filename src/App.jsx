@@ -2,14 +2,17 @@ import NavBar from "./components/NavBar";
 import { Outlet, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { onAuthStateChanged } from "firebase/auth";
-import { auth } from "./config/firebase";
+import { auth, db } from "./config/firebase";
 import { ToastContainer, toast } from "react-toastify";
 import Categories from "./components/Categories";
-
 import BottomBar from "./components/BottomBar";
+import { useDispatch } from "react-redux";
+import { clearUser, setUser } from "./store/user/user";
+import { doc, getDoc } from "firebase/firestore";
 
 const App = () => {
   const router = useNavigate();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     // Prevent navigating back in the browser
@@ -22,7 +25,25 @@ const App = () => {
     }
 
     // Check if a user is found
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
+      try {
+        if (user) {
+          const docRef = doc(db, "users", user.email || "");
+          const docSnapshot = await getDoc(docRef);
+          const userData = docSnapshot.data();
+          if (userData) {
+            dispatch(setUser(userData));
+          } else {
+            console.log("User data is undefined");
+          }
+        } else {
+          dispatch(clearUser());
+          console.log("User is not authenticated");
+        }
+      } catch (error) {
+        console.error("Error fetching document:", error);
+      }
+
       if (localStorage.getItem("token") !== user?.uid) {
         toast.error("Authorization Failed !!", {
           position: toast.POSITION.BOTTOM_CENTER,

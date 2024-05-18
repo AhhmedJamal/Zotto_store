@@ -7,17 +7,12 @@ import { MdOutlineFavorite } from "react-icons/md";
 import { MdFavoriteBorder } from "react-icons/md";
 import { AiTwotoneDelete } from "react-icons/ai";
 import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../store/cart/cartSlice";
-import {
-  collection,
-  doc,
-  getDoc,
-  getDocs,
-  updateDoc,
-} from "firebase/firestore";
-import { auth, db } from "../config/firebase";
+import { doc, getDoc, updateDoc } from "firebase/firestore";
+import { db } from "../config/firebase";
 import { useParams } from "react-router-dom";
+import { setUser } from "../store/user/user";
 const Product = ({ product, data }) => {
   const { uid, id, img, price, rating, description } = product;
   const router = useNavigate();
@@ -25,8 +20,9 @@ const Product = ({ product, data }) => {
   const [pathName, setPathName] = useState("");
   const [booleanIcon, setBooleanIcon] = useState("");
   const dispatch = useDispatch();
-  const collectionsRef = collection(db, "users");
-  const user = auth.currentUser;
+
+  const user = useSelector((state) => state.user);
+
   const handleClick = () => {
     location.pathname === "/"
       ? router(`/mixProducts/${`${uid}`}`)
@@ -52,7 +48,6 @@ const Product = ({ product, data }) => {
   };
   const handleDeleteFavorite = async () => {
     setBooleanIcon(false);
-    const user = auth.currentUser;
     if (user) {
       try {
         const docRef = doc(db, "users", user.email);
@@ -63,6 +58,7 @@ const Product = ({ product, data }) => {
             (item) => item.id !== id
           );
           await updateDoc(docRef, { favorite: updatedFavorites });
+          dispatch(setUser(userData));
         } else {
           console.log("User document does not exist");
         }
@@ -76,16 +72,15 @@ const Product = ({ product, data }) => {
   };
 
   const addFavorite = async () => {
-    const user = auth.currentUser;
     if (user) {
       try {
-        const dataFromCollection = await getDocs(collectionsRef);
-        const data = dataFromCollection.docs.map((doc) => doc.data());
-        const filteredData = data.find((item) => item.id === user.uid) || [];
         const docRef = doc(db, "users", user.email);
+        const docSnapshot = await getDoc(docRef);
+        const userData = docSnapshot.data();
         const newFavorites = {
-          favorite: [...filteredData.favorite, { ...product, favorite: true }],
+          favorite: [...userData.favorite, { ...product, favorite: true }],
         };
+        dispatch(setUser(userData));
         await updateDoc(docRef, newFavorites)
           .then(() => {
             console.log("updateDoc successfully");
