@@ -1,29 +1,16 @@
-import { onAuthStateChanged, signOut } from "firebase/auth";
-import { useEffect, useState } from "react";
+import { signOut } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
-import { auth, db } from "../config/firebase";
+import { auth } from "../config/firebase";
 import { PiUserCircle } from "react-icons/pi";
-import { doc, getDoc } from "firebase/firestore";
+import { useSelector } from "react-redux";
 const Account = () => {
-  const [user, setUser] = useState([]);
+  const user = useSelector((state) => state.user);
   const router = useNavigate();
 
   const handleLogOut = () => {
     signOut(auth);
     router("/login");
   };
-
-  useEffect(() => {
-    onAuthStateChanged(auth, async (user) => {
-      const docRef = doc(db, "users", user.email);
-      const docSnapshot = await getDoc(docRef);
-      const userData = docSnapshot.data();
-      if (user) {
-        setUser(userData);
-      }
-    });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   return (
     <div className="px-4">

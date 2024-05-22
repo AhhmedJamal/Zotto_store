@@ -1,6 +1,7 @@
 // src/store/userSlice.js
 import { createSlice } from "@reduxjs/toolkit";
-
+import { doc, getDoc } from "firebase/firestore";
+import { db } from "../../config/firebase";
 
 const userSlice = createSlice({
   name: "user",
@@ -9,7 +10,7 @@ const userSlice = createSlice({
     name: "",
     email: "",
     photoURL: "",
-    favorite: [],
+    favorites: [],
     cart: [],
   },
   reducers: {
@@ -17,23 +18,41 @@ const userSlice = createSlice({
       const user = action.payload;
 
       state.id = user.uid || "";
-      state.name = user.displayName || "";
+      state.name = user.name;
       state.email = user.email || "";
       state.photoURL = user.photoURL || "";
-      state.favorite = user.favorite || [];
+      state.favorites = user.favorites || [];
       state.cart = user.cart || [];
-
     },
     clearUser: (state) => {
       state.id = "";
       state.name = "";
       state.email = "";
       state.photoURL = "";
-      state.favorite = [];
+      state.favorites = [];
       state.cart = [];
     },
   },
 });
 
+export const GetDataUser = (email) => async (dispatch) => {
+  if (email) {
+    try {
+      const docRef = doc(db, "users", email);
+      const docSnapshot = await getDoc(docRef);
+      const userData = docSnapshot.data();
+      if (userData) {
+        dispatch(setUser(userData));
+      } else {
+        console.log("User data is undefined");
+      }
+    } catch (error) {
+      console.error("Error getting user data:", error);
+    }
+  } else {
+    dispatch(clearUser());
+    console.log("User is not authenticated");
+  }
+};
 export const { setUser, clearUser } = userSlice.actions;
 export default userSlice.reducer;

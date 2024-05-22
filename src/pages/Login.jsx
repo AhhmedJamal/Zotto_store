@@ -11,7 +11,7 @@ import { SiFacebook } from "react-icons/si";
 import { signInWithPopup } from "firebase/auth";
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import SignUp from "../components/SignUp";
-import Image from "../../public/assets/auth.png";
+import Image from "/assets/auth.png";
 // Define the Login component
 const Login = () => {
   // State variables for email, password, and router navigation
@@ -77,7 +77,7 @@ const Login = () => {
           name: user.displayName,
           email: user.email,
           photoURL: user.photoURL,
-          favorite: [],
+          favorites: [],
           cart: [],
         });
         localStorage.setItem("token", user.uid);
@@ -106,7 +106,7 @@ const Login = () => {
               name: user.displayName,
               email: user.email,
               photoURL: user.photoURL,
-              favorite: [],
+              favorites: [],
               cart: [],
             });
 

@@ -2,13 +2,12 @@ import NavBar from "./components/NavBar";
 import { Outlet, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { onAuthStateChanged } from "firebase/auth";
-import { auth, db } from "./config/firebase";
+import { auth } from "./config/firebase";
 import { ToastContainer, toast } from "react-toastify";
 import Categories from "./components/Categories";
 import BottomBar from "./components/BottomBar";
 import { useDispatch } from "react-redux";
-import { clearUser, setUser } from "./store/user/user";
-import { doc, getDoc } from "firebase/firestore";
+import { GetDataUser } from "./store/user/user";
 
 const App = () => {
   const router = useNavigate();
@@ -27,19 +26,7 @@ const App = () => {
     // Check if a user is found
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       try {
-        if (user) {
-          const docRef = doc(db, "users", user.email || "");
-          const docSnapshot = await getDoc(docRef);
-          const userData = docSnapshot.data();
-          if (userData) {
-            dispatch(setUser(userData));
-          } else {
-            console.log("User data is undefined");
-          }
-        } else {
-          dispatch(clearUser());
-          console.log("User is not authenticated");
-        }
+        dispatch(GetDataUser(user.email));
       } catch (error) {
         console.error("Error fetching document:", error);
       }

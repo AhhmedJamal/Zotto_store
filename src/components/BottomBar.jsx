@@ -5,29 +5,15 @@ import { BsBox2 } from "react-icons/bs";
 import { BsPerson } from "react-icons/bs";
 import { MdOutlineDoneOutline } from "react-icons/md";
 import { useEffect, useState } from "react";
-import { auth, db } from "../config/firebase";
-import { doc, getDoc } from "firebase/firestore";
+import { useSelector } from "react-redux";
 const BottomBar = () => {
-  const [favorites, setFavorites] = useState([]);
+  const {favorites} = useSelector((state) => state.user);
+ 
   const [isShowBottomBar, setIsShowBottomBar] = useState(false);
-  const user = auth.currentUser;
+  console.log(favorites);
   const { id } = useParams();
-  const fetchFavorites = async () => {
-    try {
-      if (user) {
-        const docRef = doc(db, "users", user.email);
-        const docSnapshot = await getDoc(docRef);
-        const userData = docSnapshot.data();
-        setFavorites(userData.favorite);
-      } else {
-        console.log("Document does not exist");
-      }
-    } catch (error) {
-      console.error("Error fetching document:", error.message);
-    }
-  };
+
   useEffect(() => {
-    fetchFavorites();
     if (
       window.location.pathname === `/mixProducts/${id}` ||
       window.location.pathname === "/cart"
@@ -65,10 +51,10 @@ const BottomBar = () => {
         className="text-[10px] font-bold flex flex-col justify-center items-center mt-2 mx-3 relative group"
       >
         <MdFavoriteBorder size={25} />
-        {favorites.length !== 0 && (
+        {favorites?.length !== 0 && (
           <span
             className={`transition-all ${
-              favorites.length !== 0
+              favorites?.length !== 0
                 ? "group-hover:scale-0"
                 : "group-hover:scale-100"
             } w-2 h-2 flex items-center pt-[2px] justify-center rounded-full bg-primary text-white z-10 absolute top-[1px] right-[6px]`}

@@ -36,7 +36,8 @@ const SignUp = ({ setSelect }) => {
                     id: user.uid,
                     name: name,
                     email: user.email,
-                    favorite: [],
+                    photoURL: "",
+                    favorites: [],
                     cart: [],
                   });
 
