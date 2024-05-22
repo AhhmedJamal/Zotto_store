@@ -7,10 +7,10 @@ import { MdOutlineDoneOutline } from "react-icons/md";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 const BottomBar = () => {
-  const {favorites} = useSelector((state) => state.user);
- 
+  const { favorites } = useSelector((state) => state.user);
+
   const [isShowBottomBar, setIsShowBottomBar] = useState(false);
-  console.log(favorites);
+  
   const { id } = useParams();
 
   useEffect(() => {

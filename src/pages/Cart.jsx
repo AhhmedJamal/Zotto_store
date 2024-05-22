@@ -4,10 +4,8 @@ import CartProduct from "../components/CartProduct";
 import CartCheckout from "../components/CartCheckout";
 import { useEffect, useState } from "react";
 import { getFromLocal } from "../store/cart/cartSlice";
-import { auth } from "../config/firebase";
 
 const Cart = () => {
-  const user = auth.currentUser;
   const [countProduct, setCountProduct] = useState([]);
   function calculateTotalPrice(cart) {
     // Ensure that the cart is not empty
@@ -25,6 +23,7 @@ const Cart = () => {
     }, 0);
     return totalPrice;
   }
+  const user = useSelector((state) => state.user);
   const cart = useSelector((state) => state.cart.items);
   const totalWithDiscount = calculateTotalPrice(cart);
   const dispatch = useDispatch();

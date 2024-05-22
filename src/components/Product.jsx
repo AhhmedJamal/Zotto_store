@@ -9,10 +9,10 @@ import { AiTwotoneDelete } from "react-icons/ai";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../store/cart/cartSlice";
-import { doc, getDoc, updateDoc } from "firebase/firestore";
+import { doc, updateDoc } from "firebase/firestore";
 import { db } from "../config/firebase";
 import { useParams } from "react-router-dom";
-import { GetDataUser, setUser } from "../store/user/user";
+import { GetDataUser } from "../store/user/user";
 const Product = ({ product }) => {
   const { uid, id, img, price, rating, description } = product;
   const router = useNavigate();
@@ -46,17 +46,8 @@ const Product = ({ product }) => {
     if (email) {
       try {
         const docRef = doc(db, "users", email);
-        const docSnapshot = await getDoc(docRef);
-        if (docSnapshot.exists()) {
-          const userData = docSnapshot.data();
-          const updatedFavorites = userData.favorite.filter(
-            (item) => item.id !== id
-          );
-          await updateDoc(docRef, { favorites: updatedFavorites });
-          dispatch(setUser(userData));
-        } else {
-          console.log("User document does not exist");
-        }
+        const updatedFavorites = favorites.filter((item) => item.id !== id);
+        await updateDoc(docRef, { favorites: updatedFavorites });
       } catch (error) {
         console.error("Error deleting favorite:", error);
       }
@@ -67,7 +58,6 @@ const Product = ({ product }) => {
   };
 
   const addFavorite = async () => {
-    console.log(favorites);
     setBooleanIcon(true);
     dispatch(GetDataUser(email));
     if (email) {

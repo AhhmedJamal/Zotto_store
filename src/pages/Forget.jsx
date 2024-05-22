@@ -24,7 +24,6 @@ const Forget = () => {
   return (
     <>
       <ToastContainer />
-      <div></div>
       <IoMdArrowBack
         size={35}
         className="md:hidden m-5 p-[2px] self-start bg-gray-200 rounded-lg text-gray-800"

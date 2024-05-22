@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import Model from "./Model";
+import Checkout from "./Checkout";
 
 // eslint-disable-next-line react/prop-types
 const CartCheckout = ({ total, items }) => {
@@ -60,7 +61,9 @@ const CartCheckout = ({ total, items }) => {
           onClick={() => setShowModel(false)}
           className="fixed top-0 left-0 w-full h-screen bg-[#00000090] flex justify-center items-center"
         >
-          <Model />
+          <Model>
+            <Checkout />
+          </Model>
         </motion.div>
       )}
     </div>

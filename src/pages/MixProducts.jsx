@@ -5,13 +5,12 @@ import OfferProducts from "../components/OfferProducts";
 import Product from "../components/Product";
 import GetData from "../hooks/getData";
 import { getFromLocal } from "../store/cart/cartSlice";
-import { auth } from "../config/firebase";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 const MixProducts = () => {
-  const user = auth.currentUser;
   const { products, getData } = GetData("mixProducts");
   const dispatch = useDispatch();
+  const user = useSelector((state) => state.user);
   useEffect(() => {
     const items =
       JSON.parse(localStorage.getItem(`shoppingCart_${user?.uid}`)) || [];
@@ -29,9 +28,7 @@ const MixProducts = () => {
         {products.length !== 0 ? (
           // eslint-disable-next-line no-unused-vars
           products.map((product) => {
-            return (
-              <Product key={product.uid} product={product} data={getData} />
-            );
+            return <Product key={product.uid} product={product} />;
           })
         ) : (
           <>

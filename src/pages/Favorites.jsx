@@ -6,8 +6,7 @@ import { useSelector } from "react-redux";
 
 function Favorites() {
   const [isLoading, setLisLoading] = useState(false);
-
-  const { favorite } = useSelector((state) => state.user);
+  const { favorites } = useSelector((state) => state.user);
 
   useEffect(() => {
     setLisLoading(true);
@@ -18,12 +17,12 @@ function Favorites() {
   }, []);
   return (
     <div className="  grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 sm:mx-0 pb-3 m-2">
-      {favorite.length !== 0 ? (
-        favorite.map((favorite) => {
+      {favorites.length !== 0 ? (
+        favorites.map((favorite) => {
           return <Product key={favorite.uid} product={favorite} />;
         })
       ) : (
-        <div className=" container m-auto w-[96%] absolute grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 sm:mx-0 pb-3  ">
+        <div className=" container m-auto w-[96%] absolute grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 sm:mx-0 pb-3">
           {isLoading ? (
             <>
               <ShimmerDetails />

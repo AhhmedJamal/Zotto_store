@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
-import Checkout from "./Checkout";
-const Model = () => {
+
+// eslint-disable-next-line react/prop-types
+const Model = ({ children }) => {
   return (
     <motion.div
       // className="overflow-y-scroll"
@@ -9,7 +10,7 @@ const Model = () => {
       exit={{ opacity: 0, y: 20 }} // Animation when component is removed from DOM
       transition={{ duration: 0.5 }} // Animation duration
     >
-      <Checkout />
+      {children}
     </motion.div>
   );
 };
