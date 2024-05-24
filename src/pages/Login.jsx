@@ -63,9 +63,11 @@ const Login = () => {
 
       // Check if the user exists in Firestore
       const userDocRef = doc(db, "users", user.email);
+
       const userDocSnapshot = await getDoc(userDocRef);
 
       if (userDocSnapshot.exists()) {
+        console.log("User exists in Firestore");
         // User exists, do something (e.g., set user info in local storage)
         localStorage.setItem("token", user.uid);
         console.log("User logged in successfully");
@@ -107,7 +109,6 @@ const Login = () => {
               email: user.email,
               photoURL: user.photoURL,
               favorites: [],
-              cart: [],
             });
 
             console.log("Document added successfully");

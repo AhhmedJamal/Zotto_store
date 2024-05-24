@@ -38,7 +38,6 @@ const SignUp = ({ setSelect }) => {
                     email: user.email,
                     photoURL: "",
                     favorites: [],
-                    cart: [],
                   });
 
                   console.log("Document added successfully");
