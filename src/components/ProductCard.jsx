@@ -13,7 +13,7 @@ import { doc, updateDoc } from "firebase/firestore";
 import { db } from "../config/firebase";
 import { useParams } from "react-router-dom";
 import { GetDataUser } from "../store/user/user";
-const Product = ({ product }) => {
+const ProductCard = ({ product }) => {
   const { uid, id, img, price, rating, description } = product;
   const router = useNavigate();
   const { name } = useParams();
@@ -110,7 +110,8 @@ const Product = ({ product }) => {
       )}
 
       <img
-        onClick={location.pathname !== "/favorites" ? handleClick : () => {}}
+        onClick={location.pathname !== "/favorites" && handleClick}
+        loading="lazy"
         src={img}
         alt="card-image"
         className=" w-[120px] m-auto"
@@ -150,4 +151,4 @@ const Product = ({ product }) => {
     </Card>
   );
 };
-export default Product;
+export default ProductCard;

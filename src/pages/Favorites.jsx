@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import Product from "../components/Product";
 import FavoriteEmpty from "/assets/EmptyFavorite.svg";
 import ShimmerDetails from "../components/Shimmer";
 import { useSelector } from "react-redux";
+import ProductCard from "../components/ProductCard";
 
 function Favorites() {
   const [isLoading, setLisLoading] = useState(false);
@@ -19,7 +19,7 @@ function Favorites() {
     <div className="  grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 sm:mx-0 pb-3 m-2">
       {favorites.length !== 0 ? (
         favorites.map((favorite) => {
-          return <Product key={favorite.uid} product={favorite} />;
+          return <ProductCard key={favorite.uid} product={favorite} />;
         })
       ) : (
         <div className=" container m-auto w-[96%] absolute grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 sm:mx-0 pb-3">

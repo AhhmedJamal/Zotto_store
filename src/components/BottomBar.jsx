@@ -7,21 +7,25 @@ import { MdOutlineDoneOutline } from "react-icons/md";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 const BottomBar = () => {
-  const { favorites } = useSelector((state) => state.user);
-
-  const [isShowBottomBar, setIsShowBottomBar] = useState(false);
-  
   const { id } = useParams();
+  const { favorites } = useSelector((state) => state.user);
+  const [isShowBottomBar, setIsShowBottomBar] = useState(false);
 
   useEffect(() => {
     if (
       window.location.pathname === `/mixProducts/${id}` ||
+      window.location.pathname === `/phones/${id}` ||
+      window.location.pathname === `/home/${id}` ||
+      window.location.pathname === `/electroics/${id}` ||
+      window.location.pathname === `/offer/${id}` ||
       window.location.pathname === "/cart"
     ) {
       setIsShowBottomBar(true);
+    } else {
+      setIsShowBottomBar(false);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [window.location.pathname]);
 
   return (
     <ul
@@ -32,7 +36,7 @@ const BottomBar = () => {
       }
     >
       <NavLink
-        to={"/" || "/"}
+        to={"/"}
         className="text-[10px] font-bold flex flex-col justify-center items-center mt-2 mx-3"
       >
         <BsShopWindow size={25} />
@@ -51,15 +55,19 @@ const BottomBar = () => {
         className="text-[10px] font-bold flex flex-col justify-center items-center mt-2 mx-3 relative group"
       >
         <MdFavoriteBorder size={25} />
-        {favorites?.length !== 0 && (
+        <div
+          className={`${
+            favorites?.length == 0 ? "scale-0 " : "scale-100"
+          } transition-all z-10 absolute top-[1px] right-2 `}
+        >
           <span
             className={`transition-all ${
               favorites?.length !== 0
                 ? "group-hover:scale-0"
                 : "group-hover:scale-100"
-            } w-2 h-2 flex items-center pt-[2px] justify-center rounded-full bg-primary text-white z-10 absolute top-[1px] right-[6px]`}
+            } w-2 h-2 flex items-center pt-[2px] justify-center rounded-full bg-primary text-white `}
           ></span>
-        )}
+        </div>
         Favorite
       </NavLink>
       <NavLink

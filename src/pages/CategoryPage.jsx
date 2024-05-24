@@ -1,11 +1,12 @@
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
-import Product from "../components/Product";
 import CarouselDefault from "../components/Carousel";
 import { getFromLocal } from "../store/cart/cartSlice";
 import { useDispatch, useSelector } from "react-redux";
 import ShimmerDetails from "../components/Shimmer";
 import GetData from "../hooks/getData";
+import ProductCard from "../components/ProductCard";
+
 
 const CategoryPage = () => {
   const { name } = useParams();
@@ -28,7 +29,7 @@ const CategoryPage = () => {
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 sm:mx-0 pb-3 m-2">
         {products.length !== 0 ? (
           products.map((product) => {
-            return <Product key={product.uid} product={product} />;
+            return <ProductCard key={product.uid} product={product} />;
           })
         ) : (
           <>

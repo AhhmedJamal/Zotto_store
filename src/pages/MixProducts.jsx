@@ -2,10 +2,10 @@ import { useEffect } from "react";
 import Shimmer from "../components/Shimmer";
 import CarouselDefault from "../components/Carousel";
 import OfferProducts from "../components/OfferProducts";
-import Product from "../components/Product";
 import GetData from "../hooks/getData";
 import { getFromLocal } from "../store/cart/cartSlice";
 import { useDispatch, useSelector } from "react-redux";
+import ProductCard from "../components/ProductCard";
 
 const MixProducts = () => {
   const { products, getData } = GetData("mixProducts");
@@ -28,7 +28,7 @@ const MixProducts = () => {
         {products.length !== 0 ? (
           // eslint-disable-next-line no-unused-vars
           products.map((product) => {
-            return <Product key={product.uid} product={product} />;
+            return <ProductCard key={product.uid} product={product} />;
           })
         ) : (
           <>

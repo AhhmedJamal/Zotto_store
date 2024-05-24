@@ -4,14 +4,13 @@ import {
   removeFromCart,
   deleteProductCart,
 } from "../store/cart/cartSlice";
-
 import { RiDeleteBinLine } from "react-icons/ri";
 import { FaPlus } from "react-icons/fa6";
 import { FaMinus } from "react-icons/fa";
 import { useEffect, useState } from "react";
 
 // eslint-disable-next-line react/prop-types
-const CartProduct = ({ product, countProduct }) => {
+const ProductCart = ({ product, countProduct }) => {
   // eslint-disable-next-line react/prop-types
   const { uid, img, title, price, priceDis, description } = product;
   // eslint-disable-next-line react/prop-types
@@ -52,6 +51,7 @@ const CartProduct = ({ product, countProduct }) => {
           </b>
           <p className="flex items-center text-[12px] text-gray-600 mt-2 tracking-tighter">
             <img
+              loading="lazy"
               src="https://f.nooncdn.com/s/app/com/noon/icons/warranty.svg"
               alt="img-warranty"
               className=" w-[24px] mr-1"
@@ -99,4 +99,4 @@ const CartProduct = ({ product, countProduct }) => {
   );
 };
 
-export default CartProduct;
+export default ProductCart;

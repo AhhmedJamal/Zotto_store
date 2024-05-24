@@ -1,9 +1,9 @@
 import { useDispatch, useSelector } from "react-redux";
 import CartEmpty from "/assets/emptyCart.svg";
-import CartProduct from "../components/CartProduct";
-import CartCheckout from "../components/CartCheckout";
 import { useEffect, useState } from "react";
 import { getFromLocal } from "../store/cart/cartSlice";
+import ProductCart from "../components/ProductCart";
+import CheckoutCard from "../components/CheckoutCard";
 
 const Cart = () => {
   const [countProduct, setCountProduct] = useState([]);
@@ -37,7 +37,7 @@ const Cart = () => {
   }, [user]);
 
   return (
-    <div className="mt-4 flex flex-col lg:flex-row justify-between mb-10 relative ">
+    <div className="mt-4 flex flex-col lg:flex-row justify-between relative ">
       <div className="w-[100%] lg:w-[58%] ">
         <span className="text-[13px] md:text-[17px] font-bold sm:ml-0 ml-2 ">
           Shopping Cart:
@@ -50,7 +50,7 @@ const Cart = () => {
           <div className="  flex flex-col place-items-center gap-3 sm:mx-0 mx-2 mt-2 max-h-[62vdh]  overflow-scroll cartScroll">
             {cart.map((product, i) => {
               return (
-                <CartProduct
+                <ProductCart
                   key={i}
                   product={product}
                   countProduct={countProduct[i]?.count}
@@ -59,7 +59,7 @@ const Cart = () => {
             })}
           </div>
         ) : (
-          <div className="flex flex-col  items-center justify-center h-[50vh] bg-white m-4 mb-0 rounded-lg">
+          <div className="flex flex-col  items-center justify-center h-[35vh] bg-white m-4 mb-0 rounded-lg">
             <img src={CartEmpty} alt="cart" className="w-[200px]  " />
             <p className="font-bold text-[15px] text-[#37474f]">
               Your cart is empty !!
@@ -67,7 +67,7 @@ const Cart = () => {
           </div>
         )}
       </div>
-      <CartCheckout
+      <CheckoutCard
         items={cart}
         cart={cart.length}
         total={totalWithDiscount?.toLocaleString("en-US")}

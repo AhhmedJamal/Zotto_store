@@ -4,7 +4,7 @@ import Model from "./Model";
 import Checkout from "./Checkout";
 
 // eslint-disable-next-line react/prop-types
-const CartCheckout = ({ total, items }) => {
+const CheckoutCard = ({ total, items }) => {
   const [countItems, setCountItems] = useState(0);
   const [showModel, setShowModel] = useState(false);
   const calculateTotalItems = () => {
@@ -22,14 +22,14 @@ const CartCheckout = ({ total, items }) => {
   return (
     <div className=" border sticky top-[100px] border-blue-gray-100 h-fit w-[95%] m-auto lg:w-[40%]  p-5 mt-6">
       <b>Order Summary</b>
-      <div className="h-[45px] max-w-[100%] m-auto mt-3">
+      <div className="h-[30px] max-w-[100%] m-auto flex items-center gap-1 ">
         <input
           type="search"
           name="discount"
           className="h-full w-[70%] border rounded-sm px-4"
           placeholder="Coupon Code"
         />
-        <button className="h-full w-[30%] bg-primary text-white p-2 rounded-sm uppercase">
+        <button className="h-full w-[30%] bg-primary text-white  rounded-sm uppercase text-[14px] font-bold">
           APPLY
         </button>
       </div>
@@ -47,7 +47,7 @@ const CartCheckout = ({ total, items }) => {
         onClick={() => setShowModel(true)}
         className={`${
           items === 0 ? "opacity-65" : "opacity-100"
-        } bg-primary text-white p-1 rounded-sm w-full h-[50px] mt-3 uppercase`}
+        } bg-primary text-white p-1 rounded-sm w-full h-[50px] mt-3 uppercase font-bold`}
       >
         CheckOut
       </button>
@@ -70,4 +70,4 @@ const CartCheckout = ({ total, items }) => {
   );
 };
 
-export default CartCheckout;
+export default CheckoutCard;
