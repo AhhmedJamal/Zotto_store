@@ -17,7 +17,7 @@ const userSlice = createSlice({
     setUser: (state, action) => {
       const user = action.payload;
 
-      state.id = user.uid || "";
+      state.id = user.id || "";
       state.name = user.name;
       state.email = user.email || "";
       state.photoURL = user.photoURL || "";

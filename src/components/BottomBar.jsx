@@ -25,7 +25,7 @@ const BottomBar = () => {
       setIsShowBottomBar(false);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [window.location.pathname]);
+  }, [window.location.pathname, favorites]);
 
   return (
     <ul

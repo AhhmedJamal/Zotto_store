@@ -19,32 +19,33 @@ const ShimmerDetails = ({ is }) => {
   return (
     <>
       {is ? (
+        // cart shimmer for details product
         <div
           className={`h-[60vh]  lg:w-[100%] flex flex-col lg:flex-row lg:gap-10 lg:items-end  justify-between w-full relative overflow-hidden rounded-[8px]`}
         >
           <div className="w-full relative mb-[16px] overflow-hidden rounded-[8px]">
             {shimmer}
             {/* Your card content goes here */}
-            <div className="bg-[#f0f0f0] p[16px] z-[1] h-[150px] lg:h-[60vh]"></div>
+            <div className="bg-[#f0f0f0] p[16px] z-[1] h-[200px] lg:h-[60vh]"></div>
           </div>
           {/*  */}
-          <div className="h-[30vh] lg:h-[40vh] flex flex-col justify-between   lg:w-[40%]">
+          <div className="h-[25vh] lg:h-[40vh] flex flex-col justify-between   lg:w-[40%]">
             <div className="w-full relative  overflow-hidden rounded-[8px]">
               {shimmer}
               {/* Your card content goes here */}
-              <div className="bg-[#f0f0f0] p[16px] z-[1] h-[10px]"></div>
+              <div className="bg-[#f0f0f0] p[16px] z-[1] h-[15px]"></div>
             </div>
             {/*  */}
             <div className="w-full relative  overflow-hidden rounded-[8px]">
               {shimmer}
               {/* Your card content goes here */}
-              <div className="bg-[#f0f0f0] p[16px] z-[1] h-[10px]"></div>
+              <div className="bg-[#f0f0f0] p[16px] z-[1] h-[15px]"></div>
             </div>
             {/*  */}
             <div className="w-full relative mb-[30px]  overflow-hidden rounded-[8px]">
               {shimmer}
               {/* Your card content goes here */}
-              <div className="bg-[#f0f0f0] p[16px] z-[1] h-[10px]"></div>
+              <div className="bg-[#f0f0f0] p[16px] z-[1] h-[15px]"></div>
             </div>
             {/*  */}
             <div className="w-full relative mb-[16px] overflow-hidden rounded-[8px]">
@@ -55,6 +56,7 @@ const ShimmerDetails = ({ is }) => {
           </div>
         </div>
       ) : (
+        // cart shimmer for product
         <div
           className={` flex flex-col justify-between w-full relative overflow-hidden rounded-[8px]`}
         >

@@ -13,7 +13,7 @@ const MixProducts = () => {
   const user = useSelector((state) => state.user);
   useEffect(() => {
     const items =
-      JSON.parse(localStorage.getItem(`shoppingCart_${user?.uid}`)) || [];
+      JSON.parse(localStorage.getItem(`shoppingCart_${user?.id}`)) || [];
     dispatch(getFromLocal(items));
     getData();
 

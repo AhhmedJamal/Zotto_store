@@ -16,7 +16,7 @@ const CategoryPage = () => {
   useEffect(() => {
     getData();
     const items =
-      JSON.parse(localStorage.getItem(`shoppingCart_${user?.uid}`)) || [];
+      JSON.parse(localStorage.getItem(`shoppingCart_${user?.id}`)) || [];
     dispatch(getFromLocal(items));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [name, user]);

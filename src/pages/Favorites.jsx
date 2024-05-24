@@ -1,28 +1,32 @@
 import { useEffect, useState } from "react";
 import FavoriteEmpty from "/assets/EmptyFavorite.svg";
 import ShimmerDetails from "../components/Shimmer";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import ProductCard from "../components/ProductCard";
+import { getFromLocal } from "../store/cart/cartSlice";
 
 function Favorites() {
   const [isLoading, setLisLoading] = useState(false);
-  const { favorites } = useSelector((state) => state.user);
-
+  const { id, favorites } = useSelector((state) => state.user);
+  const dispatch = useDispatch();
   useEffect(() => {
+    const items = JSON.parse(localStorage.getItem(`shoppingCart_${id}`)) || [];
+    dispatch(getFromLocal(items));
     setLisLoading(true);
     setTimeout(() => {
       setLisLoading(false);
-    }, 1000);
+    }, 800);
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [id, favorites]);
   return (
-    <div className="  grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 sm:mx-0 pb-3 m-2">
+    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 sm:mx-0 pb-3 m-2 relative">
       {favorites.length !== 0 ? (
         favorites.map((favorite) => {
           return <ProductCard key={favorite.uid} product={favorite} />;
         })
       ) : (
-        <div className=" container m-auto w-[96%] absolute grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 sm:mx-0 pb-3">
+        <div className=" container m-auto w-full absolute left-0 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 sm:mx-0 pb-[60px]">
           {isLoading ? (
             <>
               <ShimmerDetails />
