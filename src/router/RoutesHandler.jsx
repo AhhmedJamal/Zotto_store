@@ -17,7 +17,7 @@ const RouterHandler = () => {
   const router = createBrowserRouter([
     {
       path: "/",
-      element: <App />, 
+      element: <App />,
       errorElement: <NotFoundPage />,
       children: [
         {

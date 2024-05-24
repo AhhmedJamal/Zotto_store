@@ -32,7 +32,12 @@ const ProductCart = ({ product, countProduct }) => {
   };
   return (
     <div className=" flex items-center gap-2 p-4  justify-around bg-white border w-full  ">
-      <img src={img} alt="img-product" className=" w-[130px] sm:w-[150px]" />
+      <img
+        src={img}
+        alt="img-product"
+        className=" w-[130px] sm:w-[150px]"
+        loading="lazy"
+      />
 
       <div className="flex flex-col sm:flex-row ">
         <div className="flex flex-col justify-around  sd: w-full sm:w-[220px]  ">
@@ -63,6 +68,7 @@ const ProductCart = ({ product, countProduct }) => {
               src="https://f.nooncdn.com/s/app/com/noon/icons/non_returnable.svg"
               alt="img-warranty"
               className=" w-[24px] mr-1"
+              loading="lazy"
             />
             This product cannot be exchanged or returned
           </p>

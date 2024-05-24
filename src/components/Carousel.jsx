@@ -26,6 +26,11 @@ const CarouselDefault = () => {
         className=" w-full h-full object-cover"
       />
       <img
+        src="https://f.nooncdn.com/mpcms/EN0003/assets/faae9ee4-beaf-4abe-b465-b8f5c0ccf728.png?format=avif"
+        alt="image 1"
+        className=" w-full h-full object-cover"
+      />
+      <img
         src="https://f.nooncdn.com/mpcms/EN0003/assets/66d013e3-3502-4b49-bd1b-cbaae4eff1b4.png?format=avif"
         alt="image 2"
         className=" w-full h-full object-cover"
@@ -36,7 +41,7 @@ const CarouselDefault = () => {
         className=" w-full h-full object-cover"
       />
       <img
-        src="https://f.nooncdn.com/mpcms/EN0003/assets/47fecc11-490d-4039-a1ca-8b8962640ea4.png?format=avif"
+        src="https://f.nooncdn.com/mpcms/EN0003/assets/8fdc9bbc-74ae-45f7-8fda-a9bee1c6f86a.gif?format=avif"
         alt="image 4"
         className=" w-full h-full object-cover"
       />

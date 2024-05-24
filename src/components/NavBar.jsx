@@ -39,7 +39,7 @@ const NavBar = () => {
         >
           <div>
             <TbBrandAmazon
-              className="absolute top-[14px] left-5 text-primary"
+              className="absolute top-[12px] left-5 text-primary"
               size={40}
             />
           </div>
@@ -67,11 +67,11 @@ const NavBar = () => {
             </div>
           </button>
 
-          <div  className="h-6 w-6 md:hidden text-dark-100 ">
+          <div className="h-6 w-6 md:hidden text-dark-100 ">
             <CgSearch size={25} className="transform rotate- " />
           </div>
         </div>
-        <div  className="hidden md:flex items-center">
+        <div className="hidden md:flex items-center">
           <input
             type="search"
             placeholder="What are you looking for ?"

@@ -7,7 +7,6 @@ import ShimmerDetails from "../components/Shimmer";
 import GetData from "../hooks/getData";
 import ProductCard from "../components/ProductCard";
 
-
 const CategoryPage = () => {
   const { name } = useParams();
   const { products, getData } = GetData(name);

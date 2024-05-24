@@ -1,15 +1,16 @@
 import { Carousel, IconButton } from "@material-tailwind/react";
 import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { GoStarFill } from "react-icons/go";
 import { addToCart, getFromLocal } from "../store/cart/cartSlice";
 import { useParams, useNavigate } from "react-router-dom";
 import ShimmerDetails from "../components/Shimmer";
 import { IoMdArrowBack } from "react-icons/io";
-import { auth, db } from "../config/firebase";
+import { db } from "../config/firebase";
 import { collection, getDocs } from "firebase/firestore";
 const DetailsProduct = () => {
   const [product, setProduct] = useState({});
+  const user = useSelector((state) => state.user);
   const router = useNavigate();
   const { id, name } = useParams();
   const dispatch = useDispatch();
@@ -26,7 +27,7 @@ const DetailsProduct = () => {
   };
   useEffect(() => {
     getData();
-    const user = auth.currentUser;
+
     const items =
       JSON.parse(localStorage.getItem(`shoppingCart_${user?.uid}`)) || [];
     dispatch(getFromLocal(items));

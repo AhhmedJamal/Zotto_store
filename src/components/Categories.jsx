@@ -13,16 +13,16 @@ const Categories = () => {
   ]);
 
   return (
-    <div className="flex justify-between gap-4 h-[40px] px-2 border mt-[75px] shadow-sm  relative bg-white">
-      <span className="absolute bottom-1 bg-primary h-[4px] w-[75px] left-[25%]"></span>
+    <div className="flex justify-between  h-[40px] px-2 border sm:mt-[83px] mt-[75px] shadow-sm  overflow-hidden relative bg-white">
       {categories &&
         categories.map((item, index) => {
           return (
             <Link
               key={index}
               to={path[index]}
-              className={`flex flex-col text-[3px] justify-center p-[5px] items-center hover:cursor-pointer ${
-                pathname == `${path[index]}` && "text-primary"
+              className={`flex flex-col text-[3px] justify-center p-[px] items-center hover:cursor-pointer my-1  transition-colors ${
+                pathname == `${path[index]}` &&
+                "text-primary  border-primary border-b-2"
               }`}
             >
               {/* <img src={icon[index]} width={20}  /> */}

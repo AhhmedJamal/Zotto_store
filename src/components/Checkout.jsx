@@ -1,13 +1,12 @@
-import { onAuthStateChanged } from "firebase/auth";
 import { useEffect, useState } from "react";
 import { CiLocationOn } from "react-icons/ci";
 import { FaCheckCircle } from "react-icons/fa";
 import { IoAddCircleOutline } from "react-icons/io5";
-import { auth } from "../config/firebase";
 import PaypalBtn from "./PaypalBtn";
+import { useSelector } from "react-redux";
 
 const Checkout = () => {
-  const [user, setUser] = useState([]);
+  const user = useSelector((state) => state.user);
   const [phone, setPhone] = useState("");
   const [save, setSave] = useState(false);
 
@@ -21,11 +20,7 @@ const Checkout = () => {
     setGovernorate(localStorage.getItem("Governorate") || "");
     setPhone(localStorage.getItem("phoneNumber") || "");
     phone !== "" ? setSave(true) : setSave(false);
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        setUser(user);
-      }
-    });
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
