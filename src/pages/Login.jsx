@@ -57,17 +57,16 @@ const Login = () => {
 
   const handleGoogle = async () => {
     try {
-      const { user } = await signInWithPopup(auth, googleProvider);
+      const result = await signInWithPopup(auth, googleProvider);
+      const user = result.user;
       const userDocRef = doc(db, "users", user.email);
       const userDocSnapshot = await getDoc(userDocRef);
       if (userDocSnapshot.exists()) {
         console.log("User exists in Firestore");
-        // User exists, do something (e.g., set user info in local storage)
         localStorage.setItem(`token=${user.uid}`, user.uid);
         console.log("User logged in successfully");
-        router("/", { replace: true }); // Assuming you have 'router' imported and it's used for navigation
+        router("/", { replace: true });
       } else {
-        // User doesn't exist, create a new document for the user
         await setDoc(userDocRef, {
           id: user.uid,
           name: user.displayName,
@@ -78,13 +77,12 @@ const Login = () => {
         });
         localStorage.setItem(`token=${user.uid}`, user.uid);
         console.log("New user added successfully");
-        router("/", { replace: true }); // Navigate to a different route after creating the user document
+        router("/", { replace: true });
       }
     } catch (error) {
       console.error("Error signing in with Google:", error.message);
     }
   };
-
   const handleFacebook = async () => {
     try {
       const result = await signInWithPopup(auth, facebookProvider);
