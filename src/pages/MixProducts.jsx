@@ -12,6 +12,12 @@ const MixProducts = () => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
   useEffect(() => {
+    console.log(import.meta.env.VITE_FIREBASE_API_KEY);
+    console.log(import.meta.env.VITE_FIREBASE_AUTH_DOMAIN);
+    console.log(import.meta.env.VITE_FIREBASE_PROJECT_ID);
+    console.log(import.meta.env.VITE_FIREBASE_STORAGE_BUCKET);
+    console.log(import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID);
+    console.log(import.meta.env.VITE_FIREBASE_APP_ID);
     const items =
       JSON.parse(localStorage.getItem(`shoppingCart_${user?.id}`)) || [];
     dispatch(getFromLocal(items));
