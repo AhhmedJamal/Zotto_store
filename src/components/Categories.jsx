@@ -26,7 +26,9 @@ const Categories = () => {
               }`}
             >
               {/* <img src={icon[index]} width={20}  /> */}
-              <span className="text-[12px] ">{item}</span>
+              <span className="text-[12px] md:text-[15px] lg:text-[17px] ">
+                {item}
+              </span>
             </Link>
           );
         })}
