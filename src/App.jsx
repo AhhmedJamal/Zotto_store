@@ -18,11 +18,6 @@ const App = () => {
     const handleBackButton = () => history.pushState(null, null, document.URL);
     window.addEventListener("popstate", handleBackButton);
 
-    // If there is no user token, redirect the user to the login page
-    if (!localStorage.getItem("token")) {
-      return router("/login");
-    }
-
     // Check if a user is found
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       try {
@@ -31,7 +26,10 @@ const App = () => {
         console.error("Error fetching document:", error);
       }
 
-      if (localStorage.getItem("token") !== user?.uid) {
+      if (
+        localStorage.getItem(`token=${user.uid}`) !== user?.uid &&
+        !localStorage.getItem(`token=${user.uid}`)
+      ) {
         toast.error("Authorization Failed !!", {
           position: toast.POSITION.BOTTOM_CENTER,
         });
