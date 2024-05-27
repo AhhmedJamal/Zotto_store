@@ -35,7 +35,7 @@ const NavBar = () => {
       <div className="relative mx-auto flex  items-center justify-between text-dark-100 px-2  sm:p-0">
         <Link
           to="/"
-          className="relative mb-1 flex text-[22px] items-center font-[800] "
+          className="relative mb-1 flex text-[22px] items-center font-[800] text-black"
         >
           <div>
             <TbBrandAmazon
@@ -45,7 +45,7 @@ const NavBar = () => {
           </div>
           ZOTTO
         </Link>{" "}
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-4">
           <button className="p-2 text-[11px]  text-start">
             <span className="ml-[2px]"> Deliver to</span>
             <br />
@@ -67,9 +67,9 @@ const NavBar = () => {
             </div>
           </button>
 
-          <div className="h-6 w-6 md:hidden text-dark-100 ">
-            <CgSearch size={25} className="transform rotate- " />
-          </div>
+          <NavLink to="/search" className="h-6 w-6 md:hidden text-dark-100 ">
+            <CgSearch size={25} className={``} />
+          </NavLink>
         </div>
         <div className="hidden md:flex items-center">
           <input
@@ -105,7 +105,7 @@ const NavBar = () => {
             Account
           </NavLink>
         </div>
-        <Link
+        <NavLink
           to="/cart"
           type="button"
           className="relative rounded-full  text-gray-400  focus:outline-none pr-2 "
@@ -118,9 +118,9 @@ const NavBar = () => {
             >
               {cartItems.length !== 0 && cartItems.length}
             </span>
-            <img src={Cart} alt="cart" className="w-6 " />
+            <img src={Cart} alt="cart" className="w-6" />
           </div>
-        </Link>
+        </NavLink>
       </div>
     </nav>
   );

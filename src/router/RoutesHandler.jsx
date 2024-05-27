@@ -12,6 +12,7 @@ import Account from "../pages/Account.jsx";
 import Forget from "../pages/Forget.jsx";
 import Favorites from "../pages/Favorites.jsx";
 import MixProducts from "../pages/MixProducts.jsx";
+import Search from "../pages/Search.jsx";
 
 const RouterHandler = () => {
   const router = createBrowserRouter([
@@ -41,6 +42,10 @@ const RouterHandler = () => {
         {
           path: "/favorites",
           element: <Favorites />,
+        },
+        {
+          path: "/search",
+          element: <Search />,
         },
         {
           path: "/:name",
