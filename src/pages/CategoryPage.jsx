@@ -4,12 +4,12 @@ import CarouselDefault from "../components/Carousel";
 import { getFromLocal } from "../store/cart/cartSlice";
 import { useDispatch, useSelector } from "react-redux";
 import ShimmerDetails from "../components/Shimmer";
-import GetData from "../hooks/getData";
 import ProductCard from "../components/ProductCard";
+import useGetData from "../hooks/getData";
 
 const CategoryPage = () => {
   const { name } = useParams();
-  const { products, getData } = GetData(name);
+  const { products, getData } = useGetData(name);
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
 

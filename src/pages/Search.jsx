@@ -1,15 +1,18 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { TiDelete } from "react-icons/ti";
 import ImageSearch from "/assets/Search.svg";
-import GetData from "../hooks/getData";
+import useGetData from "../hooks/getData";
 import ProductCard from "../components/ProductCard";
 
 const Search = () => {
   const [search, setSearch] = useState("");
-  const [data, setData] = useState([]);
   const [result, setResult] = useState([]);
   const [loading, setLoading] = useState(false);
   const refInput = useRef(null);
+  const mixProducts = useGetData("mixProducts");
+  const phones = useGetData("phones");
+  const home = useGetData("home");
+  const electrics = useGetData("electroics");
 
   const handleSearch = (e) => {
     setSearch(e.target.value);
@@ -17,15 +20,23 @@ const Search = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setLoading(true);
 
     if (search.trim() !== "") {
-      const filteredData = data.filter((product) =>
+      setLoading(true);
+      const allData = [
+        ...mixProducts.products,
+        ...phones.products,
+        ...home.products,
+        ...electrics.products,
+      ];
+      const filteredData = allData.filter((product) =>
         product.description.toLowerCase().includes(search.toLowerCase())
       );
-      setResult(filteredData);
+      setTimeout(() => {
+        setLoading(false);
+        setResult(filteredData);
+      }, 500);
     } else {
-      setResult([]);
       if (refInput.current) {
         for (let i = 0; i < 10; i++) {
           setTimeout(() => {
@@ -37,36 +48,7 @@ const Search = () => {
         }
       }
     }
-    setLoading(false);
   };
-
-  const mixProducts = GetData("mixProducts");
-  const phones = GetData("phones");
-  const home = GetData("home");
-  const electrics = GetData("electroics");
-
-  const fetchData = async () => {
-    try {
-      await mixProducts.getData();
-      await phones.getData();
-      await home.getData();
-      await electrics.getData();
-
-      setData([
-        ...mixProducts.products,
-        ...phones.products,
-        ...home.products,
-        ...electrics.products,
-      ]);
-      console.log(data);
-    } catch (error) {
-      console.error("Error fetching data:", error);
-    }
-  };
-  useEffect(() => {
-    fetchData();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   return (
     <div className="p-2">
@@ -96,13 +78,15 @@ const Search = () => {
         </button>
       </form>
       {loading ? (
-        <div>Loading...</div>
+        <div className="flex justify-center items-center flex-col h-[50vh]">
+          <span className="w-11 h-11 border-4 border-primary border-r-transparent rounded-full  animate-spin"></span>
+        </div>
       ) : result.length === 0 ? (
-        <div className="flex justify-center items-center flex-col h-[50vh] bg-white m-3 mt-9 rounded-lg">
+        <div className="flex justify-center items-center flex-col h-[60vh] bg-white m-3  rounded-lg">
           <img src={ImageSearch} alt="search" className="w-[250px]" />
         </div>
       ) : (
-        <div>
+        <div className="flex flex-col gap-4 p-4 my-3">
           {result.map((product) => (
             <ProductCard product={product} key={product.uid} />
           ))}
