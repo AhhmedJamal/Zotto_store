@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { GoStarFill } from "react-icons/go";
 import { addToCart, getFromLocal } from "../store/cart/cartSlice";
 import { useParams, useNavigate } from "react-router-dom";
-import ShimmerDetails from "../components/Shimmer";
+import Shimmer from "../components/Shimmer";
 import { IoMdArrowBack } from "react-icons/io";
 import { db } from "../config/firebase";
 import { collection, getDocs } from "firebase/firestore";
@@ -42,7 +42,7 @@ const DetailsProduct = () => {
     <div className="bg-white py-1 mt-2">
       <IoMdArrowBack
         size={30}
-        className=" m-4 p-[2px] self-start bg-gray-200 rounded-lg"
+        className=" m-4 p-[2px] self-start  rounded-lg"
         onClick={() => {
           router(-1);
         }}
@@ -156,7 +156,7 @@ const DetailsProduct = () => {
         </div>
       ) : (
         <div className="p-5 lg:p-0">
-          <ShimmerDetails is={true} />
+          <Shimmer is={true} />
         </div>
       )}
     </div>

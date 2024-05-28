@@ -1,8 +1,8 @@
-import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/effect-coverflow";
+import { Swiper, SwiperSlide } from "swiper/react";
 import {
   Autoplay,
   EffectCoverflow,
@@ -10,7 +10,7 @@ import {
   Pagination,
 } from "swiper/modules";
 
-export default () => {
+const Carousel = () => {
   return (
     <Swiper
       spaceBetween={5}
@@ -36,7 +36,7 @@ export default () => {
         prevEl: "",
       }}
       pagination={{ el: "", clickable: true }}
-      className="my-[10px] px-5 h-[160px] sm:h-fit "
+      className="p-5 h-[200px] sm:h-fit "
     >
       <SwiperSlide>
         <img
@@ -83,3 +83,5 @@ export default () => {
     </Swiper>
   );
 };
+
+export default Carousel;

@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import CarouselDefault from "../components/Carousel";
 import { getFromLocal } from "../store/cart/cartSlice";
 import { useDispatch, useSelector } from "react-redux";
-import ShimmerDetails from "../components/Shimmer";
+import Shimmer from "../components/Shimmer";
 import ProductCard from "../components/ProductCard";
 import useGetData from "../hooks/getData";
 
@@ -32,14 +32,14 @@ const CategoryPage = () => {
           })
         ) : (
           <>
-            <ShimmerDetails is={false} />
-            <ShimmerDetails is={false} />
-            <ShimmerDetails is={false} />
-            <ShimmerDetails is={false} />
-            <ShimmerDetails is={false} />
-            <ShimmerDetails is={false} />
-            <ShimmerDetails is={false} />
-            <ShimmerDetails is={false} />
+            <Shimmer is={false} />
+            <Shimmer is={false} />
+            <Shimmer is={false} />
+            <Shimmer is={false} />
+            <Shimmer is={false} />
+            <Shimmer is={false} />
+            <Shimmer is={false} />
+            <Shimmer is={false} />
           </>
         )}
       </div>

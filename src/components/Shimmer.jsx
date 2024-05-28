@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 
 // eslint-disable-next-line react/prop-types
-const ShimmerDetails = ({ is }) => {
+const Shimmer = ({ is }) => {
   const shimmer = (
     <motion.div
       initial={{ opacity: 0.5, scaleX: 0, translateX: "-100%" }}
@@ -23,7 +23,7 @@ const ShimmerDetails = ({ is }) => {
         <div
           className={`h-[60vh]  lg:w-[100%] flex flex-col lg:flex-row lg:gap-10 lg:items-end  justify-between w-full relative overflow-hidden rounded-[8px]`}
         >
-          <div className="w-full relative mb-[16px] overflow-hidden rounded-[8px]">
+          <div className="w-full  relative mb-[16px] overflow-hidden rounded-[8px]">
             {shimmer}
             {/* Your card content goes here */}
             <div className="bg-[#f0f0f0] p[16px] z-[1] h-[200px] lg:h-[60vh]"></div>
@@ -63,7 +63,7 @@ const ShimmerDetails = ({ is }) => {
           <div className="w-full relative mb-[16px] overflow-hidden rounded-[8px]">
             {shimmer}
             {/* Your card content goes here */}
-            <div className="bg-[#f0f0f0] p[16px] z-[1] h-[100px]"></div>
+            <div className="bg-[#f0f0f0] p[16px] z-[1] h-[200px]"></div>
           </div>
           {/*  */}
           <div className="w-full relative mb-[16px] overflow-hidden rounded-[8px]">
@@ -84,4 +84,4 @@ const ShimmerDetails = ({ is }) => {
   );
 };
 
-export default ShimmerDetails;
+export default Shimmer;

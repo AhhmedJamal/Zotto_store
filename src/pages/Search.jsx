@@ -1,8 +1,9 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { TiDelete } from "react-icons/ti";
 import ImageSearch from "/assets/Search.svg";
 import useGetData from "../hooks/getData";
 import ProductCard from "../components/ProductCard";
+import Shimmer from "../components/Shimmer";
 
 const Search = () => {
   const [search, setSearch] = useState("");
@@ -49,7 +50,9 @@ const Search = () => {
       }
     }
   };
-
+  useEffect(() => {
+    refInput.current.focus();
+  }, []);
   return (
     <div className="p-2 ">
       <form onSubmit={handleSubmit} className="flex justify-between w-full">
@@ -78,8 +81,15 @@ const Search = () => {
         </button>
       </form>
       {loading ? (
-        <div className="flex justify-center items-center flex-col h-[50vh]">
-          <span className="w-11 h-11 border-4 border-primary border-r-transparent rounded-full  animate-spin"></span>
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 my-3">
+          <Shimmer is={false} />
+          <Shimmer is={false} />
+          <Shimmer is={false} />
+          <Shimmer is={false} />
+          <Shimmer is={false} />
+          <Shimmer is={false} />
+          <Shimmer is={false} />
+          <Shimmer is={false} />
         </div>
       ) : result.length === 0 ? (
         <div className="flex justify-center items-center flex-col h-[60vh] mt-3 bg-white  rounded-lg">
