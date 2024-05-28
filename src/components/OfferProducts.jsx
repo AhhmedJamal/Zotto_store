@@ -10,7 +10,7 @@ const OfferProducts = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
-    <section className="bg-[#e8e8e8] text-black p-3 mt-3 mx-2 sm:mx-0">
+    <section className="bg-[#e8e8e8] text-black p-3 mx-2 sm:mx-0">
       <h2 className="font-bold text-[18px] mb-3 ">Weekend mega deals</h2>
       <div className="grid gap-3 grid-cols-2 md:grid-cols-4 place-items-center">
         {products.map((offer) => {

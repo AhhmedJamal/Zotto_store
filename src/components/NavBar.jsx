@@ -66,17 +66,8 @@ const NavBar = () => {
               </select>
             </div>
           </button>
-
-          <NavLink to="/search" className="h-6 w-6 md:hidden text-dark-100 ">
-            <CgSearch size={25} className={``} />
-          </NavLink>
         </div>
         <div className="hidden md:flex items-center">
-          <input
-            type="search"
-            placeholder="What are you looking for ?"
-            className="border placeholder:text-blue-gray-200 placeholder:text-[12px] border-blue-gray-100 px-4 h-[35px] text-[15px] rounded-md outline-none m-1 mr-7 "
-          />
           <NavLink
             to="orders"
             className="text-[9px] font-bold flex flex-col justify-center items-center m-2 mt-[10px] relative"
@@ -105,22 +96,27 @@ const NavBar = () => {
             Account
           </NavLink>
         </div>
-        <NavLink
-          to="/cart"
-          type="button"
-          className="relative rounded-full  text-gray-400  focus:outline-none pr-2 "
-        >
-          <div className="relative">
-            <span
-              className={`text-[12px] font-bold transition-all ${
-                cartItems.length == 0 ? "scale-0" : "scale-100"
-              }  absolute top-[-10px] left-3 flex justify-center items-center bg-primary text-white px-1 rounded-full`}
-            >
-              {cartItems.length !== 0 && cartItems.length}
-            </span>
-            <img src={Cart} alt="cart" className="w-6" />
-          </div>
-        </NavLink>
+        <div className="flex items-center gap-7">
+          <NavLink to="/search" className="h-6 w-6 md:hidde text-dark-100 ">
+            <CgSearch size={25} className="" />
+          </NavLink>
+          <NavLink
+            to="/cart"
+            type="button"
+            className="relative rounded-full  text-gray-400  focus:outline-none pr-2 "
+          >
+            <div className="relative">
+              <span
+                className={`text-[12px] font-bold transition-all ${
+                  cartItems.length == 0 ? "scale-0" : "scale-100"
+                }  absolute top-[-10px] left-3 flex justify-center items-center bg-primary text-white px-1 rounded-full`}
+              >
+                {cartItems.length !== 0 && cartItems.length}
+              </span>
+              <img src={Cart} alt="cart" className="w-6" />
+            </div>
+          </NavLink>
+        </div>
       </div>
     </nav>
   );

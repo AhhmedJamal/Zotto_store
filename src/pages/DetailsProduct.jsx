@@ -70,12 +70,12 @@ const DetailsProduct = () => {
                 color="white"
                 size="lg"
                 onClick={handlePrev}
-                className={`!absolute top-2/4 left-0 lg:!left-2  -translate-y-2/4  ${
+                className={`!absolute top-2/4 left-0 lg:!left-2 -translate-y-2/4  ${
                   product?.images?.length == 1 && "hidden"
                 }`}
               >
                 <svg
-                  className="w-6 h-6 text-gray-600 dark:text-white"
+                  className="w-6 h-6 text-primary"
                   aria-hidden="true"
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -94,12 +94,12 @@ const DetailsProduct = () => {
                 color="white"
                 size="lg"
                 onClick={handleNext}
-                className={`!absolute top-2/4 !right-0 lg:!right-6  -translate-y-2/4 ${
+                className={`!absolute top-2/4 !right-0 lg:!right-6 -translate-y-2/4 ${
                   product?.images?.length == 1 && "hidden"
                 }`}
               >
                 <svg
-                  className="w-6 h-6 text-gray-600 dark:text-white"
+                  className="w-6 h-6 text-primary"
                   aria-hidden="true"
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"

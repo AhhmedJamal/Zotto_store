@@ -133,15 +133,17 @@ const ProductCard = ({ product }) => {
       <CardBody className="p-4">
         <p
           onClick={window.location.pathname !== "/favorite" && handleClick}
-          className="mb-2 text-[11px] text-gray-600 overflow-hidden line-clamp-2"
+          className="mb-2 text-[11px] md:text-[15px] text-gray-600 overflow-hidden line-clamp-2"
         >
           {description}
         </p>
 
         <div className="flex items-center justify-between mt-2d">
           <div>
-            <span className="font-normal text-[11px] text-gray-700">EPG</span>
-            <span className="font-[700] text-[15px] text-blue-gray-900">
+            <span className="font-normal text-[11px] md:text-[13px] text-gray-700">
+              EPG
+            </span>
+            <span className="font-[700] text-[15px] md:text-[18px] text-blue-gray-900">
               {" "}
               {price?.toLocaleString("en-US")}
             </span>

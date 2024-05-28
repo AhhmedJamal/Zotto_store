@@ -1,57 +1,85 @@
-import { Carousel } from "@material-tailwind/react";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+import "swiper/css/effect-coverflow";
+import {
+  Autoplay,
+  EffectCoverflow,
+  Navigation,
+  Pagination,
+} from "swiper/modules";
 
-const CarouselDefault = () => {
+export default () => {
   return (
-    <Carousel
-      className=" mt-[5px] h-[120px] sm:h-fit"
-      autoplay={true}
+    <Swiper
+      spaceBetween={5}
+      effect={"coverflow"}
+      grabCursor={true}
       loop={true}
-      navigation={({ setActiveIndex, activeIndex, length }) => (
-        <div className="absolute bottom-1 left-2/4  flex -translate-x-2/4 gap-2">
-          {new Array(length).fill("").map((_, i) => (
-            <span
-              key={i}
-              className={`block h-[2px] cursor-pointer rounded-2xl transition-all content-['']  ${
-                activeIndex === i ? "w-4 bg-primary" : "w-2 bg-gray-100"
-              }`}
-              onClick={() => setActiveIndex(i)}
-            />
-          ))}
-        </div>
-      )}
+      speed={900}
+      autoplay={{
+        delay: 3000,
+        disableOnInteraction: false,
+      }}
+      slidesPerView={1}
+      coverflowEffect={{
+        rotate: 0,
+        stretch: 0,
+        depth: 100,
+        modifier: 2.5,
+        scale: 0.9,
+      }}
+      modules={[EffectCoverflow, Pagination, Navigation, Autoplay]}
+      navigation={{
+        nextEl: "",
+        prevEl: "",
+      }}
+      pagination={{ el: "", clickable: true }}
+      className="my-[10px] px-5 h-[160px] sm:h-fit "
     >
-      <img
-        src="https://f.nooncdn.com/mpcms/EN0003/assets/be624cc1-e554-4feb-8e46-feba65ab9bba.png?format=avif"
-        alt="image 1"
-        className=" w-full h-full object-cover"
-      />
-      <img
-        src="https://f.nooncdn.com/mpcms/EN0003/assets/faae9ee4-beaf-4abe-b465-b8f5c0ccf728.png?format=avif"
-        alt="image 1"
-        className=" w-full h-full object-cover"
-      />
-      <img
-        src="https://f.nooncdn.com/mpcms/EN0003/assets/66d013e3-3502-4b49-bd1b-cbaae4eff1b4.png?format=avif"
-        alt="image 2"
-        className=" w-full h-full object-cover"
-      />
-      <img
-        src="https://f.nooncdn.com/mpcms/EN0003/assets/17498f7d-bd94-468c-acd4-4a67ee52fd6a.png?format=avif"
-        alt="image 3"
-        className=" w-full h-full object-cover"
-      />
-      <img
-        src="https://f.nooncdn.com/mpcms/EN0003/assets/8fdc9bbc-74ae-45f7-8fda-a9bee1c6f86a.gif?format=avif"
-        alt="image 4"
-        className=" w-full h-full object-cover"
-      />
-      <img
-        src="https://f.nooncdn.com/mpcms/EN0003/assets/33ba9c58-f2c4-4a3e-8bc6-95e419acb9db.png?format=avif"
-        alt="image 5"
-        className=" w-full h-full object-cover"
-      />
-    </Carousel>
+      <SwiperSlide>
+        <img
+          src="https://i.pinimg.com/564x/f0/f9/e4/f0f9e45724771f16745ad3f6f640d3ce.jpg"
+          alt="image 1"
+          className="w-full h-full object-cover "
+        />
+      </SwiperSlide>
+      <SwiperSlide>
+        <img
+          src="https://i.pinimg.com/564x/42/b6/7a/42b67aacb13100865a792a92c8123efd.jpg"
+          alt="image 2"
+          className="w-full h-full object-cover "
+        />
+      </SwiperSlide>
+      <SwiperSlide>
+        <img
+          src="https://i.pinimg.com/564x/c6/4e/1b/c64e1b69ce92c0ccde06e5742134987a.jpg"
+          alt="image 3"
+          className="w-full h-full object-cover "
+        />
+      </SwiperSlide>
+      <SwiperSlide>
+        <img
+          src="https://i.pinimg.com/564x/81/1a/f3/811af3e70144ef80e15d62bde4c4e6d8.jpg"
+          alt="image 6"
+          className="w-full h-full object-cover "
+        />
+      </SwiperSlide>
+      <SwiperSlide>
+        <img
+          src="https://i.pinimg.com/564x/20/83/f2/2083f216fce13c4bd3746ebf103c647d.jpg"
+          alt="image 4"
+          className="w-full h-full object-cover "
+        />
+      </SwiperSlide>
+      <SwiperSlide>
+        <img
+          src="https://i.pinimg.com/564x/35/e3/9c/35e39c81408d7cb5c74ccb04c66d951d.jpg"
+          alt="image 5"
+          className="w-full h-full object-cover "
+        />
+      </SwiperSlide>
+    </Swiper>
   );
 };
-
-export default CarouselDefault;
