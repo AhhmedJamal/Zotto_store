@@ -14,7 +14,7 @@ import { db } from "../config/firebase";
 import { useParams } from "react-router-dom";
 import { GetDataUser } from "../store/user/user";
 const ProductCard = ({ product }) => {
-  const { uid, id, img, price, rating, description } = product;
+  const { uid, id, img, price, rating, description, category } = product;
   const router = useNavigate();
   const { name } = useParams();
   const [pathName, setPathName] = useState("");
@@ -24,9 +24,9 @@ const ProductCard = ({ product }) => {
   const { email, favorites } = useSelector((state) => state.user);
 
   const handleClick = () => {
-    location.pathname === "/"
-      ? router(`/mixProducts/${`${uid}`}`)
-      : router(`${`${uid}`}`);
+    location.pathname === "/search"
+      ? router(`/${category}/${uid}`)
+      : router(`${category}/${uid}`);
   };
 
   const getBooleanIconFavorite = async () => {

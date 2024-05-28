@@ -19,7 +19,7 @@ const RouterHandler = () => {
     {
       path: "/",
       element: <App />,
-      errorElement: <NotFoundPage />,
+
       children: [
         {
           index: true,
