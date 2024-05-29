@@ -109,7 +109,7 @@ const Carousel = () => {
         prevEl: "",
       }}
       pagination={{ el: "", clickable: true }}
-      className="py-3 px-7 h-[200px] md:h-[250px]  lg:h-fit "
+      className="py-3 px-7 md:px-11 h-[200px] md:h-[250px] lg:h-fit "
     >
       {imagesToShow.map((image, index) => (
         <SwiperSlide key={index}>

@@ -11,7 +11,6 @@ const Search = () => {
   const [result, setResult] = useState([]);
   const [loading, setLoading] = useState(false);
   const refInput = useRef(null);
-  const mixProducts = useGetData("mixProducts");
   const phones = useGetData("phones");
   const home = useGetData("home");
   const electrics = useGetData("electroics");
@@ -26,7 +25,6 @@ const Search = () => {
     if (search.trim() !== "") {
       setLoading(true);
       const allData = [
-        ...mixProducts.products,
         ...phones.products,
         ...home.products,
         ...electrics.products,

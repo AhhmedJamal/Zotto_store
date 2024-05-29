@@ -20,7 +20,7 @@ const Account = () => {
   };
 
   return (
-    <div className="px-4 flex flex-col justify-between h-[70vh] gap-4">
+    <div className="px-4 flex flex-col gap-4  h-[95vh] ">
       <div>
         <div className="flex flex-col justify-center my-[10px] bg-white p-5 rounded-md md:flex-row-reverse md:justify-around">
           <Button
@@ -62,7 +62,7 @@ const Account = () => {
 
       <iframe
         src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d377139.5122241768!2d32.20352275777219!3d30.51922198012801!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sar!2seg!4v1716663610163!5m2!1sar!2seg"
-        height="250"
+        height="150"
         className="w-full"
         allowfullscreen=""
         loading="lazy"
