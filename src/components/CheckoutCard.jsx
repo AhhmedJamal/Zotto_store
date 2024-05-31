@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-
+import { Button } from "@material-tailwind/react";
 // eslint-disable-next-line react/prop-types
 const CheckoutCard = ({ total, items, email }) => {
   const [countItems, setCountItems] = useState(0);
@@ -53,9 +53,9 @@ const CheckoutCard = ({ total, items, email }) => {
           className="h-full w-[70%] border rounded-sm px-4"
           placeholder="Coupon Code"
         />
-        <button className="h-full w-[30%] bg-primary text-white rounded-sm uppercase text-[14px] font-bold">
+        <Button className="h-fit w-[30%] bg-primary text-white rounded-sm uppercase text-[12px] font-bold p-2">
           APPLY
-        </button>
+        </Button>
       </div>
       <div className="flex items-center justify-between my-3 text-gray-600">
         <div className="text-[15px]">Subtotal ({countItems} items)</div>
@@ -63,15 +63,15 @@ const CheckoutCard = ({ total, items, email }) => {
       </div>
       <hr className="h-[2px] bg-gray-300 my-3" />
       <div className="bg-white p-2 border-2 font-bold">Total: EGP {total}</div>
-      <button
+      <Button
         disabled={countItems === 0}
         onClick={buyFunction}
         className={`${
           countItems === 0 ? "opacity-65" : "opacity-100"
-        } bg-primary text-white p-1 rounded-sm w-full h-[50px] mt-3 uppercase font-bold`}
+        } bg-primary text-white p-1 rounded-sm w-full h-[50px] mt-3 text-[15px] uppercase font-bold`}
       >
         Checkout
-      </button>
+      </Button>
     </div>
   );
 };
