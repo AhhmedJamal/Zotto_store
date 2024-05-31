@@ -5,6 +5,7 @@ import {
   signInWithEmailAndPassword,
 } from "firebase/auth";
 import { ToastContainer, toast } from "react-toastify";
+import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { FcGoogle } from "react-icons/fc";
 import { SiFacebook } from "react-icons/si";
 import { signInWithPopup } from "firebase/auth";
@@ -18,6 +19,7 @@ const Login = () => {
   const [pass, setPass] = useState("");
   const [loading, setLoading] = useState(false);
   const [select, setSelect] = useState(false);
+  const [isEyePassword, setIsEyePassword] = useState(false);
   const router = useNavigate();
 
   const handleLogin = (e) => {
@@ -115,7 +117,11 @@ const Login = () => {
       console.error(error.message);
     }
   };
-  // Render the Login component
+
+  const handleEyePassword = () => {
+    setIsEyePassword(!isEyePassword);
+  };
+
   return (
     <div className="flex flex-col md:flex-row  ">
       <div className="overflow-hidden relative w-[100%] h-[100vh] m-auto flex flex-col justify-between items-center md:bg-white md:justify-center bg-primary">
@@ -162,32 +168,45 @@ const Login = () => {
               onSubmit={handleLogin}
               className="flex flex-col justify-between items-center w-full gap-4"
             >
-              {/* Email input */}
               <input
                 type="email"
                 placeholder="Email"
-                className="input border outline-none w-[80%] p-1 rounded-md text-[15px]"
+                className="input border outline-none w-[80%] p-2 rounded-md text-[15px]"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
               />
-              {/* Password input */}
-              <input
-                type="password"
-                placeholder="Password"
-                className="input border outline-none w-[80%] p-1 rounded-md text-[15px]"
-                value={pass}
-                onChange={(e) => setPass(e.target.value)}
-                required
-              />
-              {/* Link to Forgot Password */}
+              <div className="flex relative w-[80%]">
+                <input
+                  type={isEyePassword ? "text" : "password"}
+                  placeholder="Password"
+                  className="input border outline-none w-full p-2 rounded-md text-[15px]"
+                  value={pass}
+                  onChange={(e) => setPass(e.target.value)}
+                  required
+                />
+                <div onClick={handleEyePassword}>
+                  {isEyePassword ? (
+                    <AiOutlineEyeInvisible
+                      size={21}
+                      className="absolute right-2  top-[10px] text-lightGrey "
+                    />
+                  ) : (
+                    <AiOutlineEye
+                      size={21}
+                      className="absolute right-2 top-[10px] text-lightGrey "
+                    />
+                  )}
+                </div>
+              </div>
+
               <Link
                 to="/forget"
                 className="text-gray-700 self-end mr-7 font-bold rounded-md p-1 text-[12px] underline text-end"
               >
                 Forgot Password?
               </Link>
-              {/* Submit button */}
+
               <button
                 type="submit"
                 className="bg-primary text-light rounded-2xl p-2 font-bold items-center flex justify-center w-[80%]"

@@ -6,7 +6,7 @@ import {
 import { auth, db } from "../config/firebase";
 import { ToastContainer, toast } from "react-toastify";
 import { doc, setDoc } from "firebase/firestore";
-
+import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 // eslint-disable-next-line react/prop-types
 const SignUp = ({ setSelect }) => {
   const [name, setName] = useState("");
@@ -14,6 +14,9 @@ const SignUp = ({ setSelect }) => {
   const [pass, setPass] = useState("");
   const [passConfirmation, setPassConfirmation] = useState("");
   const [loading, setLoading] = useState(false);
+  const [isEyePassword, setIsEyePassword] = useState(false);
+  const [isEyePasswordConfirmation, setIsEyePasswordConfirmation] =
+    useState(false);
 
   // Handle function for sign up
   const handleSignUp = (e) => {
@@ -92,6 +95,12 @@ const SignUp = ({ setSelect }) => {
     }
   };
 
+  const handleEyePassword = () => {
+    setIsEyePassword(!isEyePassword);
+  };
+  const handleEyePasswordConfirmation = () => {
+    setIsEyePasswordConfirmation(!isEyePasswordConfirmation);
+  };
   return (
     <div className="w-[80%] h-[268px] flex justify-center gap-3 items-center flex-col lg:flex-row relative">
       <ToastContainer />
@@ -99,43 +108,68 @@ const SignUp = ({ setSelect }) => {
         className="w-full gap-4 flex flex-col  md:ml-8"
         onSubmit={handleSignUp}
       >
-        {/* Name input */}
         <input
           type="text"
           placeholder="Name"
-          className="input border outline-none w-full p-1 rounded-md text-[14px]"
+          className="input border outline-none w-full p-2 rounded-md text-[14px]"
           value={name}
           onChange={(e) => setName(e.target.value)}
           required
         />
-        {/* Email input */}
         <input
           type="email"
           placeholder="Email"
-          className="input border outline-none w-full p-1 rounded-md text-[14px]"
+          className="input border outline-none w-full p-2 rounded-md text-[14px]"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required
         />
-        {/* Password input */}
-        <input
-          type="password"
-          placeholder="Password"
-          className="input border outline-none w-full p-1 rounded-md text-[14px]"
-          value={pass}
-          onChange={(e) => setPass(e.target.value)}
-          required
-        />
-        {/* Password confirmation input */}
-        <input
-          type="password"
-          placeholder="Confirmation Password"
-          className="input border outline-none w-full p-1 rounded-md text-[14px]"
-          value={passConfirmation}
-          onChange={(e) => setPassConfirmation(e.target.value)}
-          required
-        />
-        {/* Submit button */}
+        <div className="flex relative">
+          <input
+            type={isEyePassword ? "text" : "password"}
+            placeholder="Password"
+            className="input border outline-none w-full p-2 rounded-md text-[14px]"
+            value={pass}
+            onChange={(e) => setPass(e.target.value)}
+            required
+          />
+          <div onClick={handleEyePassword}>
+            {isEyePassword ? (
+              <AiOutlineEyeInvisible
+                size={21}
+                className="absolute right-2 top-2 text-lightGrey "
+              />
+            ) : (
+              <AiOutlineEye
+                size={21}
+                className="absolute right-2 top-2 text-lightGrey "
+              />
+            )}
+          </div>
+        </div>
+        <div className="flex relative">
+          <input
+            type={isEyePasswordConfirmation ? "text" : "password"}
+            placeholder="Confirmation Password"
+            className="input border outline-none w-full p-2 rounded-md text-[14px]"
+            value={passConfirmation}
+            onChange={(e) => setPassConfirmation(e.target.value)}
+            required
+          />
+          <div onClick={handleEyePasswordConfirmation}>
+            {isEyePasswordConfirmation ? (
+              <AiOutlineEyeInvisible
+                size={21}
+                className="absolute right-2 top-2 text-lightGrey z-10"
+              />
+            ) : (
+              <AiOutlineEye
+                size={21}
+                className="absolute right-2 top-2 text-lightGrey z-10"
+              />
+            )}
+          </div>
+        </div>
         <button
           type="submit"
           className="bg-primary text-light rounded-md p-2 font-bold items-center flex justify-center"

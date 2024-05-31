@@ -7,7 +7,6 @@ import NotFoundPage from "../pages/NotFoundPage.jsx";
 import CategoryPage from "../pages/CategoryPage.jsx";
 import DetailsProduct from "../pages/DetailsProduct.jsx";
 import Orders from "../pages/Orders.jsx";
-import Checkout from "../components/Checkout.jsx";
 import Account from "../pages/Account.jsx";
 import Forget from "../pages/Forget.jsx";
 import Favorites from "../pages/Favorites.jsx";
@@ -57,10 +56,7 @@ const RouterHandler = () => {
         },
       ],
     },
-    {
-      path: "/checkout",
-      element: <Checkout />,
-    },
+  
     {
       path: "/login",
       element: <Login />,
