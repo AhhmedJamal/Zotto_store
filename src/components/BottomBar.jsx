@@ -28,7 +28,7 @@ const BottomBar = () => {
   }, [window.location.pathname, favorites]);
 
   return (
-    <ul
+    <footer
       className={
         isShowBottomBar
           ? "hidden"
@@ -77,7 +77,7 @@ const BottomBar = () => {
         <BsPerson size={25} />
         Account
       </NavLink>
-    </ul>
+    </footer>
   );
 };
 

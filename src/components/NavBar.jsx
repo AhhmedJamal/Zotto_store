@@ -31,8 +31,8 @@ const NavBar = () => {
   };
 
   return (
-    <nav className=" fixed  z-10 pt-4 p-2 rounded-none border-none text bg-white w-full container  shadow">
-      <div className="relative mx-auto flex  items-center justify-between text-dark-100 px-2  sm:p-0">
+    <header className=" fixed  z-10 pt-4 p-2 rounded-none border-none text bg-white w-full container  shadow">
+      <nav className="relative mx-auto flex  items-center justify-between text-dark-100 px-2  sm:p-0">
         <Link
           to="/"
           className="relative mb-1 flex text-[22px] items-center font-[800] text-black"
@@ -117,8 +117,8 @@ const NavBar = () => {
             </div>
           </NavLink>
         </div>
-      </div>
-    </nav>
+      </nav>
+    </header>
   );
 };
 

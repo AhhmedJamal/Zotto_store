@@ -20,7 +20,7 @@ const MixProducts = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
   return (
-    <section>
+    <main>
       <CarouselDefault />
       {products.length !== 0 && <OfferProducts />}
 
@@ -43,7 +43,7 @@ const MixProducts = () => {
           </>
         )}
       </div>
-    </section>
+    </main>
   );
 };
 

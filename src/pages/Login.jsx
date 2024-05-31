@@ -56,35 +56,36 @@ const Login = () => {
       setLoading(false);
     }
   };
-
   const handleGoogle = async () => {
     try {
       const result = await signInWithPopup(auth, googleProvider);
       const user = result.user;
-      const userDocRef = doc(db, "users", user.email);
-      const userDocSnapshot = await getDoc(userDocRef);
-      if (userDocSnapshot.exists()) {
-        console.log("User exists in Firestore");
-        localStorage.setItem(`token=${user.uid}`, user.uid);
-        console.log("User logged in successfully");
-        router("/", { replace: true });
+      if (user) {
+        const userDocRef = doc(db, "users", user.email);
+        const userDocSnapshot = await getDoc(userDocRef);
+        if (userDocSnapshot.exists()) {
+          localStorage.setItem("token", user.uid);
+          router("/", { replace: true }); // Correct navigation method
+        } else {
+          await setDoc(userDocRef, {
+            id: user.uid,
+            name: user.displayName || "Anonymous",
+            email: user.email || "No email",
+            photoURL: user.photoURL || "",
+            favorites: [],
+          });
+          localStorage.setItem("token", user.uid);
+          console.log("New user added successfully");
+          router("/", { replace: true }); // Correct navigation method
+        }
       } else {
-        await setDoc(userDocRef, {
-          id: user.uid,
-          name: user.displayName,
-          email: user.email,
-          photoURL: user.photoURL,
-          favorites: [],
-          cart: [],
-        });
-        localStorage.setItem(`token=${user.uid}`, user.uid);
-        console.log("New user added successfully");
-        router("/", { replace: true });
+        console.error("No user information found");
       }
     } catch (error) {
       console.error("Error signing in with Google:", error.message);
     }
   };
+
   const handleFacebook = async () => {
     try {
       const result = await signInWithPopup(auth, facebookProvider);

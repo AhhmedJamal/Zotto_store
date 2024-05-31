@@ -102,12 +102,9 @@ const SignUp = ({ setSelect }) => {
     setIsEyePasswordConfirmation(!isEyePasswordConfirmation);
   };
   return (
-    <div className="w-[80%] h-[268px] flex justify-center gap-3 items-center flex-col lg:flex-row relative">
+    <div className="w-[80%] h-[284px] flex justify-center  items-center flex-col lg:flex-row relative">
       <ToastContainer />
-      <form
-        className="w-full gap-4 flex flex-col  md:ml-8"
-        onSubmit={handleSignUp}
-      >
+      <form className="w-full gap-4 flex flex-col  " onSubmit={handleSignUp}>
         <input
           type="text"
           placeholder="Name"
