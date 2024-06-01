@@ -15,30 +15,38 @@ const App = () => {
 
   useEffect(() => {
     // Prevent navigating back in the browser
-    const handleBackButton = () => history.pushState(null, null, document.URL);
+    const handleBackButton = () => {
+      history.pushState(null, null, document.URL);
+    };
     window.addEventListener("popstate", handleBackButton);
 
     // Check if a user is found
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
-      const storedToken = localStorage.getItem(`token=${user.uid}`);
-      if (user && storedToken === user.uid) {
-        try {
-          dispatch(GetDataUser(user.email));
-        } catch (error) {
-          console.error("Error fetching document:", error);
+      if (user) {
+        const storedToken = localStorage.getItem(`token=${user.uid}`);
+        if (storedToken === user.uid) {
+          try {
+            dispatch(GetDataUser(user.email));
+          } catch (error) {
+            console.error("Error fetching document:", error);
+          }
+        } else {
+          toast.error("Authorization Failed !!", {
+            position: toast.POSITION.BOTTOM_CENTER,
+          });
+          setTimeout(() => router("/login"), 5000);
         }
       } else {
-        // Handle case when user is not logged in
-        toast.error("Authorization Failed !!", {
-          position: toast.POSITION.BOTTOM_CENTER,
-        });
-        setTimeout(() => router("/login"), 5000);
+        router("/login");
       }
     });
 
-    return () => unsubscribe();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [router]);
+    return () => {
+      window.removeEventListener("popstate", handleBackButton);
+      unsubscribe();
+    };
+  }, [dispatch, router]);
+
   return (
     <div className="container m-auto overflow-y-scroll h-[100vh] sm:h-screen pb-20 sm:pb-0">
       <ToastContainer />
