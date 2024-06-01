@@ -25,7 +25,7 @@ const App = () => {
       } catch (error) {
         console.error("Error fetching document:", error);
       }
-      console.log(localStorage.getItem(`token=${user.uid}`));
+
       if (localStorage.getItem(`token=${user.uid}`) !== user?.uid) {
         toast.error("Authorization Failed !!", {
           position: toast.POSITION.BOTTOM_CENTER,

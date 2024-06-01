@@ -64,7 +64,7 @@ const Login = () => {
         const userDocRef = doc(db, "users", user.email);
         const userDocSnapshot = await getDoc(userDocRef);
         if (userDocSnapshot.exists()) {
-          localStorage.setItem("token", user.uid);
+          localStorage.setItem(`token=${user.uid}`, user.uid);
           router("/", { replace: true }); // Correct navigation method
         } else {
           await setDoc(userDocRef, {
@@ -74,7 +74,7 @@ const Login = () => {
             photoURL: user.photoURL || "",
             favorites: [],
           });
-          localStorage.setItem("token", user.uid);
+          localStorage.setItem(`token=${user.uid}`, user.uid);
           console.log("New user added successfully");
           router("/", { replace: true }); // Correct navigation method
         }
