@@ -29,6 +29,7 @@ const CheckoutCard = ({ total, items, email }) => {
         window.location.href = data.url;
         dispatch(removeAllCart(id));
       } else {
+        setLoading(false);
         const errorData = await response.json();
         console.error("Error processing payment:", errorData.error);
       }
@@ -59,7 +60,6 @@ const CheckoutCard = ({ total, items, email }) => {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.5 }}
-          // onClick={() => setLoading(false)}
           className="fixed top-0 left-0 w-full h-screen z-10  bg-[#00000090] flex justify-center items-center"
         >
           <span className="rounded-full w-11 h-11 border-4 border-r-transparent animate-spin border-primary"></span>

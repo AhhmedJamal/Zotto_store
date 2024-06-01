@@ -20,15 +20,13 @@ const ProductCart = ({ product, countProduct }) => {
   }, [countProduct]);
   const handleIncrement = () => {
     setCount(count + 1);
-
     dispatch(addToCart({ product, id_user: id }));
   };
 
   const handleDecrement = () => {
     if (count > 1) {
       setCount(count - 1);
-
-      dispatch(removeFromCart({ product, id_user: id }));
+      dispatch(removeFromCart({ uid, id_user: id }));
     }
   };
   return (

@@ -1,9 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
-import {
-  fetchSignInMethodsForEmail,
-  signInWithEmailAndPassword,
-} from "firebase/auth";
+import { signInWithEmailAndPassword } from "firebase/auth";
 import { ToastContainer, toast } from "react-toastify";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { FcGoogle } from "react-icons/fc";
@@ -58,29 +55,8 @@ const Login = () => {
   };
   const handleGoogle = async () => {
     try {
-      const result = await signInWithPopup(auth, googleProvider);
-      const user = result.user;
-      if (user) {
-        const userDocRef = doc(db, "users", user.email);
-        const userDocSnapshot = await getDoc(userDocRef);
-        if (userDocSnapshot.exists()) {
-          localStorage.setItem(`token=${user.uid}`, user.uid);
-          router("/", { replace: true }); // Correct navigation method
-        } else {
-          await setDoc(userDocRef, {
-            id: user.uid,
-            name: user.displayName || "Anonymous",
-            email: user.email || "No email",
-            photoURL: user.photoURL || "",
-            favorites: [],
-          });
-          localStorage.setItem(`token=${user.uid}`, user.uid);
-          console.log("New user added successfully");
-          router("/", { replace: true }); // Correct navigation method
-        }
-      } else {
-        console.error("No user information found");
-      }
+      const { user } = await signInWithPopup(auth, googleProvider);
+      await handleUserAuth(user);
     } catch (error) {
       console.error("Error signing in with Google:", error.message);
     }
@@ -90,35 +66,36 @@ const Login = () => {
     try {
       const result = await signInWithPopup(auth, facebookProvider);
       const user = result.user;
-      try {
-        const signInMethods = await fetchSignInMethodsForEmail(
-          auth,
-          user.email
-        );
-
-        if (!signInMethods) {
-          try {
-            await setDoc(doc(db, "users", user.email), {
-              id: user.uid,
-              name: user.displayName,
-              email: user.email,
-              photoURL: user.photoURL,
-              favorites: [],
-            });
-
-            console.log("Document added successfully");
-          } catch (e) {
-            console.error("Error adding document: ", e);
-          }
-        }
-      } catch (error) {
-        console.error(error);
-      }
+      await handleUserAuth(user);
     } catch (error) {
       console.error(error.message);
     }
   };
-
+  const handleUserAuth = async (user) => {
+    const userDocRef = doc(db, "users", user.email);
+    const userDocSnapshot = await getDoc(userDocRef);
+    if (userDocSnapshot.exists()) {
+      // User exists, do something (e.g., set user info in local storage)
+      localStorage.setItem(`token=${user.uid}`, user.uid);
+      router("/", { replace: true }); // Assuming you have 'router' imported and it's used for navigation
+    } else {
+      // User doesn't exist, create a new document for the user
+      try {
+        await setDoc(userDocRef, {
+          id: user.uid,
+          name: user.displayName,
+          email: user.email,
+          photoURL: user.photoURL,
+          favorites: [],
+        });
+        localStorage.setItem(`token=${user.uid}`, user.uid);
+        console.log("New user added successfully");
+        router("/", { replace: true }); // Navigate to a different route after creating the user document
+      } catch (e) {
+        console.error("Error adding document: ", e);
+      }
+    }
+  };
   const handleEyePassword = () => {
     setIsEyePassword(!isEyePassword);
   };
