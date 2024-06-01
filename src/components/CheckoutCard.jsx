@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Button } from "@material-tailwind/react";
+import { motion } from "framer-motion";
 // eslint-disable-next-line react/prop-types
 const CheckoutCard = ({ total, items, email }) => {
   const [countItems, setCountItems] = useState(0);
@@ -48,6 +49,19 @@ const CheckoutCard = ({ total, items, email }) => {
 
   return (
     <>
+      {loading && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.5 }}
+          // onClick={() => setLoading(false)}
+          className="fixed top-0 left-0 w-full h-screen z-10  bg-[#00000090] flex justify-center items-center"
+        >
+          <span className="rounded-full w-11 h-11 border-4 border-r-transparent animate-spin border-primary"></span>
+        </motion.div>
+      )}
+
       <div className="border sticky top-[100px] border-blue-gray-100 h-fit w-[95%] m-auto lg:w-[40%] p-5 mt-6">
         <b>Order Summary</b>
         <div className="h-[30px] max-w-[100%] m-auto flex items-center gap-1">
