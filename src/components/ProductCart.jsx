@@ -1,4 +1,5 @@
-import { useDispatch } from "react-redux";
+/* eslint-disable react/prop-types */
+import { useDispatch, useSelector } from "react-redux";
 import {
   addToCart,
   removeFromCart,
@@ -9,25 +10,25 @@ import { FaPlus } from "react-icons/fa6";
 import { FaMinus } from "react-icons/fa";
 import { useEffect, useState } from "react";
 
-// eslint-disable-next-line react/prop-types
 const ProductCart = ({ product, countProduct }) => {
-  // eslint-disable-next-line react/prop-types
   const { uid, img, title, price, priceDis, description } = product;
-  // eslint-disable-next-line react/prop-types
   const [count, setCount] = useState(countProduct);
   const dispatch = useDispatch();
+  const { id } = useSelector((state) => state.user);
   useEffect(() => {
     setCount(countProduct);
   }, [countProduct]);
   const handleIncrement = () => {
     setCount(count + 1);
-    dispatch(addToCart(product));
+
+    dispatch(addToCart({ product, id_user: id }));
   };
 
   const handleDecrement = () => {
     if (count > 1) {
       setCount(count - 1);
-      dispatch(removeFromCart(product));
+
+      dispatch(removeFromCart({ product, id_user: id }));
     }
   };
   return (
@@ -94,7 +95,9 @@ const ProductCart = ({ product, countProduct }) => {
           </div>
           <button
             className="flex items-center text-[11px] font-bold text-gray-600 "
-            onClick={() => dispatch(deleteProductCart({ id: uid }))}
+            onClick={() =>
+              dispatch(deleteProductCart({ id: uid, id_user: id }))
+            }
           >
             <RiDeleteBinLine className="text-[13px] text-gray-600 mr-1" />
             Remove

@@ -1,11 +1,14 @@
 import { useEffect, useState } from "react";
 import { Button } from "@material-tailwind/react";
 import { motion } from "framer-motion";
+import { useDispatch, useSelector } from "react-redux";
+import { removeAllCart } from "../store/cart/cartSlice";
 // eslint-disable-next-line react/prop-types
 const CheckoutCard = ({ total, items, email }) => {
   const [countItems, setCountItems] = useState(0);
   const [loading, setLoading] = useState(false);
-
+  const { id } = useSelector((state) => state.user);
+  const dispatch = useDispatch();
   const buyFunction = async () => {
     setLoading(true);
     try {
@@ -24,6 +27,7 @@ const CheckoutCard = ({ total, items, email }) => {
         setLoading(false);
         const data = await response.json();
         window.location.href = data.url;
+        dispatch(removeAllCart(id));
       } else {
         const errorData = await response.json();
         console.error("Error processing payment:", errorData.error);

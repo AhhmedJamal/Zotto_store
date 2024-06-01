@@ -21,7 +21,7 @@ const ProductCard = ({ product }) => {
   const [booleanIcon, setBooleanIcon] = useState(false);
   const dispatch = useDispatch();
 
-  const { email, favorites } = useSelector((state) => state.user);
+  const user = useSelector((state) => state.user);
 
   const handleClick = () => {
     location.pathname === "/search"
@@ -31,8 +31,8 @@ const ProductCard = ({ product }) => {
 
   const getBooleanIconFavorite = async () => {
     try {
-      if (favorites) {
-        favorites.map((item) => {
+      if (user.favorites) {
+        user.favorites.map((item) => {
           item.id === id && setBooleanIcon(true);
         });
       }
@@ -43,10 +43,13 @@ const ProductCard = ({ product }) => {
   };
   const handleDeleteFavorite = async () => {
     setBooleanIcon(false);
-    if (email) {
+    dispatch(GetDataUser(user.email));
+    if (user.email) {
       try {
-        const docRef = doc(db, "users", email);
-        const updatedFavorites = favorites.filter((item) => item.id !== id);
+        const docRef = doc(db, "users", user.email);
+        const updatedFavorites = user.favorites.filter(
+          (item) => item.id !== id
+        );
         await updateDoc(docRef, { favorites: updatedFavorites });
       } catch (error) {
         console.error("Error deleting favorite:", error);
@@ -54,17 +57,16 @@ const ProductCard = ({ product }) => {
     } else {
       console.log("User not logged in");
     }
-    dispatch(GetDataUser(email));
   };
 
   const addFavorite = async () => {
     setBooleanIcon(true);
-    dispatch(GetDataUser(email));
-    if (email) {
+    dispatch(GetDataUser(user.email));
+    if (user.email) {
       try {
-        const docRef = doc(db, "users", email);
+        const docRef = doc(db, "users", user.email);
         await updateDoc(docRef, {
-          favorites: [...favorites, { ...product, favorite: true }],
+          favorites: [...user.favorites, { ...product, favorite: true }],
         })
           .then(() => {
             console.log("updateDoc successfully");
@@ -123,7 +125,7 @@ const ProductCard = ({ product }) => {
         </div>
         <button
           onClick={() => {
-            dispatch(addToCart(product));
+            dispatch(addToCart({ product, id_user: user.id }));
           }}
           className=" m-3 w-fit bg-white p-[7px] shadow-[0_0px_15px_-1px_rgb(0,0,0,0.3)] rounded-full outline-none"
         >
