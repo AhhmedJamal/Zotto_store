@@ -55,7 +55,8 @@ const Login = () => {
   };
   const handleGoogle = async () => {
     try {
-      const { user } = await signInWithPopup(auth, googleProvider);
+      const result = await signInWithPopup(auth, googleProvider);
+      const user = result.user;
       await handleUserAuth(user);
     } catch (error) {
       console.error("Error signing in with Google:", error.message);
@@ -64,7 +65,8 @@ const Login = () => {
 
   const handleFacebook = async () => {
     try {
-      const { user } = await signInWithPopup(auth, facebookProvider);
+      const result = await signInWithPopup(auth, facebookProvider);
+      const user = result.user;
       await handleUserAuth(user);
     } catch (error) {
       console.error(error.message);
