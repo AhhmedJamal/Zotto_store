@@ -26,9 +26,9 @@ const Account = () => {
           <button
             onClick={handleLogOut}
             type="button"
-            className="bg-primary absolute top-2 right-2 md:self-center text-white rounded-md p-1 pr-[2px]  self-end shadow-[0_0px_9px_0px_rgba(0,0,0,0.3)]"
+            className="bg-primary absolute z-10 top-2 right-2 md:self-center text-white rounded-md p-1 pr-[2px]  self-end shadow-[0_0px_9px_0px_rgba(0,0,0,0.3)]"
           >
-            <IoExitOutline size={20} />
+            <IoExitOutline size={22} />
           </button>
 
           <div className="flex flex-col md:flex-row md:justify- items-center relative gap-3 ">

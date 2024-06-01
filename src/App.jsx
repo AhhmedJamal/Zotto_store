@@ -25,7 +25,7 @@ const App = () => {
       } catch (error) {
         console.error("Error fetching document:", error);
       }
-
+      console.log(localStorage.getItem(`token=${user.uid}`));
       if (localStorage.getItem(`token=${user.uid}`) !== user?.uid) {
         toast.error("Authorization Failed !!", {
           position: toast.POSITION.BOTTOM_CENTER,
@@ -40,7 +40,7 @@ const App = () => {
       unsubscribe();
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [router]);
   return (
     <div className="container m-auto overflow-y-scroll h-[100vh] sm:h-screen pb-20 sm:pb-0">
       <ToastContainer />
