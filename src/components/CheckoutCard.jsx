@@ -6,7 +6,7 @@ const CheckoutCard = ({ total, items, email }) => {
 
   const buyFunction = async () => {
     try {
-      const response = await fetch("https://zotto.onrender.com//payment", {
+      const response = await fetch("https://zotto.onrender.com/payment", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
