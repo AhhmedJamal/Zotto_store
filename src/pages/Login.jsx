@@ -119,13 +119,13 @@ const Login = () => {
             <div className="text-primary text-[18px] font-bold flex  justify-around">
               <span
                 onClick={() => setSelect(false)}
-                className={select && "text-gray-400"}
+                className={select ? "text-gray-400" : "text-primary"}
               >
                 Sign In
               </span>
               <span
                 onClick={() => setSelect(true)}
-                className={!select && "text-gray-400"}
+                className={!select ? "text-gray-400" : "text-primary"}
               >
                 Sign Up
               </span>

@@ -20,23 +20,19 @@ const App = () => {
 
     // Check if a user is found
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
-      if (user) {
+      const storedToken = localStorage.getItem(`token=${user.uid}`);
+      if (user && storedToken === user.uid) {
         try {
           dispatch(GetDataUser(user.email));
         } catch (error) {
           console.error("Error fetching document:", error);
         }
-
-        const storedToken = localStorage.getItem(`token=${user.uid}`);
-        if (storedToken !== user.uid) {
-          toast.error("Authorization Failed !!", {
-            position: toast.POSITION.BOTTOM_CENTER,
-          });
-          setTimeout(() => router("/login"), 5000);
-        }
       } else {
         // Handle case when user is not logged in
-        router("/login");
+        toast.error("Authorization Failed !!", {
+          position: toast.POSITION.BOTTOM_CENTER,
+        });
+        setTimeout(() => router("/login"), 5000);
       }
     });
 
