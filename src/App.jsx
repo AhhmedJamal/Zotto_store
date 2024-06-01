@@ -20,25 +20,27 @@ const App = () => {
 
     // Check if a user is found
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
-      try {
-        dispatch(GetDataUser(user.email));
-      } catch (error) {
-        console.error("Error fetching document:", error);
-      }
+      if (user) {
+        try {
+          dispatch(GetDataUser(user.email));
+        } catch (error) {
+          console.error("Error fetching document:", error);
+        }
 
-      if (localStorage.getItem(`token=${user.uid}`) !== user?.uid) {
-        toast.error("Authorization Failed !!", {
-          position: toast.POSITION.BOTTOM_CENTER,
-        });
-        setTimeout(() => router("/login"), 5000);
+        const storedToken = localStorage.getItem(`token=${user.uid}`);
+        if (storedToken !== user.uid) {
+          toast.error("Authorization Failed !!", {
+            position: toast.POSITION.BOTTOM_CENTER,
+          });
+          setTimeout(() => router("/login"), 5000);
+        }
+      } else {
+        // Handle case when user is not logged in
+        router("/login");
       }
     });
 
-    // Unsubscribe when the component is removed
-    return () => {
-      window.removeEventListener("popstate", handleBackButton);
-      unsubscribe();
-    };
+    return () => unsubscribe();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [router]);
   return (
