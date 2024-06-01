@@ -64,8 +64,7 @@ const Login = () => {
 
   const handleFacebook = async () => {
     try {
-      const result = await signInWithPopup(auth, facebookProvider);
-      const user = result.user;
+      const { user } = await signInWithPopup(auth, facebookProvider);
       await handleUserAuth(user);
     } catch (error) {
       console.error(error.message);
