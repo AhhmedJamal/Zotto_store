@@ -6,7 +6,7 @@ const CheckoutCard = ({ total, items, email }) => {
 
   const buyFunction = async () => {
     try {
-      const response = await fetch("https://zotto.vercel.app/payment/payment", {
+      const response = await fetch("https://localhost:3000/payment", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
