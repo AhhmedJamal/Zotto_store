@@ -14,8 +14,6 @@ const App = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const x = import.meta.env.VITE_NAME;
-    console.log(x);
     const handleBackButton = () => {
       history.pushState(null, null, document.URL);
     };
