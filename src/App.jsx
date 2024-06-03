@@ -14,22 +14,13 @@ const App = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const firebaseConfig = {
-      apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
-      authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
-      projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
-      storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
-      messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
-      appId: import.meta.env.VITE_FIREBASE_APP_ID,
-    };
-    console.log(firebaseConfig);
-    // Prevent navigating back in the browser
+    const x = import.meta.env.VITE_NAME;
+    console.log(x);
     const handleBackButton = () => {
       history.pushState(null, null, document.URL);
     };
     window.addEventListener("popstate", handleBackButton);
 
-    // Check if a user is found
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       if (user) {
         const storedToken = localStorage.getItem(`token=${user.uid}`);

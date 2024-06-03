@@ -9,6 +9,7 @@ const CheckoutCard = ({ total, items, email }) => {
   const [loading, setLoading] = useState(false);
   const { id } = useSelector((state) => state.user);
   const dispatch = useDispatch();
+  // dispatch(removeAllCart(id));
   const buyFunction = async () => {
     setLoading(true);
     try {
@@ -27,11 +28,16 @@ const CheckoutCard = ({ total, items, email }) => {
         setLoading(false);
         const data = await response.json();
         window.location.href = data.url;
-        dispatch(removeAllCart(id));
+        // لا تقم بإرسال removeAllCart هنا، انتظر نجاح الدفع
+        alert("خلصانه");
       } else {
         setLoading(false);
         const errorData = await response.json();
         console.error("Error processing payment:", errorData.error);
+        // تحقق مما إذا تم إلغاء الدفع
+        if (errorData.error === "payment_canceled") {
+          alert("احا");
+        }
       }
     } catch (error) {
       console.error("Error processing payment:", error);
