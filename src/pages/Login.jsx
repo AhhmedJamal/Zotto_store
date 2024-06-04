@@ -118,7 +118,7 @@ const Login = () => {
           }
         >
           <div className="w-[80%]">
-            <div className="text-primary text-[18px] font-bold flex  justify-around">
+            <div className="text-primary text-[18px] font-bold flex  justify-around cursor-pointer">
               <span
                 onClick={() => setSelect(false)}
                 className={select ? "text-gray-400" : "text-primary"}

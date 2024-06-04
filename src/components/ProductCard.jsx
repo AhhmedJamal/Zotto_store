@@ -24,9 +24,7 @@ const ProductCard = ({ product }) => {
   const user = useSelector((state) => state.user);
 
   const handleClick = () => {
-    location.pathname === "/search"
-      ? router(`/${category}/${uid}`)
-      : router(`${category}/${uid}`);
+    router(`/${category}/${uid}`);
   };
 
   const getBooleanIconFavorite = async () => {
