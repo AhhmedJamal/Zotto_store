@@ -69,8 +69,8 @@ const Cart = () => {
       </div>
       <CheckoutCard
         items={cart}
-        email={user.email}
         total={totalWithDiscount?.toLocaleString("en-US")}
+        totalForPayMentElement={totalWithDiscount}
       />
     </div>
   );
