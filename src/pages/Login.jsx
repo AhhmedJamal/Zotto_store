@@ -88,6 +88,7 @@ const Login = () => {
           email: user.email,
           photoURL: user.photoURL,
           favorites: [],
+          orders: [],
         });
         localStorage.setItem(`token=${user.uid}`, user.uid);
         console.log("New user added successfully");

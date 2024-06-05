@@ -11,7 +11,7 @@ const userSlice = createSlice({
     email: "",
     photoURL: "",
     favorites: [],
-    cart: [],
+    orders: [],
   },
   reducers: {
     setUser: (state, action) => {
@@ -22,7 +22,7 @@ const userSlice = createSlice({
       state.email = user.email || "";
       state.photoURL = user.photoURL || "";
       state.favorites = user.favorites || [];
-      state.cart = user.cart || [];
+      state.orders = user.orders || [];
     },
     clearUser: (state) => {
       state.id = "";
@@ -30,7 +30,7 @@ const userSlice = createSlice({
       state.email = "";
       state.photoURL = "";
       state.favorites = [];
-      state.cart = [];
+      state.orders = [];
     },
   },
 });
