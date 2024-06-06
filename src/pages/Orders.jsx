@@ -26,7 +26,7 @@ const Orders = () => {
           {orders.map((order) => (
             <div
               key={order.id}
-              className="border shadow-[0_3px_6px_0px_rgba(0,0,0,0.2)] bg-white rounded-md p-4 pb-1 mb-4"
+              className="border shadow-[0_3px_6px_0px_rgba(0,0,0,0.1)] bg-white rounded-md p-4 pb-1 mb-4"
             >
               <h2 className="text-lg mb-2 font-bold">
                 Id Order :

@@ -58,7 +58,7 @@ const BottomBar = () => {
         <div
           className={`${
             favorites?.length == 0 ? "scale-0 " : "scale-100"
-          } transition-all z-10 absolute top-[1px] right-2 `}
+          } transition-all z-10 absolute top-[1px] right-1 `}
         >
           <span
             className={`transition-all ${
