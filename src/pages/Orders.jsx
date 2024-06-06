@@ -1,13 +1,13 @@
 import { useEffect } from "react";
 import Image from "/assets/order.svg";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { GetDataUser } from "../store/user/user";
 const Orders = () => {
-  // eslint-disable-next-line no-unused-vars
-
-  const { orders } = useSelector((state) => state.user);
+  const { email, orders } = useSelector((state) => state.user);
+  const dispatch = useDispatch();
   useEffect(() => {
-    console.log(orders);
-  }, []);
+    dispatch(GetDataUser(email));
+  }, [dispatch, email]);
   return (
     <div>
       {orders.length === 0 ? (
@@ -17,26 +17,42 @@ const Orders = () => {
         </div>
       ) : (
         <div className="p-4">
-          <h1 className="text-2xl font-bold mb-4">Orders</h1>
+          <h1 className="text-2xl font-bold mb-4">
+            Orders :{" "}
+            <span className="text-gray-600 font-normal text-[19px]">
+              {orders.length} items
+            </span>
+          </h1>
           {orders.map((order) => (
-            <div key={order.id} className="border bg-white rounded-md p-4 mb-4">
+            <div
+              key={order.id}
+              className="border shadow-[0_3px_6px_0px_rgba(0,0,0,0.2)] bg-white rounded-md p-4 pb-1 mb-4"
+            >
               <h2 className="text-lg mb-2 font-bold">
                 Id Order :
-                <span className="text-gray-700 font-normal ">
+                <span className="text-gray-700 font-normal text-[16px] ml-3">
                   {order.randomName}
                 </span>
               </h2>
               {order.items.map((item) => (
-                <div key={item.uid} className="flex items-center mb-2 text-sm">
+                <div
+                  key={item.uid}
+                  className="flex items-center py-2 text-sm border-t-2 "
+                >
                   <img
+                    loading="lazy"
                     src={item.img}
                     alt={item.description}
-                    className="w-16  rounded-md mr-2"
+                    className="w-20  rounded-md mr-2"
                   />
                   <div>
-                    <p className="font-semibold">{item.description}</p>
+                    <p className="font-semibold max-w-[300px] text-[13px]">
+                      {item.description}
+                    </p>
                     <div className="flex items-center">
-                      <h2 className="text-lg font-semibold">{item.price}</h2>
+                      <h2 className="text-lg font-semibold">
+                        {item.price.toLocaleString("en-US")}
+                      </h2>
                       <p className="ml-2">x {item.count}</p>
                     </div>
                   </div>

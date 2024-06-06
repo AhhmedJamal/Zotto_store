@@ -114,6 +114,7 @@ const Carousel = () => {
       {imagesToShow.map((image, index) => (
         <SwiperSlide key={index}>
           <img
+            loading="lazy"
             src={image.src}
             alt={image.alt}
             className="w-full h-full object-coverf lg:object-contain "

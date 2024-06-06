@@ -92,7 +92,7 @@ const ProductCart = ({ product, countProduct }) => {
             </button>
           </div>
           <button
-            className="flex items-center text-[11px] font-bold text-gray-600 "
+            className="flex items-center self-end text-[11px] font-bold text-gray-600 "
             onClick={() =>
               dispatch(deleteProductCart({ id: uid, id_user: id }))
             }

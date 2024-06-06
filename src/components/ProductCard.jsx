@@ -88,7 +88,10 @@ const ProductCard = ({ product }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pathName]);
   return (
-    <Card className=" rounded-md overflow-hidden border shadow-md relative flex justify-between transition duration-300 bg-white text-black">
+    <Card
+      onClick={location.pathname !== "/favorites" && handleClick}
+      className=" rounded-md overflow-hidden border shadow-md relative flex justify-between transition duration-300 bg-white text-black"
+    >
       {location.pathname === "/favorites" ? (
         <button
           onClick={() => handleDeleteFavorite()}
@@ -110,7 +113,6 @@ const ProductCard = ({ product }) => {
       )}
 
       <img
-        onClick={location.pathname !== "/favorites" && handleClick}
         loading="lazy"
         src={img}
         alt="card-image"
