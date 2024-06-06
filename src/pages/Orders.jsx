@@ -2,9 +2,40 @@ import { useEffect } from "react";
 import Image from "/assets/order.svg";
 import { useDispatch, useSelector } from "react-redux";
 import { GetDataUser } from "../store/user/user";
+import { MdDeleteOutline } from "react-icons/md";
+
 const Orders = () => {
   const { email, orders } = useSelector((state) => state.user);
   const dispatch = useDispatch();
+
+  const getOrderDates = () => {
+    // Create a new Date object for the current date (date of ordering)
+    const currentDate = new Date();
+
+    // Add 5 days to the current date to get the delivery date
+    const deliveryDate = new Date(currentDate);
+    deliveryDate.setDate(currentDate.getDate() + 5);
+
+    // Format the current date as desired (e.g., 'YYYY-MM-DD')
+    const currentYear = currentDate.getFullYear();
+    const currentMonth = String(currentDate.getMonth() + 1).padStart(2, "0"); // Months are zero-based
+    const currentDay = String(currentDate.getDate()).padStart(2, "0");
+
+    // Format the delivery date as desired (e.g., 'YYYY-MM-DD')
+    const deliveryYear = deliveryDate.getFullYear();
+    const deliveryMonth = String(deliveryDate.getMonth() + 1).padStart(2, "0"); // Months are zero-based
+    const deliveryDay = String(deliveryDate.getDate()).padStart(2, "0");
+
+    // Return both dates
+    return {
+      orderDate: `${currentYear}-${currentMonth}-${currentDay}`,
+      deliveryDate: `${deliveryYear}-${deliveryMonth}-${deliveryDay}`,
+    };
+  };
+  const dates = getOrderDates();
+  const handleDeleteOrder = () => {
+    
+  };
   useEffect(() => {
     dispatch(GetDataUser(email));
   }, [dispatch, email]);
@@ -18,7 +49,7 @@ const Orders = () => {
       ) : (
         <div className="p-4">
           <h1 className="text-2xl font-bold mb-4">
-            Orders :{" "}
+            Orders :
             <span className="text-gray-600 font-normal text-[19px]">
               {orders.length} items
             </span>
@@ -26,18 +57,25 @@ const Orders = () => {
           {orders.map((order) => (
             <div
               key={order.id}
-              className="border shadow-[0_3px_6px_0px_rgba(0,0,0,0.1)] bg-white rounded-md p-4 pb-1 mb-4"
+              className="border shadow-[0_3px_6px_-1px_rgba(0,0,0,0.1)] bg-white rounded-md p-4 pb-1 mb-4"
             >
-              <h2 className="text-lg mb-2 font-bold">
-                Id Order :
-                <span className="text-gray-700 font-normal text-[16px] ml-3">
-                  {order.randomName}
-                </span>
-              </h2>
+              <div className="flex justify-between">
+                <h2 className="text-lg mb-2 font-bold">
+                  Id Order :
+                  <span className="text-gray-700 font-normal text-[16px] ml-3">
+                    {order.randomName}
+                  </span>
+                </h2>
+                <MdDeleteOutline
+                  size={25}
+                  className="cursor-pointer"
+                  onClick={handleDeleteOrder}
+                />
+              </div>
               {order.items.map((item) => (
                 <div
                   key={item.uid}
-                  className="flex items-center py-2 text-sm border-t-2 "
+                  className="flex items-center justify-center gap-7 py-2 text-sm border-t-2 "
                 >
                   <img
                     loading="lazy"
@@ -46,14 +84,18 @@ const Orders = () => {
                     className="w-20  rounded-md mr-2"
                   />
                   <div>
-                    <p className="font-semibold max-w-[300px] text-[13px]">
+                    <p className="font-semibold max-w-[300px] text-[12px] text-gray-900">
                       {item.description}
                     </p>
-                    <div className="flex items-center">
-                      <h2 className="text-lg font-semibold">
+                    <div className="flex items-center mt-1">
+                      <h2 className="text-md font-semibold">
                         {item.price.toLocaleString("en-US")}
                       </h2>
                       <p className="ml-2">x {item.count}</p>
+                    </div>
+                    <div className="flex gap-5 text-gray-600 text-[12px] lg:text-[15px] leading-4 line-clamp-none my-2">
+                      <span>Order Date: {dates.orderDate}</span>
+                      <span>Delivery Date: {dates.deliveryDate}</span>
                     </div>
                   </div>
                 </div>

@@ -49,7 +49,7 @@ const DetailsProduct = () => {
         <div className="p-3 pt-0 mt-4 lg:flex justify-around items-center lg:mt-[10px] ">
           <IoMdArrowBack
             size={30}
-            className=" m-1 p-[2px] self-start top-0 left-0  rounded-lg absolute z-20 md:hidden"
+            className=" m-1 p-[2px] self-start top-0 left-0  rounded-lg absolute  md:hidden"
             onClick={() => {
               router(-1);
             }}
