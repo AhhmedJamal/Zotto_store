@@ -89,13 +89,12 @@ const ProductCard = ({ product }) => {
   }, [pathName]);
   return (
     <Card
-      onClick={location.pathname !== "/favorites" && handleClick}
       className=" rounded-md overflow-hidden border shadow-md relative flex justify-between transition duration-300 bg-white text-black"
     >
       {location.pathname === "/favorites" ? (
         <button
           onClick={() => handleDeleteFavorite()}
-          className=" m-2 w-fit bg-white p-[6px] shadow-[0_0px_15px_-1px_rgb(0,0,0,0.3)] rounded-full outline-none z-10"
+          className=" m-2 w-fit bg-white p-[6px] shadow-[0_0px_15px_-1px_rgb(0,0,0,0.3)] rounded-full outline-none"
         >
           <AiTwotoneDelete size={20} />
         </button>
@@ -115,6 +114,7 @@ const ProductCard = ({ product }) => {
       <img
         loading="lazy"
         src={img}
+        onClick={location.pathname !== "/favorites" && handleClick}
         alt="card-image"
         className=" w-[120px] m-auto"
       />
