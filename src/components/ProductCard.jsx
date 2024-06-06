@@ -95,7 +95,7 @@ const ProductCard = ({ product }) => {
       {location.pathname === "/favorites" ? (
         <button
           onClick={() => handleDeleteFavorite()}
-          className=" m-2 w-fit bg-white p-[6px] shadow-[0_0px_15px_-1px_rgb(0,0,0,0.3)] rounded-full outline-none"
+          className=" m-2 w-fit bg-white p-[6px] shadow-[0_0px_15px_-1px_rgb(0,0,0,0.3)] rounded-full outline-none z-10"
         >
           <AiTwotoneDelete size={20} />
         </button>
