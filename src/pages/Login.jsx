@@ -108,8 +108,8 @@ const Login = () => {
       <div className="overflow-hidden relative w-[100%] h-[100vh] m-auto flex flex-col justify-between items-center md:bg-white md:justify-center bg-primary">
         <ToastContainer />
         <div className="flex justify-center items-center flex-col font-bold text-white md:text-primary md:mb-11 relative w-fit">
-          <h1 className="text-[45px] text-center">ZOTTO</h1>
-          <span className="self-end text-[20px] absolute -bottom-[10px]">
+          <h1 className="text-[35px] md:text-[45px] text-center">ZOTTO</h1>
+          <span className="self-end text-[17px] md:text-[17px] absolute -bottom-[10px]">
             Store
           </span>
         </div>
@@ -221,9 +221,9 @@ const Login = () => {
           )}
         </div>
       </div>
-      <div className="hidden md:flex justify-center items-center w-[50%] bg-primary">
+      {/* <div className="hidden md:flex justify-center items-center w-[50%] bg-primary">
         <img src={Image} />
-      </div>
+      </div> */}
     </div>
   );
 };
