@@ -22,7 +22,7 @@ const CheckoutCard = ({ total, items, totalForPayMentElement }) => {
 
   return (
     <>
-      <div className="border sticky top-[100px] border-blue-gray-100 h-fit w-[95%] m-auto lg:w-[40%] p-5 mt-6">
+      <div className="border sticky rounded-lg border-blue-gray-100 h-fit w-[95%] m-auto lg:w-[40%] p-5 mt-3 lg:mt-[34px]">
         <b>Order Summary</b>
         <div className="h-[30px] max-w-[100%] m-auto flex items-center gap-1">
           <input

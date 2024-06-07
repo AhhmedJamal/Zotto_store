@@ -30,7 +30,7 @@ const ProductCart = ({ product, countProduct }) => {
     }
   };
   return (
-    <div className=" flex items-center gap-2 p-4  justify-around bg-white border w-full  ">
+    <div className=" flex items-center gap-2 p-4  justify-around bg-white border w-full rounded-lg">
       <img
         src={img}
         alt="img-product"
@@ -38,8 +38,8 @@ const ProductCart = ({ product, countProduct }) => {
         loading="lazy"
       />
 
-      <div className="flex flex-col sm:flex-row ">
-        <div className="flex flex-col justify-around  sd: w-full sm:w-[220px]  ">
+      <div className="flex flex-col sm:flex-row gap-8">
+        <div className="flex flex-col justify-around sd: w-full sm:w-[220px]">
           <h1 className="overflow-hidden line-clamp-2 text-gray-500 text-[13px] mb-2 sm:mt-0 mt-4">
             {title}
           </h1>
@@ -72,16 +72,16 @@ const ProductCart = ({ product, countProduct }) => {
             This product cannot be exchanged or returned
           </p>
         </div>
-        <div className="flex flex-row justify-between mt-2 sm:ml-8 text-[12px] sm:text-[15px] sm:flex-col">
+        <div className="flex justify-between mt-2 text-[12px] sm:text-[15px] sm:flex-col">
           <div id="numbers" value={count}>
             <button
               className="text-blue-gray-800 m-1 rounded-full "
               onClick={handleDecrement}
             >
-              <FaMinus />
+              <FaMinus size={13} />
             </button>
 
-            <span className="border border-gray-300 w-fit p-2 mx-2 text-[15px] text-gray-800 bg-[#F7F9FE]">
+            <span className="border border-gray-300 w-fit p-2 mx-2 text-[15px] text-gray-800 bg-[#F7F9FE] rounded-md">
               {count}
             </span>
             <button

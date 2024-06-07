@@ -14,8 +14,7 @@ const NavBar = () => {
   const [selectedOption, setSelectedOption] = useState(
     Governorate !== null ? Governorate : ""
   );
-
-  const cartItems = useSelector((state) => state.cart.items);
+  const { user, cart } = useSelector((state) => state);
   const options = [
     { value: "Cairo", text: "Cairo" },
     { value: "Giza", text: "Giza" },
@@ -31,7 +30,7 @@ const NavBar = () => {
   };
 
   return (
-    <header className=" fixed  z-10 pt-4 p-2 rounded-none border-none text bg-white w-full container  shadow">
+    <header className=" fixed  z-20 pt-4 p-2 rounded-none border-none text bg-white w-full container  shadow">
       <nav className="relative mx-auto flex  items-center justify-between text-dark-100 px-2  sm:p-0">
         <Link
           to="/"
@@ -81,10 +80,23 @@ const NavBar = () => {
           </NavLink>
           <NavLink
             color="blue-gray"
-            className="flex items-center flex-col text-[9px] font-bold  text-start  p-2 "
+            className="flex items-center flex-col text-[9px] font-bold  text-start  p-2 relative group"
             to={"/favorites"}
           >
             <IoMdHeartEmpty size={25} />
+            <div
+              className={`${
+                user.favorites?.length == 0 ? "scale-0 " : "scale-100"
+              } transition-all z-10 absolute top-2 right-4 `}
+            >
+              <span
+                className={`transition-all ${
+                  user.favorites?.length !== 0
+                    ? "group-hover:scale-0"
+                    : "group-hover:scale-100"
+                } w-2 h-2 flex items-center pt-[2px] justify-center rounded-full bg-primary text-white `}
+              ></span>
+            </div>
             Favorites
           </NavLink>
           <NavLink
@@ -108,10 +120,10 @@ const NavBar = () => {
             <div className="relative">
               <span
                 className={`text-[12px] font-bold transition-all ${
-                  cartItems.length == 0 ? "scale-0" : "scale-100"
+                  cart.items.length == 0 ? "scale-0" : "scale-100"
                 }  absolute top-[-10px] left-3 flex justify-center items-center bg-primary text-white px-1 rounded-full`}
               >
-                {cartItems.length !== 0 && cartItems.length}
+                {cart.items.length !== 0 && cart.items.length}
               </span>
               <img src={Cart} alt="cart" className="w-6" />
             </div>

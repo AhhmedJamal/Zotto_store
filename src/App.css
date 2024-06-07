@@ -3,9 +3,7 @@
 @import "tailwindcss/utilities";
 
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+  @apply m-0 p-0 box-border;
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
@@ -14,15 +12,20 @@
   display: none;
 }
 *::selection {
-  user-select: none;
-  background-color: #e61030;
-  color: white;
+  @apply select-none bg-[#e61030] text-white;
 }
 
 body {
-  background-color: #f7f7fa;
+  @apply bg-[#f7f7fa];
 }
 
 .active {
-  color: #e61030 !important;
+  @apply !text-[#e61030];
+}
+
+.alert {
+  @apply bg-[#7f7f7f67];
+}
+.react-confirm-alert-body {
+  @apply rounded-lg bg-white p-5 font-bold w-full lg:p-9 lg:text-[25px];
 }

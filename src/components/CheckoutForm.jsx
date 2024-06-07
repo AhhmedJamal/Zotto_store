@@ -6,6 +6,7 @@ import { Button } from "@material-tailwind/react";
 import { removeAllCart } from "../store/cart/cartSlice";
 import { db } from "../config/firebase";
 import { doc, updateDoc } from "firebase/firestore";
+import { confirmAlert } from "react-confirm-alert";
 
 // eslint-disable-next-line react/prop-types
 const CheckoutForm = ({ totalForPayMentElement }) => {
@@ -28,6 +29,31 @@ const CheckoutForm = ({ totalForPayMentElement }) => {
     }
     return result;
   };
+  const getOrderDates = () => {
+    // Create a new Date object for the current date (date of ordering)
+    const currentDate = new Date();
+
+    // Add 5 days to the current date to get the delivery date
+    const deliveryDate = new Date(currentDate);
+    deliveryDate.setDate(currentDate.getDate() + 5);
+
+    // Format the current date as desired (e.g., 'YYYY-MM-DD')
+    const currentYear = currentDate.getFullYear();
+    const currentMonth = String(currentDate.getMonth() + 1).padStart(2, "0"); // Months are zero-based
+    const currentDay = String(currentDate.getDate()).padStart(2, "0");
+
+    // Format the delivery date as desired (e.g., 'YYYY-MM-DD')
+    const deliveryYear = deliveryDate.getFullYear();
+    const deliveryMonth = String(deliveryDate.getMonth() + 1).padStart(2, "0"); // Months are zero-based
+    const deliveryDay = String(deliveryDate.getDate()).padStart(2, "0");
+
+    // Return both dates
+    return {
+      orderDate: `${currentYear}-${currentMonth}-${currentDay}`,
+      deliveryDate: `${deliveryYear}-${deliveryMonth}-${deliveryDay}`,
+    };
+  };
+  const dates = getOrderDates();
   useEffect(() => {
     if (totalForPayMentElement === 0) return;
     fetch("https://zotto.onrender.com/create-payment-intent", {
@@ -70,14 +96,13 @@ const CheckoutForm = ({ totalForPayMentElement }) => {
       } else {
         if (result.paymentIntent.status === "succeeded") {
           console.log("Payment succeeded!");
-
           const docRef = doc(db, "users", email);
           const currentOrders = orders || [];
 
           await updateDoc(docRef, {
             orders: [
-              ...currentOrders, // Keep the old orders
-              { randomName: randomID(10), items: [...cart] }, // Add the new order
+              ...currentOrders,
+              { dates: dates, randomName: randomID(10), items: [...cart] }, // Add the new order
             ],
           })
             .then(() => {
@@ -86,7 +111,24 @@ const CheckoutForm = ({ totalForPayMentElement }) => {
             .catch((error) => {
               console.error("Error updateDoc document:", error);
             });
-          router("/orders");
+
+          confirmAlert({
+            overlayClassName: "alert",
+            title: "The order is successfully ✅",
+
+            buttons: [
+              {
+                label: "Check The Order !",
+                onClick: async () => {
+                  router("/orders");
+                },
+              },
+              {
+                label: "No",
+                onClick: () => {},
+              },
+            ],
+          });
           dispatch(removeAllCart(id));
           setLoading(false);
         }
@@ -108,7 +150,7 @@ const CheckoutForm = ({ totalForPayMentElement }) => {
           type="submit"
         >
           <span className="text-[17px]">
-            {totalForPayMentElement === 0 ? "No Items To Pay" : "Pay"}
+            {totalForPayMentElement === 0 ? "No Items To Pay" : "Pay 💵"}
           </span>
         </Button>
       </form>
