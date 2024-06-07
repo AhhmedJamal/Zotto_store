@@ -14,8 +14,14 @@ import useGetData from "../hooks/getData";
 
 const Carousel = () => {
   const [isMobile, setIsMobile] = useState(false);
+  const [loading, setLoading] = useState(false);
+
   const { products } = useGetData("Carousel");
   useEffect(() => {
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+    }, 2000);
     const handleResize = () => {
       setIsMobile(window.innerWidth < 769);
     };
@@ -24,6 +30,7 @@ const Carousel = () => {
     handleResize();
 
     return () => window.removeEventListener("resize", handleResize);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const imagesToShow = isMobile
@@ -31,44 +38,52 @@ const Carousel = () => {
     : products[0]?.images.imageDesktop;
 
   return (
-    <Swiper
-      spaceBetween={5}
-      effect={"coverflow"}
-      grabCursor={true}
-      slidesPerView={1}
-      slidesPerGroup={1}
-      loop={true}
-      speed={900}
-      autoplay={{
-        delay: 3000,
-        disableOnInteraction: false,
-      }}
-      coverflowEffect={{
-        rotate: 0,
-        stretch: 0,
-        depth: 100,
-        modifier: 2.5,
-        scale: 0.9,
-      }}
-      modules={[EffectCoverflow, Pagination, Navigation, Autoplay]}
-      navigation={{
-        nextEl: "",
-        prevEl: "",
-      }}
-      pagination={{ el: "", clickable: true }}
-      className="py-3 px-7 md:px-11 h-[200px] md:h-[250px] lg:h-fit "
-    >
-      {imagesToShow?.map((image, index) => (
-        <SwiperSlide key={index}>
-          <img
-            loading="lazy"
-            src={image}
-            alt={`image Carousel ${index}`}
-            className="w-full h-full object-coverf lg:object-contain "
-          />
-        </SwiperSlide>
-      ))}
-    </Swiper>
+    <>
+      {loading ? (
+        <div className="w-[85%] h-[176px] bg-[#e0e0e0] m-auto flex animate-pulse my-3"></div>
+      ) : (
+        <Swiper
+          spaceBetween={5}
+          effect={"coverflow"}
+          grabCursor={true}
+          slidesPerView={1}
+          slidesPerGroup={1}
+          loop={true}
+          speed={900}
+          autoplay={{
+            delay: 3000,
+            disableOnInteraction: false,
+          }}
+          coverflowEffect={{
+            rotate: 0,
+            stretch: 0,
+            depth: 100,
+            modifier: 2.5,
+            scale: 0.9,
+          }}
+          modules={[EffectCoverflow, Pagination, Navigation, Autoplay]}
+          navigation={{
+            nextEl: "",
+            prevEl: "",
+          }}
+          pagination={{ el: "", clickable: true }}
+          className="py-3 px-7 md:px-11 h-[200px] md:h-[250px] lg:h-fit relative "
+        >
+          <>
+            {imagesToShow?.map((image, index) => (
+              <SwiperSlide key={index}>
+                <img
+                  loading="lazy"
+                  src={image}
+                  alt={`image Carousel ${index}`}
+                  className="w-full h-full object-coverf lg:object-contain "
+                />
+              </SwiperSlide>
+            ))}
+          </>
+        </Swiper>
+      )}
+    </>
   );
 };
 

@@ -10,6 +10,7 @@ import { doc, getDoc, setDoc } from "firebase/firestore";
 import SignUp from "../components/SignUp";
 import Image from "/assets/auth.png";
 import { auth, db, facebookProvider, googleProvider } from "../config/firebase";
+import { Button } from "@material-tailwind/react";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -122,18 +123,18 @@ const Login = () => {
             <div className="text-primary text-[18px] font-bold flex  justify-around cursor-pointer">
               <span
                 onClick={() => setSelect(false)}
-                className={select ? "text-gray-400" : "text-primary"}
+                className={select ? "text-gray-600" : "text-primary"}
               >
                 Sign In
               </span>
               <span
                 onClick={() => setSelect(true)}
-                className={!select ? "text-gray-400" : "text-primary"}
+                className={!select ? "text-gray-600" : "text-primary"}
               >
                 Sign Up
               </span>
             </div>
-            <div className="bg-gray-400 relative h-1 w-full mt-1 cursor-pointer">
+            <div className="bg-gray-600 relative h-1 w-full mt-1 cursor-pointer">
               <span
                 className={`bg-primary w-1/2 h-1 absolute transition-all duration-300 ease-in-out ${
                   select ? "left-1/2" : "left-0"
@@ -199,27 +200,29 @@ const Login = () => {
               </button>
               <div className="h-[1px] my-2 bg-gray-500 w-[80%] after:content-['or'] after:font-bold after:border after:border-gray-600  after:relative after:top-[-12px] after:left-[45%] after:bg-[#F7F7FA] after:w-fit after:p-1 after:rounded-full"></div>
               <div className="flex justify-center gap-2">
-                <button
+                <Button
+                  aria-label="Button Google"
                   onClick={handleGoogle}
                   type="button"
                   className="bg-gray-200 text-[14px]  rounded-md p-2 font-bold items-center flex gap-2 justify-center"
                 >
                   <FcGoogle size={24} />
-                </button>
-                <button
+                </Button>
+                <Button
+                  aria-label="Button Facebook"
                   onClick={handleFacebook}
                   type="button"
                   className="bg-gray-200  text-[14px]  rounded-md p-2 font-bold items-center flex gap-2 justify-center"
                 >
                   <SiFacebook size={24} className="text-[#1877F2]" />
-                </button>
+                </Button>
               </div>
             </form>
           )}
         </div>
       </div>
       <div className="hidden md:flex justify-center items-center w-[50%] bg-primary">
-        <img src={Image} alt="" className="" />
+        <img src={Image} />
       </div>
     </div>
   );
