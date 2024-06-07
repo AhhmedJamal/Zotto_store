@@ -14,7 +14,8 @@ const NavBar = () => {
   const [selectedOption, setSelectedOption] = useState(
     Governorate !== null ? Governorate : ""
   );
-  const { user, cart } = useSelector((state) => state);
+  const user = useSelector((state) => state.user);
+  const cart = useSelector((state) => state.cart);
   const options = [
     { value: "Cairo", text: "Cairo" },
     { value: "Giza", text: "Giza" },

@@ -27,5 +27,5 @@ body {
   @apply bg-[#7f7f7f67];
 }
 .react-confirm-alert-body {
-  @apply rounded-lg bg-white p-5 font-bold w-full lg:p-9 lg:text-[25px];
+  @apply rounded-lg bg-white p-7 font-bold w-full text-[18px] lg:p-11 lg:text-[25px];
 }

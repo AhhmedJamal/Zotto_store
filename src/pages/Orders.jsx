@@ -6,6 +6,7 @@ import { MdDeleteOutline } from "react-icons/md";
 import { confirmAlert } from "react-confirm-alert";
 import { db } from "../config/firebase";
 import { doc, updateDoc } from "firebase/firestore";
+import { Button } from "@material-tailwind/react";
 
 const Orders = () => {
   const { email, orders } = useSelector((state) => state.user);
@@ -60,18 +61,20 @@ const Orders = () => {
                 key={order.randomName}
                 className="border shadow-[0_3px_6px_-1px_rgba(0,0,0,0.1)] bg-white rounded-md p-4 pb-1"
               >
-                <div className="flex justify-between">
+                <div className="flex justify-between mb-2">
                   <h2 className="text-lg mb-2 font-bold">
                     Id Order :
                     <span className="text-gray-700 font-normal text-[16px] ml-3">
                       {order.randomName}
                     </span>
                   </h2>
-                  <MdDeleteOutline
-                    size={25}
-                    className="cursor-pointer hover:text-primary transition-colors"
-                    onClick={() => handleDeleteOrder(order.randomName)}
-                  />
+                  <Button className="p-1 bgt h-fit bg-[#f7f7fa] text-black">
+                    <MdDeleteOutline
+                      size={25}
+                      className="cursor-pointer hover:text-primary transition-colors"
+                      onClick={() => handleDeleteOrder(order.randomName)}
+                    />
+                  </Button>
                 </div>
                 {order.items.map((item) => (
                   <div
