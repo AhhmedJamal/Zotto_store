@@ -19,7 +19,8 @@ const ProductCard = ({ product }) => {
   const { name } = useParams();
   const [pathName, setPathName] = useState("");
   const [booleanIcon, setBooleanIcon] = useState(false);
-  const [isAnimating, setIsAnimating] = useState(false);
+  const [isAnimationFavorite, setIsAnimationFavorite] = useState(false);
+  const [isAnimationCart, setIsAnimationCart] = useState(false);
   const dispatch = useDispatch();
 
   const user = useSelector((state) => state.user);
@@ -80,8 +81,8 @@ const ProductCard = ({ product }) => {
   };
 
   const handleFavorite = () => {
-    setIsAnimating(true);
-    setTimeout(() => setIsAnimating(false), 600);
+    setIsAnimationFavorite(true);
+    setTimeout(() => setIsAnimationFavorite(false), 600);
     booleanIcon ? handleDeleteFavorite() : addFavorite();
   };
 
@@ -107,7 +108,9 @@ const ProductCard = ({ product }) => {
           onClick={handleFavorite}
           className="m-2 w-fit bg-white p-[6px] shadow-[0_0px_15px_-1px_rgb(0,0,0,0.3)] rounded-full outline-none"
         >
-          <div className={` ${isAnimating ? "animate-favorite-icon" : ""}`}>
+          <div
+            className={` ${isAnimationFavorite ? "animate-favorite-icon" : ""}`}
+          >
             {booleanIcon ? (
               <MdOutlineFavorite size={20} className="text-primary" />
             ) : (
@@ -131,13 +134,17 @@ const ProductCard = ({ product }) => {
         </div>
         <button
           onClick={() => {
+            setIsAnimationCart(true);
+            setTimeout(() => setIsAnimationCart(false), 600);
             dispatch(addToCart({ product, id_user: user.id }));
           }}
-          className=" mx-3 w-fit bg-white p-[7px] shadow-[0_0px_15px_-1px_rgb(0,0,0,0.3)] rounded-full outline-none"
+          className="mx-3 w-fit bg-white p-[7px] shadow-[0_0px_15px_-1px_rgb(0,0,0,0.3)] rounded-full outline-none "
         >
           <MdAddShoppingCart
             size={20}
-            className="text-gray-700 hover:text-primary hover:scale-90 transition-all"
+            className={`text-gray-700 ${
+              isAnimationCart ? "animate-favorite-icon" : ""
+            }`}
           />
         </button>
       </div>
