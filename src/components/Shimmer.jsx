@@ -7,77 +7,81 @@ const Shimmer = ({ is }) => {
       initial={{ opacity: 0.5, scaleX: 0, translateX: "-100%" }}
       animate={{ opacity: 1, scaleX: 1, translateX: "100%" }}
       transition={{ repeat: Infinity, duration: 1.5, ease: "easeInOut" }}
-      style={{
-        width: "100%",
-        height: "100%",
-        background: "linear-gradient(90deg, transparent, #e0e0e0, transparent)",
-        position: "absolute",
-      }}
+      className="absolute inset-0 bg-gradient-to-r from-transparent via-white to-transparent"
     />
   );
 
   return (
     <>
       {is ? (
-        // cart shimmer for details product
-        <div
-          className={`h-[60vh]  lg:w-[100%] flex flex-col lg:flex-row lg:gap-10 lg:items-end  justify-between w-full relative overflow-hidden rounded-[8px]`}
-        >
-          <div className="w-full  relative mb-[16px] overflow-hidden rounded-[8px]">
+        <div className="h-[70vh] lg:w-full flex flex-col lg:flex-row lg:gap-10 lg:items-end  w-full relative overflow-hidden rounded-lg">
+          <div className="w-full relative mb-4 overflow-hidden rounded-lg">
             {shimmer}
-            {/* Your card content goes here */}
-            <div className="bg-[#f0f0f0] p[16px] z-[1] h-[200px] lg:h-[60vh]"></div>
+            <div className="bg-gray-200 h-[260px] lg:h-[60vh]"></div>
           </div>
-          {/*  */}
-          <div className="h-[25vh] lg:h-[40vh] flex flex-col justify-between   lg:w-[40%]">
-            <div className="w-full relative  overflow-hidden rounded-[8px]">
-              {shimmer}
-              {/* Your card content goes here */}
-              <div className="bg-[#f0f0f0] p[16px] z-[1] h-[15px]"></div>
+
+          <div className="h-[40vh] lg:h-[40vh] flex flex-col justify-between lg:w-[40%] gap-2">
+            <div className="flex justify-center  gap-6 mb-6">
+              {[...Array(3)].map((_, index) => (
+                <div
+                  key={index}
+                  className="w-fit relative overflow-hidden rounded-lg z-10 "
+                >
+                  {shimmer}
+                  <div className="bg-gray-200 h-[100px] w-[60px] "></div>
+                </div>
+              ))}
             </div>
-            {/*  */}
-            <div className="w-full relative  overflow-hidden rounded-[8px]">
+            {[...Array(2)].map((_, index) => (
+              <div
+                key={index}
+                className="w-full relative mb-4 overflow-hidden rounded-lg"
+              >
+                {shimmer}
+                <div className="bg-gray-200 h-[15px]"></div>
+              </div>
+            ))}
+            <div className="w-full relative mb-4 overflow-hidden rounded-lg">
               {shimmer}
-              {/* Your card content goes here */}
-              <div className="bg-[#f0f0f0] p[16px] z-[1] h-[15px]"></div>
-            </div>
-            {/*  */}
-            <div className="w-full relative mb-[30px]  overflow-hidden rounded-[8px]">
-              {shimmer}
-              {/* Your card content goes here */}
-              <div className="bg-[#f0f0f0] p[16px] z-[1] h-[15px]"></div>
-            </div>
-            {/*  */}
-            <div className="w-full relative mb-[16px] overflow-hidden rounded-[8px]">
-              {shimmer}
-              {/* Your card content goes here */}
-              <div className="bg-[#f0f0f0] p[16px] z-[1] h-[40px]"></div>
+              <div className="bg-gray-200 h-[40px]"></div>
             </div>
           </div>
         </div>
       ) : (
-        // cart shimmer for product
-        <div
-          className={` flex flex-col justify-between w-full relative overflow-hidden rounded-[8px]`}
-        >
-          <div className="w-full relative mb-[16px] overflow-hidden rounded-[8px]">
-            {shimmer}
-            {/* Your card content goes here */}
-            <div className="bg-[#f0f0f0] p[16px] z-[1] h-[200px]"></div>
-          </div>
-          {/*  */}
-          <div className="w-full relative mb-[16px] overflow-hidden rounded-[8px]">
-            {shimmer}
-            {/* Your card content goes here */}
-            <div className="bg-[#f0f0f0] p[16px] z-[1] h-[10px]"></div>
-          </div>
-          {/*  */}
-          <div className="w-full relative mb-[16px] overflow-hidden rounded-[8px]">
-            {shimmer}
-            {/* Your card content goes here */}
-            <div className="bg-[#f0f0f0] p[16px] z-[1] h-[10px]"></div>
-          </div>
-          {/*  */}
+        <div className="flex flex-col   w-full relative overflow-hidden rounded-lg">
+          {[...Array(1)].map((_, index) => (
+            <div
+              key={index}
+              className="w-full relative mb-4 overflow-hidden rounded-lg "
+            >
+              {shimmer}
+              <div className="bg-gray-200 h-[300px] flex flex-col justify-end p-2">
+                <div
+                  key={index}
+                  className="w-fit mb-4 overflow-hidden rounded-full absolute top-2 left-2"
+                >
+                  {shimmer}
+                  <div className="bg-[#e0e0e082] size-[35px]"></div>
+                </div>
+                <div
+                  key={index}
+                  className="w-fit absolute mb-4 overflow-hidden rounded-full bottom-16 right-2"
+                >
+                  {shimmer}
+                  <div className="bg-[#e0e0e082] size-[35px]"></div>
+                </div>
+                {[...Array(2)].map((_, index) => (
+                  <div
+                    key={index}
+                    className="w-full relative mb-4 overflow-hidden rounded-lg"
+                  >
+                    {shimmer}
+                    <div className="bg-[#e0e0e082] h-[13px]"></div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          ))}
         </div>
       )}
     </>
