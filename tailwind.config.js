@@ -16,6 +16,17 @@ const withMTConfig = withMT({
         light: "#fffbf9",
         lightGrey: "#bdb9b9",
       },
+      keyframes: {
+        favoriteIcon: {
+          "0%": { transform: "scale(1)" },
+          "40%": { transform: "scale(0.9)" },
+          "70%": { transform: "scale(1.3)" },
+          "100%": { transform: "scale(1)" },
+        },
+      },
+      animation: {
+        "favorite-icon": "favoriteIcon 0.4s ease-in-out",
+      },
     },
   },
   plugins: [],

@@ -22,18 +22,18 @@ const Forget = () => {
   };
 
   return (
-    <>
+    <div>
       <ToastContainer />
       <IoMdArrowBack
         size={35}
-        className="md:hidden m-5 p-[2px] self-start bg-gray-200 rounded-lg text-gray-800"
+        className=" m-5 p-[2px] self-start bg-[#f7f7fa] rounded-lg text-gray-800"
         onClick={() => {
           router(-1);
         }}
       />
       <form
         onSubmit={handleReset}
-        className="flex flex-col justify-center items-center p-4 h-[70vh]"
+        className="flex flex-col justify-center items-center p-4 h-[70vh] w-full"
       >
         <img src={Image} alt="image-Password" width={300} />
         <input
@@ -53,7 +53,7 @@ const Forget = () => {
           Reset Password
         </button>
       </form>
-    </>
+    </div>
   );
 };
 

@@ -10,7 +10,7 @@ import { FaPlus } from "react-icons/fa6";
 import { FaMinus } from "react-icons/fa";
 import { useEffect, useState } from "react";
 
-const ProductCart = ({ product, countProduct }) => {
+const CartProductCard = ({ product, countProduct }) => {
   const { uid, img, title, price, priceDis, description } = product;
   const [count, setCount] = useState(countProduct);
   const dispatch = useDispatch();
@@ -34,11 +34,11 @@ const ProductCart = ({ product, countProduct }) => {
       <img
         src={img}
         alt="img-product"
-        className=" w-[130px] sm:w-[150px]"
+        className=" w-[110px] sm:w-[150px]"
         loading="lazy"
       />
 
-      <div className="flex flex-col sm:flex-row gap-8">
+      <div className="flex flex-col sm:flex-row gap-3">
         <div className="flex flex-col justify-around sd: w-full sm:w-[220px]">
           <h1 className="overflow-hidden line-clamp-2 text-gray-500 text-[13px] mb-2 sm:mt-0 mt-4">
             {title}
@@ -62,11 +62,11 @@ const ProductCart = ({ product, countProduct }) => {
             />
             Two-year warranty
           </p>
-          <p className="flex items-center text-[12px] text-gray-600 my-1 tracking-tighter">
+          <p className="flex items-center text-[12px] text-gray-600 mt-2 tracking-tighter">
             <img
               src="https://f.nooncdn.com/s/app/com/noon/icons/non_returnable.svg"
               alt="img-warranty"
-              className=" w-[24px] mr-1"
+              className=" w-[24px] mr-1 "
               loading="lazy"
             />
             This product cannot be exchanged or returned
@@ -106,4 +106,4 @@ const ProductCart = ({ product, countProduct }) => {
   );
 };
 
-export default ProductCart;
+export default CartProductCard;

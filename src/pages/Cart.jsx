@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import CartEmpty from "/assets/emptyCart.svg";
 import { useEffect, useState } from "react";
 import { getFromLocal } from "../store/cart/cartSlice";
-import ProductCart from "../components/ProductCart";
+import CartProductCard from "../components/CartProductCard";
 import CheckoutCard from "../components/CheckoutCard";
 
 const Cart = () => {
@@ -50,7 +50,7 @@ const Cart = () => {
           <div className="  flex flex-col place-items-center gap-3 sm:mx-0 m-2  max-h-[62vdh]  overflow-scroll cartScroll">
             {cart.map((product, i) => {
               return (
-                <ProductCart
+                <CartProductCard
                   key={i}
                   product={product}
                   countProduct={countProduct[i]?.count}

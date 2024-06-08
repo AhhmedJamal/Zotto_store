@@ -19,6 +19,7 @@ const ProductCard = ({ product }) => {
   const { name } = useParams();
   const [pathName, setPathName] = useState("");
   const [booleanIcon, setBooleanIcon] = useState(false);
+  const [isAnimating, setIsAnimating] = useState(false);
   const dispatch = useDispatch();
 
   const user = useSelector((state) => state.user);
@@ -79,6 +80,8 @@ const ProductCard = ({ product }) => {
   };
 
   const handleFavorite = () => {
+    setIsAnimating(true);
+    setTimeout(() => setIsAnimating(false), 600);
     booleanIcon ? handleDeleteFavorite() : addFavorite();
   };
 
@@ -102,13 +105,15 @@ const ProductCard = ({ product }) => {
       ) : (
         <button
           onClick={handleFavorite}
-          className=" m-2 w-fit bg-white p-[6px] shadow-[0_0px_15px_-1px_rgb(0,0,0,0.3)] rounded-full outline-none"
+          className="m-2 w-fit bg-white p-[6px] shadow-[0_0px_15px_-1px_rgb(0,0,0,0.3)] rounded-full outline-none"
         >
-          {booleanIcon ? (
-            <MdOutlineFavorite size={20} className="text-primary" />
-          ) : (
-            <MdFavoriteBorder size={20} className="text-gray-700" />
-          )}
+          <div className={` ${isAnimating ? "animate-favorite-icon" : ""}`}>
+            {booleanIcon ? (
+              <MdOutlineFavorite size={20} className="text-primary" />
+            ) : (
+              <MdFavoriteBorder size={20} className="text-gray-700" />
+            )}
+          </div>
         </button>
       )}
 
@@ -117,7 +122,7 @@ const ProductCard = ({ product }) => {
         src={img}
         onClick={location.pathname !== "/favorites" && handleClick}
         alt="card-image"
-        className=" w-[120px] m-auto"
+        className=" w-[70%] md:w-[150px]  m-auto"
       />
       <div className="flex justify-between">
         <div className="flex items-center px-[6px] p-[1px] rounded ml-3 ">
@@ -128,12 +133,15 @@ const ProductCard = ({ product }) => {
           onClick={() => {
             dispatch(addToCart({ product, id_user: user.id }));
           }}
-          className=" m-3 w-fit bg-white p-[7px] shadow-[0_0px_15px_-1px_rgb(0,0,0,0.3)] rounded-full outline-none"
+          className=" mx-3 w-fit bg-white p-[7px] shadow-[0_0px_15px_-1px_rgb(0,0,0,0.3)] rounded-full outline-none"
         >
-          <MdAddShoppingCart size={20} className="text-gray-700" />
+          <MdAddShoppingCart
+            size={20}
+            className="text-gray-700 hover:text-primary hover:scale-90 transition-all"
+          />
         </button>
       </div>
-      <CardBody className="p-4">
+      <CardBody className="p-4 pt-1">
         <p
           onClick={window.location.pathname !== "/favorite" && handleClick}
           className="mb-2 text-[11px] md:text-[15px] text-gray-600 overflow-hidden line-clamp-2"

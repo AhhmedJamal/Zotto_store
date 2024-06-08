@@ -8,7 +8,7 @@ import { SiFacebook } from "react-icons/si";
 import { signInWithPopup } from "firebase/auth";
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import SignUp from "../components/SignUp";
-import Image from "/assets/auth.png";
+import LogoName from "/assets/ZottoLogo.png";
 import { auth, db, facebookProvider, googleProvider } from "../config/firebase";
 import { Button } from "@material-tailwind/react";
 
@@ -104,37 +104,31 @@ const Login = () => {
   };
 
   return (
-    <div className="flex flex-col md:flex-row  ">
-      <div className="overflow-hidden relative w-[100%] h-[100vh] m-auto flex flex-col justify-between items-center md:bg-white md:justify-center bg-primary">
-        <ToastContainer />
-        <div className="flex justify-center items-center flex-col font-bold text-white md:text-primary md:mb-11 relative w-fit">
-          <h1 className="text-[35px] md:text-[45px] text-center">ZOTTO</h1>
-          <span className="self-end text-[17px] md:text-[17px] absolute -bottom-[10px]">
-            Store
-          </span>
-        </div>
-        <div className="absolute bottom-0 bg-white rounded-t-[150px] scale-150 md:hidden w-full  h-[350px] overflow-hidden"></div>
-        <div
-          className={
-            " mb-[100px] lg:mb-0 w-[80%] md:w-[400px] h-[400px] gap-4 flex flex-col justify-center md:border items-center bg-white shadow-xl rounded-2xl z-10"
-          }
-        >
+    <div className="overflow-hidden  w-full h-screen m-auto flex flex-col justify-center items-center gap-5 md:gap-0">
+      <ToastContainer />
+      <div className="flex justify-center items-center flex-col font-bold text-primary md:mb-11 relative w-fit">
+        <img src={LogoName} alt="Logo" className="w-[200px] md:w-[260px]" />
+      </div>
+      <div className="w-[80%] md:w-fit flex justify-center items-center relative ">
+        <div className="sm:hidden size-[150px] bg-primary rounded-full absolute -top-12 -left-24 -z-20"></div>
+        <div className="sm:hidden size-[150px] bg-primary rounded-full absolute -bottom-12 -right-24 -z-20"></div>
+        <div className="relative  lg:mb-0 w-[100%] md:w-[500px] h-[400px] gap-4 flex flex-col justify-center md:border items-center shadow-xl rounded-xl z-10 bg-[rgba(255,_255,_255,_0.35)] [box-shadow:0_8px_32px_0_rgba(0,_0,_0,_0.1)] backdrop-filter backdrop-blur-[40px]">
           <div className="w-[80%]">
             <div className="text-primary text-[18px] font-bold flex  justify-around cursor-pointer">
               <span
                 onClick={() => setSelect(false)}
-                className={select ? "text-gray-600" : "text-primary"}
+                className={select ? "text-gray-800" : "text-primary"}
               >
                 Sign In
               </span>
               <span
                 onClick={() => setSelect(true)}
-                className={!select ? "text-gray-600" : "text-primary"}
+                className={!select ? "text-gray-800" : "text-primary"}
               >
                 Sign Up
               </span>
             </div>
-            <div className="bg-gray-600 relative h-1 w-full mt-1 cursor-pointer">
+            <div className="bg-gray-800 relative h-1 w-full mt-1 cursor-pointer">
               <span
                 className={`bg-primary w-1/2 h-1 absolute transition-all duration-300 ease-in-out ${
                   select ? "left-1/2" : "left-0"
@@ -147,7 +141,7 @@ const Login = () => {
           ) : (
             <form
               onSubmit={handleLogin}
-              className="flex flex-col justify-between items-center w-full gap-4"
+              className="flex flex-col justify-between items-center w-full gap-4 "
             >
               <input
                 type="email"
@@ -198,35 +192,32 @@ const Login = () => {
                   "Login"
                 )}
               </button>
-              <div className="h-[1px] my-2 bg-gray-500 w-[80%] after:content-['or'] after:font-bold after:border after:border-gray-600  after:relative after:top-[-12px] after:left-[45%] after:bg-[#F7F7FA] after:w-fit after:p-1 after:rounded-full"></div>
-              <div className="flex justify-center gap-2">
+              <div className="h-[1px] my-2 text-gray-700 bg-gray-500 w-[80%] after:content-['or'] after:font-bold after:border after:border-gray-500  after:relative after:top-[-12px] after:left-[45%] after:bg-[#F7F7FA] after:w-fit after:p-1 after:rounded-full"></div>
+              <div className="flex justify-center gap-2 w-full">
                 <Button
                   aria-label="Button Google"
                   onClick={handleGoogle}
                   type="button"
-                  className="bg-gray-200 text-[14px]  rounded-md p-2 font-bold items-center flex gap-2 justify-center"
+                  className="bg-gray-200 text-gray-800 capitalize text-[12px] w-[40%] rounded-md p-2 font-bold items-center flex gap-2 justify-center"
                 >
-                  <FcGoogle size={24} />
+                  <FcGoogle size={24} /> Google
                 </Button>
                 <Button
                   aria-label="Button Facebook"
                   onClick={handleFacebook}
                   type="button"
-                  className="bg-gray-200  text-[14px]  rounded-md p-2 font-bold items-center flex gap-2 justify-center"
+                  className="bg-gray-200 text-gray-800 capitalize text-[12px] w-[40%] rounded-md p-2 font-bold items-center flex gap-2 justify-center"
                 >
                   <SiFacebook size={24} className="text-[#1877F2]" />
+                  Facebook
                 </Button>
               </div>
             </form>
           )}
         </div>
       </div>
-      {/* <div className="hidden md:flex justify-center items-center w-[50%] bg-primary">
-        <img src={Image} />
-      </div> */}
     </div>
   );
 };
 
-// Export the Login component
 export default Login;
