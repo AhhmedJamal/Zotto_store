@@ -14,14 +14,9 @@ import useGetData from "../hooks/getData";
 
 const Carousel = () => {
   const [isMobile, setIsMobile] = useState(false);
-  const [loading, setLoading] = useState(false);
 
   const { products } = useGetData("Carousel");
   useEffect(() => {
-    setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
-    }, 2000);
     const handleResize = () => {
       setIsMobile(window.innerWidth < 769);
     };
@@ -39,8 +34,8 @@ const Carousel = () => {
 
   return (
     <>
-      {loading ? (
-        <div className="w-[85%] h-[176px] bg-[#e0e0e0] m-auto flex animate-pulse my-3"></div>
+      {products.length === 0 ? (
+        <div className="w-[90%] h-[176px] md:h-[220px] bg-[#e0e0e0] m-auto flex animate-pulse my-3"></div>
       ) : (
         <Swiper
           spaceBetween={5}
@@ -67,7 +62,7 @@ const Carousel = () => {
             prevEl: "",
           }}
           pagination={{ el: "", clickable: true }}
-          className="py-3 px-7 md:px-11 h-[200px] md:h-[250px] lg:h-fit relative "
+          className="py-3 px-7 md:px-11 h-[200px] md:h-[250px] lg:h-fit"
         >
           <>
             {imagesToShow?.map((image, index) => (
@@ -76,7 +71,7 @@ const Carousel = () => {
                   loading="lazy"
                   src={image}
                   alt={`image Carousel ${index}`}
-                  className="w-full h-full object-coverf lg:object-contain "
+                  className="w-full h-full"
                 />
               </SwiperSlide>
             ))}
