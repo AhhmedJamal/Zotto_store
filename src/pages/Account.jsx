@@ -59,7 +59,7 @@ const Account = () => {
           </button>
         </div>
       </div>
-
+{/* 
       <iframe
         src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d377139.5122241768!2d32.20352275777219!3d30.51922198012801!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sar!2seg!4v1716663610163!5m2!1sar!2seg"
         height="100"
@@ -67,7 +67,7 @@ const Account = () => {
         allowfullscreen=""
         loading="lazy"
         referrerPolicy="no-referrer-when-downgrade"
-      ></iframe>
+      ></iframe> */}
 
       <div>
         <div className="flex justify-center items-center gap-5 ">
