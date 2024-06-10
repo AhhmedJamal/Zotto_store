@@ -58,7 +58,7 @@ const CartProductCard = ({ product, countProduct }) => {
               loading="lazy"
               src="https://f.nooncdn.com/s/app/com/noon/icons/warranty.svg"
               alt="img-warranty"
-              className=" w-[24px] mr-1"
+              className=" w-[24px] h-auto  mr-1"
             />
             Two-year warranty
           </p>

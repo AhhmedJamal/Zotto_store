@@ -17,7 +17,7 @@ const OfferCard = ({ offer }) => {
         src={img}
         alt="img-offer"
         loading="lazy"
-        className="w-[50px] md:w-[70px] h-[68px] md:h-[100px] ma m-auto"
+        className="w-[50px] h-auto  m-auto"
       />
       <p className="text-[10px]">{des}</p>
       <div className="text-[11px] md:text-[14px] gap-2 flex justify-center mt-1 font-bold">

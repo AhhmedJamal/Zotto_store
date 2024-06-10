@@ -127,7 +127,7 @@ const ProductCard = ({ product }) => {
         src={img}
         onClick={location.pathname !== "/favorites" && handleClick}
         alt="card-image"
-        className=" w-[100px] h-[136px] md:w-[150px] md:h-[205px]  m-auto"
+        className=" w-[100px] h-auto md:w-[150px] md:h-[205px]  m-auto"
       />
       <div className="flex justify-between">
         <div className="flex items-center px-[6px] p-[1px] rounded ml-3 ">
@@ -135,6 +135,7 @@ const ProductCard = ({ product }) => {
           <GoStarFill className="text-orange-400" />
         </div>
         <button
+          aria-label="button add cart "
           onClick={() => {
             setIsAnimationCart(true);
             setTimeout(() => setIsAnimationCart(false), 600);
@@ -157,7 +158,6 @@ const ProductCard = ({ product }) => {
         >
           {description}
         </p>
-
         <div className="flex items-center justify-between mt-2d">
           <div>
             <span className="font-normal text-[11px] md:text-[13px] text-gray-700">
