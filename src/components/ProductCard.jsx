@@ -95,6 +95,7 @@ const ProductCard = ({ product }) => {
     <Card className=" rounded-md overflow-hidden border shadow-md relative flex justify-between transition duration-300 bg-white text-black">
       {location.pathname === "/favorites" ? (
         <button
+          aria-label="button delete favorite "
           onClick={() => handleDeleteFavorite()}
           className=" m-2 w-fit bg-white p-[6px] shadow-[0_0px_15px_-1px_rgb(0,0,0,0.3)] rounded-full outline-none"
         >
@@ -105,6 +106,7 @@ const ProductCard = ({ product }) => {
         </button>
       ) : (
         <button
+          aria-label="button add favorite "
           onClick={handleFavorite}
           className="m-2 w-fit bg-white p-[6px] shadow-[0_0px_15px_-1px_rgb(0,0,0,0.3)] rounded-full outline-none"
         >
@@ -125,7 +127,7 @@ const ProductCard = ({ product }) => {
         src={img}
         onClick={location.pathname !== "/favorites" && handleClick}
         alt="card-image"
-        className=" w-[70%] md:w-[150px]  m-auto"
+        className=" w-[100px] h-[136px] md:w-[150px] md:h-[205px]  m-auto"
       />
       <div className="flex justify-between">
         <div className="flex items-center px-[6px] p-[1px] rounded ml-3 ">

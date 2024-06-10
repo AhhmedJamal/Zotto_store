@@ -32,12 +32,12 @@ const NavBar = () => {
 
   return (
     <header className=" fixed  z-20  pt-2 rounded-none border-none text bg-white w-full container  shadow">
-      <nav className="relative mx-auto flex  items-center justify-between text-dark-100 px-2  sm:p-0">
+      <nav className="relative mx-auto flex  items-center justify-between text-dark-100 px-3  sm:pl-0 ">
         <Link to="/" className="relative  flex">
           <img src={LogoName} alt="Logo" className="w-28 sm:w-32" />
         </Link>
         <div className="flex items-center gap-4">
-          <button className="p-2 text-[11px]  text-start">
+          <button className="p-2 text-[12px] font-bold tracking-wider  text-start">
             <span className="ml-[2px]"> Deliver to</span>
             <br />
             <div className="flex items-center font-bold">
@@ -58,10 +58,10 @@ const NavBar = () => {
             </div>
           </button>
         </div>
-        <div className="hidden md:flex items-center">
+        <div className="hidden md:flex items-center text-[9px]  md:text-[12px]">
           <NavLink
             to="orders"
-            className="text-[9px] font-bold flex flex-col justify-center items-center m-2 mt-[10px] relative"
+            className=" flex flex-col justify-center items-center m-2 mt-[10px] relative"
           >
             <BsBox2 className="mb-[2px]" size={21} />
             <MdOutlineDoneOutline
@@ -71,8 +71,7 @@ const NavBar = () => {
             Orders
           </NavLink>
           <NavLink
-            color="blue-gray"
-            className="flex items-center flex-col text-[9px] font-bold  text-start  p-2 relative group"
+            className="flex items-center flex-col p-2 relative group"
             to={"/favorites"}
           >
             <IoMdHeartEmpty size={25} />
@@ -91,22 +90,25 @@ const NavBar = () => {
             </div>
             Favorites
           </NavLink>
-          <NavLink
-            className="flex items-center  flex-col text-[9px] font-bold  text-start  p-2 "
-            to={"/account"}
-          >
+          <NavLink className="flex items-center flex-col p-2" to={"/account"}>
             <BsPerson size={25} />
             Account
           </NavLink>
         </div>
-        <div className="flex items-center gap-7">
-          <NavLink to="/search" className="h-6 w-6 md:hidde text-dark-100 ">
-            <CgSearch size={25} className="" />
+        <div className="flex items-center gap-7 md:gap-16 text-[10px]  md:text-[12px]">
+          <NavLink
+            to="/search"
+            className="text-dark-100 flex flex-col items-center"
+            aria-label="link search"
+          >
+            <CgSearch size={25} className="mr-1" />
+            Search
           </NavLink>
           <NavLink
             to="/cart"
             type="button"
-            className="relative rounded-full focus:outline-none pr-2 "
+            className="relative flex flex-col items-center"
+            aria-label="link cart"
           >
             <span
               className={`text-[11px] md:text-[12px] font-bold transition-all ${
@@ -116,6 +118,7 @@ const NavBar = () => {
               {cart.items.length !== 0 && cart.items.length}
             </span>
             <RiShoppingCartLine size={26} />
+            Cart
           </NavLink>
         </div>
       </nav>
