@@ -1,8 +1,9 @@
 # <span>Zotto</span> <img src="https://github.com/AhhmedJamal/Nuvex/assets/81833844/a5882faa-e358-4488-8509-371d5a399bda" alt="Image 1" style="width: 30px; height: 30px;">
 
 I developed 'Zotto,' an advanced e-commerce platform. As the lead developer on the project, I oversaw the development of a sophisticated and user-friendly platform, focusing on intuitive design and essential functionalities.
+
 - Implemented payment functionality and "Favorite" feature for enhanced user experience.
-- Employed Redux Toolkit for state management and cart handling.
+- Employed Redux Toolkit for state management, cart handling, and user data.
 - Integrated Firebase Authentication for secure user registration and login.
 - Implemented add-to-cart  enhancing user engagement and conversion rates by 25%
 - Ensured responsive design for compatibility with all screen sizes.
