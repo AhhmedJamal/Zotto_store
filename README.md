@@ -39,6 +39,7 @@ I developed 'Zotto,' an advanced e-commerce platform. As the lead developer on t
 ![Zotto_Mobile](https://github.com/AhhmedJamal/Zotto_store/assets/81833844/aa465786-97f6-4aea-b304-b177a7e08a51)
 
 # Desktop screen
-![Zotto_Desktop](https://github.com/AhhmedJamal/Zotto_store/assets/81833844/005e23bc-9af5-4e1e-97d4-c8ae6955e1ef)
+![Zotto_Desktop](https://github.com/AhhmedJamal/Zotto_store/assets/81833844/c1a6c409-8784-434d-9ee8-5a03fb06f444)
+
 
 
