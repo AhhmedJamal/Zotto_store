@@ -24,7 +24,7 @@ I developed 'Zotto,' an advanced e-commerce platform. As the lead developer on t
 # I used technology
 
 <img src="https://github.com/AhhmedJamal/Zotto_store/assets/81833844/1b5851d9-ae79-47f9-89fa-843a51850654" alt="Image 1" style="width: 90px;">
-<img src="https://github.com/AhhmedJamal/Zotto_store/assets/81833844/3217f0fd-f64e-49b2-a5bf-6416bfe114d3" alt="Image 2" style="width: 90px;">
+<img src="https://github.com/AhhmedJamal/Zotto_store/assets/81833844/3217f0fd-f64e-49b2-a5bf-6416bfe114d3" alt="Image 2" style="width: 80px;">
 <img src="https://github.com/AhhmedJamal/Zotto_store/assets/81833844/14efd006-ac2f-434c-b10b-3eece34f9537" alt="Image 2" style="width: 100px;">
 <img src="https://github.com/AhhmedJamal/Zotto_store/assets/81833844/fc145b03-a8bf-4d6c-b517-ebd58e6a8ede" alt="Image 3" style="width: 150px;">
 <img src="https://github.com/AhhmedJamal/Zotto_store/assets/81833844/c086358a-ed2f-4ff7-9352-43f636e39992" alt="Image 4" style="width: 70px;">
