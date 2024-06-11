@@ -2,6 +2,7 @@
 
 I developed 'Zotto,' an advanced e-commerce platform. As the lead developer on the project, I oversaw the development of a sophisticated and user-friendly platform, focusing on intuitive design and essential functionalities.
 - Implemented payment functionality and "Favorite" feature for enhanced user experience.
+- Employed Redux Toolkit for state management and cart handling.
 - Integrated Firebase Authentication for secure user registration and login.
 - Implemented add-to-cart  enhancing user engagement and conversion rates by 25%
 - Ensured responsive design for compatibility with all screen sizes.
