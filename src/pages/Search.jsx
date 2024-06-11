@@ -81,14 +81,14 @@ const Search = () => {
       </form>
       {loading ? (
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 my-3">
-          <Shimmer is={false} />
-          <Shimmer is={false} />
-          <Shimmer is={false} />
-          <Shimmer is={false} />
-          <Shimmer is={false} />
-          <Shimmer is={false} />
-          <Shimmer is={false} />
-          <Shimmer is={false} />
+          <Shimmer title={"product} />
+          <Shimmer title={"product} />
+          <Shimmer title={"product} />
+          <Shimmer title={"product} />
+          <Shimmer title={"product} />
+          <Shimmer title={"product} />
+          <Shimmer title={"product} />
+          <Shimmer title={"product} />
         </div>
       ) : result.length === 0 ? (
         <div className="flex justify-center items-center flex-col h-[60vh] mt-3 bg-white  rounded-lg">
