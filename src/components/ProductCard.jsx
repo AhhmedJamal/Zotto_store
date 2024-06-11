@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { Card, CardBody } from "@material-tailwind/react";
+
 import { MdAddShoppingCart } from "react-icons/md";
 import { GoStarFill } from "react-icons/go";
 import { useNavigate } from "react-router-dom";
@@ -92,7 +92,7 @@ const ProductCard = ({ product }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pathName]);
   return (
-    <Card className=" rounded-md overflow-hidden border shadow-md relative flex justify-between transition duration-300 bg-white text-black">
+    <div className=" rounded-md overflow-hidden border shadow-md relative flex flex-col hover:shadow-lg hover:scale-95 justify-between transition duration-300 bg-white text-black">
       {location.pathname === "/favorites" ? (
         <button
           aria-label="button delete favorite "
@@ -151,7 +151,7 @@ const ProductCard = ({ product }) => {
           />
         </button>
       </div>
-      <CardBody className="p-4 pt-1">
+      <div className="p-4 pt-1">
         <p
           onClick={window.location.pathname !== "/favorite" && handleClick}
           className="mb-2 text-[11px] md:text-[15px] text-gray-600 overflow-hidden line-clamp-2"
@@ -169,8 +169,8 @@ const ProductCard = ({ product }) => {
             </span>
           </div>
         </div>
-      </CardBody>
-    </Card>
+      </div>
+    </div>
   );
 };
 export default ProductCard;
