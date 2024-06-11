@@ -6,7 +6,6 @@ import { MdDeleteOutline } from "react-icons/md";
 import { confirmAlert } from "react-confirm-alert";
 import { db } from "../config/firebase";
 import { doc, updateDoc } from "firebase/firestore";
-import { Button } from "@material-tailwind/react";
 
 const Orders = () => {
   const { email, orders } = useSelector((state) => state.user);
@@ -68,13 +67,12 @@ const Orders = () => {
                       {order.randomName}
                     </span>
                   </h2>
-                  <Button className="p-1 bgt h-fit bg-[#f7f7fa] text-black">
+                  <button className="p-1 bgt h-fit  cursor-pointer hover:shadow-md bg-black text-white rounded-lg hover:text-gray-400 transition-all">
                     <MdDeleteOutline
                       size={25}
-                      className="cursor-pointer hover:text-primary transition-colors"
                       onClick={() => handleDeleteOrder(order.randomName)}
                     />
-                  </Button>
+                  </button>
                 </div>
                 {order.items.map((item) => (
                   <div
@@ -97,9 +95,14 @@ const Orders = () => {
                         </h2>
                         <p className="ml-2">x {item.count}</p>
                       </div>
-                      <div className="flex gap-5 text-gray-600 text-[12px] lg:text-[15px] leading-4 line-clamp-none my-2">
-                        <span>Order Date: {order.dates?.orderDate}</span>
-                        <span>Delivery Date: {order.dates?.deliveryDate}</span>
+                      <div className="flex justify-end gap-5 text-gray-600 text-[12px] lg:text-[15px] leading-4 line-clamp-none my-2">
+                        <div className="flex flex-col md:flex-row">
+                          Order Date: <span>{order.dates?.orderDate}</span>
+                        </div>
+                        <div className="flex flex-col md:flex-row">
+                          Delivery Date:
+                          <span>{order.dates?.deliveryDate}</span>
+                        </div>
                       </div>
                     </div>
                   </div>

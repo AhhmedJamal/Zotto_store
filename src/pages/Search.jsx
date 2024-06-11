@@ -4,7 +4,7 @@ import ImageSearch from "/assets/Search.svg";
 import useGetData from "../hooks/getData";
 import ProductCard from "../components/ProductCard";
 import Shimmer from "../components/Shimmer";
-import { Button } from "@material-tailwind/react";
+
 
 const Search = () => {
   const [search, setSearch] = useState("");
@@ -72,12 +72,12 @@ const Search = () => {
             />
           )}
         </div>
-        <Button
+        <button
           type="submit"
-          className="bg-primary w-[28%] sm:w-[20%] text-white font-bold px-3 py-1 rounded-md"
+          className="bg-primary hover:shadow-md transition-all hover:opacity-95 w-[28%] sm:w-[20%] text-white font-bold px-3 py-1 rounded-md"
         >
           Search
-        </Button>
+        </button>
       </form>
       {loading ? (
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 my-3">

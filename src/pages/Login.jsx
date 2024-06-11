@@ -10,7 +10,7 @@ import { doc, getDoc, setDoc } from "firebase/firestore";
 import SignUp from "../components/SignUp";
 import LogoName from "/assets/ZottoLogo.png";
 import { auth, db, facebookProvider, googleProvider } from "../config/firebase";
-import { Button } from "@material-tailwind/react";
+
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -194,15 +194,15 @@ const Login = () => {
               </button>
               <div className="h-[1px] my-2 text-gray-700 bg-gray-500 w-[80%] after:content-['or'] after:font-bold after:border after:border-gray-500  after:relative after:top-[-12px] after:left-[45%] after:bg-[#F7F7FA] after:w-fit after:p-1 after:rounded-full"></div>
               <div className="flex justify-center gap-2 w-full">
-                <Button
+                <button
                   aria-label="Button Google"
                   onClick={handleGoogle}
                   type="button"
                   className="bg-gray-200 text-gray-800 capitalize text-[12px] w-[40%] rounded-md p-2 font-bold items-center flex gap-2 justify-center"
                 >
                   <FcGoogle size={24} /> Google
-                </Button>
-                <Button
+                </button>
+                <button
                   aria-label="Button Facebook"
                   onClick={handleFacebook}
                   type="button"
@@ -210,7 +210,7 @@ const Login = () => {
                 >
                   <SiFacebook size={24} className="text-[#1877F2]" />
                   Facebook
-                </Button>
+                </button>
               </div>
             </form>
           )}

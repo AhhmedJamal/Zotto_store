@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Button } from "@material-tailwind/react";
+
 
 import CheckoutForm from "./CheckoutForm";
 // eslint-disable-next-line react/prop-types
@@ -31,9 +31,9 @@ const CheckoutCard = ({ total, items, totalForPayMentElement }) => {
             className="h-full w-[70%] border rounded-sm px-4"
             placeholder="Coupon Code"
           />
-          <Button className="h-fit w-[30%] bg-primary text-white rounded-sm uppercase text-[12px] font-bold p-2">
+          <button className="h-fit w-[30%] hover:shadow-md transition-all hover:opacity-95 bg-primary text-white rounded-sm uppercase text-[12px] font-bold p-2">
             APPLY
-          </Button>
+          </button>
         </div>
         <div className="flex items-center justify-between my-3 text-gray-600">
           <div className="text-[15px]">Subtotal ({countItems} items)</div>

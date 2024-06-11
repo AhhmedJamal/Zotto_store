@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import { useStripe, useElements, CardElement } from "@stripe/react-stripe-js";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { Button } from "@material-tailwind/react";
 import { removeAllCart } from "../store/cart/cartSlice";
 import { db } from "../config/firebase";
 import { doc, updateDoc } from "firebase/firestore";
@@ -142,9 +141,9 @@ const CheckoutForm = ({ totalForPayMentElement }) => {
     <>
       <form onSubmit={handleSubmit} className="mt-2 border p-3">
         <CardElement />
-        <Button
+        <button
           loading={loading}
-          className={`bg-primary w-full mt-5  capitalize font-bold text-white py-2 rounded-lg flex justify-center ${
+          className={`bg-primary hover:shadow-lg transition-all hover:opacity-95 w-full mt-5  capitalize font-bold text-white py-2 rounded-lg flex justify-center ${
             totalForPayMentElement === 0 && "bg-primary/80"
           }`}
           type="submit"
@@ -152,7 +151,7 @@ const CheckoutForm = ({ totalForPayMentElement }) => {
           <span className="text-[17px]">
             {totalForPayMentElement === 0 ? "No Items To Pay" : "Pay 💵"}
           </span>
-        </Button>
+        </button>
       </form>
     </>
   );
