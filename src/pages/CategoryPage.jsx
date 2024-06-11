@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
-import CarouselDefault from "../components/Carousel";
+import Carousel from "../components/Carousel";
 import { getFromLocal } from "../store/cart/cartSlice";
 import { useDispatch, useSelector } from "react-redux";
 import Shimmer from "../components/Shimmer";
@@ -23,7 +23,7 @@ const CategoryPage = () => {
 
   return (
     <main>
-      {location.pathname !== "/favorites" && <CarouselDefault />}
+      {location.pathname !== "/favorites" && <Carousel />}
 
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 sm:mx-0 pb-3 m-2">
         {products.length !== 0 ? (
@@ -32,14 +32,14 @@ const CategoryPage = () => {
           })
         ) : (
           <>
-            <Shimmer is={false} />
-            <Shimmer is={false} />
-            <Shimmer is={false} />
-            <Shimmer is={false} />
-            <Shimmer is={false} />
-            <Shimmer is={false} />
-            <Shimmer is={false} />
-            <Shimmer is={false} />
+            <Shimmer title={"product"} />
+            <Shimmer title={"product"} />
+            <Shimmer title={"product"} />
+            <Shimmer title={"product"} />
+            <Shimmer title={"product"} />
+            <Shimmer title={"product"} />
+            <Shimmer title={"product"} />
+            <Shimmer title={"product"} />
           </>
         )}
       </div>

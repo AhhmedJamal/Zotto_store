@@ -11,6 +11,7 @@ import {
   Pagination,
 } from "swiper/modules";
 import useGetData from "../hooks/getData";
+import Shimmer from "./Shimmer";
 
 const Carousel = () => {
   const [isMobile, setIsMobile] = useState(false);
@@ -34,8 +35,8 @@ const Carousel = () => {
 
   return (
     <>
-      {products.length === 0 ? (
-        <div className="w-[90%] h-[176px] md:h-[220px] bg-[#e0e0e0] m-auto flex animate-pulse my-3"></div>
+      {products.length == 0 ? (
+        <Shimmer title={"carousel"} />
       ) : (
         <Swiper
           spaceBetween={5}
@@ -71,7 +72,7 @@ const Carousel = () => {
                   loading="lazy"
                   src={image}
                   alt={`image Carousel ${index}`}
-                  className="w-full h-full"
+                  className="w-full h-full rounded-lg"
                 />
               </SwiperSlide>
             ))}

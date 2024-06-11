@@ -107,7 +107,7 @@ const DetailsProduct = () => {
         </div>
       ) : (
         <div className="p-5 lg:p-0">
-          <Shimmer is={true} />
+          <Shimmer title={"detailsProduct"} />
         </div>
       )}
     </div>

@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+
 // eslint-disable-next-line react/prop-types
 const OfferCard = ({ offer }) => {
   // eslint-disable-next-line react/prop-types
