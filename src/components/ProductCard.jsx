@@ -92,7 +92,7 @@ const ProductCard = ({ product }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pathName]);
   return (
-    <div className=" rounded-md overflow-hidden border shadow-md relative flex flex-col hover:shadow-lg hover:scale-95 justify-between transition duration-300 bg-white text-black">
+    <div className=" rounded-md overflow-hidden border shadow-md relative flex flex-col lg:hover:shadow-lg lg:hover:scale-95 justify-between transition duration-300 bg-white text-black">
       {location.pathname === "/favorites" ? (
         <button
           aria-label="button delete favorite "
