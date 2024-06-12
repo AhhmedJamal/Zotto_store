@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import Image from "/assets/order.svg";
+import Image from "/assets/orders.svg";
 import { useDispatch, useSelector } from "react-redux";
 import { GetDataUser } from "../store/user/user";
 import { MdDeleteOutline } from "react-icons/md";
@@ -40,10 +40,10 @@ const Orders = () => {
   }, [dispatch, email]);
   return (
     <>
-      {orders.length === 0 ? (
-        <div className="flex flex-col items-center justify-center text-blue-gray-600 font-bold text-[20px] h-[70vh] bg-white p-6 m-2 mt-2 rounded-lg">
-          <img src={Image} alt="image-order" width={230} />
-          <h1>No Orders yet !!</h1>
+      {orders.length !== 0 ? (
+        <div className="flex flex-col gap-6 items-center justify-center text-blue-gray-600 font-bold text-[20px] h-[70vh] bg-white p-6 m-2 mt-2 rounded-lg">
+          <img src={Image} alt="image-order" width={240} />
+          <h1 className="text-gray-700">No Orders yet !!</h1>
         </div>
       ) : (
         <div className="p-2 sm:px-0 ">
@@ -99,7 +99,7 @@ const Orders = () => {
                         <div className="flex flex-col md:flex-row">
                           Order Date: <span>{order.dates?.orderDate}</span>
                         </div>
-                        <div className="flex flex-col md:flex-row">
+                        <div className="flex flex-col  md:flex-row">
                           Delivery Date:
                           <span>{order.dates?.deliveryDate}</span>
                         </div>

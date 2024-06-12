@@ -61,7 +61,7 @@ const Cart = () => {
         ) : (
           <div className="flex flex-col  items-center justify-center h-[35vh] bg-white m-2 mb-0 rounded-lg">
             <img src={CartEmpty} alt="cart" className="w-[200px]  " />
-            <p className="font-bold text-[15px] text-[#37474f]">
+            <p className="font-bold text-[15px] text-gray-700">
               Your cart is empty !!
             </p>
           </div>

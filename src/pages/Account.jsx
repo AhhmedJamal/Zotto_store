@@ -20,7 +20,7 @@ const Account = () => {
   };
 
   return (
-    <div className="px-4 flex flex-col gap-4 ">
+    <div className="px-4 h-[85%] flex flex-col justify-between gap-4 ">
       <div>
         <div className="relative flex flex-col justify-center my-[10px] bg-white p-2 rounded-md md:flex-row-reverse md:justify-around">
           <button
@@ -59,17 +59,17 @@ const Account = () => {
           </button>
         </div>
       </div>
-{/* 
+
       <iframe
         src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d377139.5122241768!2d32.20352275777219!3d30.51922198012801!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sar!2seg!4v1716663610163!5m2!1sar!2seg"
-        height="100"
-        className="w-full"
+        height="200"
+        className="w-full rounded-xl"
         allowfullscreen=""
         loading="lazy"
         referrerPolicy="no-referrer-when-downgrade"
-      ></iframe> */}
+      ></iframe>
 
-      <div>
+      <div className="bg-white p-6 rounded-xl">
         <div className="flex justify-center items-center gap-5 ">
           <FaFacebookF className="text-[25px] bg-primary text-white rounded-full p-1" />
           <FaInstagram className="text-[25px] bg-primary text-white rounded-full p-1" />

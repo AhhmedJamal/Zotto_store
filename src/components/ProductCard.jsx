@@ -20,7 +20,7 @@ const ProductCard = ({ product }) => {
   const [pathName, setPathName] = useState("");
   const [booleanIcon, setBooleanIcon] = useState(false);
   const [isAnimationFavorite, setIsAnimationFavorite] = useState(false);
-  const [isAnimationCart, setIsAnimationCart] = useState(false);
+
   const dispatch = useDispatch();
 
   const user = useSelector((state) => state.user);
@@ -100,7 +100,7 @@ const ProductCard = ({ product }) => {
           className=" m-2 w-fit bg-white p-[6px] shadow-[0_0px_15px_-1px_rgb(0,0,0,0.3)] rounded-full outline-none"
         >
           <AiTwotoneDelete
-            className="hover:text-primary transition-colors"
+            className="transition-colors"
             size={20}
           />
         </button>
@@ -137,18 +137,11 @@ const ProductCard = ({ product }) => {
         <button
           aria-label="button add cart "
           onClick={() => {
-            setIsAnimationCart(true);
-            setTimeout(() => setIsAnimationCart(false), 600);
             dispatch(addToCart({ product, id_user: user.id }));
           }}
           className="mx-3 w-fit bg-white p-[7px] shadow-[0_0px_15px_-1px_rgb(0,0,0,0.3)] rounded-full outline-none "
         >
-          <MdAddShoppingCart
-            size={20}
-            className={`text-gray-700 ${
-              isAnimationCart ? "animate-favorite-icon" : ""
-            }`}
-          />
+          <MdAddShoppingCart size={20} className="text-gray-700" />
         </button>
       </div>
       <div className="p-4 pt-1">

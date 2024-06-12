@@ -5,7 +5,6 @@ import useGetData from "../hooks/getData";
 import ProductCard from "../components/ProductCard";
 import Shimmer from "../components/Shimmer";
 
-
 const Search = () => {
   const [search, setSearch] = useState("");
   const [result, setResult] = useState([]);
@@ -58,11 +57,11 @@ const Search = () => {
         <div className="relative w-[70%]">
           <input
             ref={refInput}
-            type="text"
+            type="search"
             value={search}
             onChange={handleSearch}
             placeholder="What are you looking for ?"
-            className=" border-2 border-[#e7e7e7] rounded-md p-2 w-full outline-none text-[14px] focus:border-primary"
+            className="appearance-none border-2 border-[#e7e7e7] rounded-md p-2 w-full outline-none text-[14px] focus:border-primary"
           />
           {search !== "" && (
             <TiDelete
@@ -81,14 +80,14 @@ const Search = () => {
       </form>
       {loading ? (
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 my-3">
-          <Shimmer title={"product} />
-          <Shimmer title={"product} />
-          <Shimmer title={"product} />
-          <Shimmer title={"product} />
-          <Shimmer title={"product} />
-          <Shimmer title={"product} />
-          <Shimmer title={"product} />
-          <Shimmer title={"product} />
+          <Shimmer title={"product"} />
+          <Shimmer title={"product"} />
+          <Shimmer title={"product"} />
+          <Shimmer title={"product"} />
+          <Shimmer title={"product"} />
+          <Shimmer title={"product"} />
+          <Shimmer title={"product"} />
+          <Shimmer title={"product"} />
         </div>
       ) : result.length === 0 ? (
         <div className="flex justify-center items-center flex-col h-[60vh] mt-3 bg-white  rounded-lg">

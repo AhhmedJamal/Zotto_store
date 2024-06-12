@@ -41,7 +41,7 @@ function Favorites() {
           ) : (
             <div className=" absolute  flex flex-col  items-center justify-center h-[70vh] w-full  rounded-lg bg-white">
               <img src={FavoriteEmpty} alt="cart" className="w-[230px]  " />
-              <p className="font-bold text-[17px] text-[#37474f]">
+              <p className="font-bold text-[17px] text-gray-700">
                 Favorite is empty !!
               </p>
             </div>
