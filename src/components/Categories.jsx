@@ -13,7 +13,7 @@ const Categories = () => {
   ]);
 
   return (
-    <div className="flex justify-between  h-[40px] px-2 border sm:mt-[83px] mt-[75px] md:mt-3 shadow-sm  overflow-hidden relative bg-white">
+    <div className="flex justify-between  h-[40px] px-2 border sm:mt-[83px] mt-[80px] md:mt-3 shadow-sm  overflow-hidden relative bg-white">
       {categories &&
         categories.map((item, index) => {
           return (

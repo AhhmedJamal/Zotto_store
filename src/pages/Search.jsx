@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { TiDelete } from "react-icons/ti";
 import ImageSearch from "/assets/Search.svg";
 import useGetData from "../hooks/getData";
@@ -48,11 +48,9 @@ const Search = () => {
       }
     }
   };
-  useEffect(() => {
-    refInput.current.focus();
-  }, []);
+
   return (
-    <div className="py-2 ">
+    <div className="p-2 md:px-0">
       <form onSubmit={handleSubmit} className="flex justify-between w-full">
         <div className="relative w-[74%]">
           <input

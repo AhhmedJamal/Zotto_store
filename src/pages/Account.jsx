@@ -20,7 +20,7 @@ const Account = () => {
   };
 
   return (
-    <div className="h-[85%] flex flex-col justify-between gap-4 ">
+    <div className="px-2 md:px-0 h-[85%] flex flex-col justify-between gap-4 ">
       <div>
         <div className="relative flex flex-col justify-center my-[10px] bg-white p-2 rounded-md md:flex-row-reverse md:justify-around">
           <button

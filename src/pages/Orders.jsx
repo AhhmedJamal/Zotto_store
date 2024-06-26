@@ -39,7 +39,7 @@ const Orders = () => {
     dispatch(GetDataUser(email));
   }, [dispatch, email]);
   return (
-    <>
+    <div className="px-2 md:px-0">
       {orders.length == 0 ? (
         <div className="flex flex-col gap-6 items-center justify-center text-blue-gray-600 font-bold text-[20px] h-[70vh] bg-white p-6 m-2 mt-2 rounded-lg">
           <img src={Image} alt="image-order" width={240} />
@@ -47,7 +47,7 @@ const Orders = () => {
         </div>
       ) : (
         <>
-          <h1 className="text-2xl font-bold mb-4">
+          <h1 className="text-2xl font-bold my-2">
             Orders :
             <span className="text-gray-600 font-normal text-[19px]">
               {" "}
@@ -112,7 +112,7 @@ const Orders = () => {
           </div>
         </>
       )}
-    </>
+    </div>
   );
 };
 
