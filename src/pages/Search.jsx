@@ -52,9 +52,9 @@ const Search = () => {
     refInput.current.focus();
   }, []);
   return (
-    <div className="p-2 ">
+    <div className="py-2 ">
       <form onSubmit={handleSubmit} className="flex justify-between w-full">
-        <div className="relative w-[75%]">
+        <div className="relative w-[74%]">
           <input
             ref={refInput}
             type="search"
@@ -73,7 +73,7 @@ const Search = () => {
         </div>
         <button
           type="submit"
-          className="bg-primary hover:shadow-md transition-all hover:opacity-95 w-[28%] sm:w-[20%] text-white font-bold px-3 py-1 rounded-md"
+          className="bg-primary hover:shadow-md transition-all hover:opacity-95 w-[23%] text-white font-bold px-3 py-1 rounded-md"
         >
           Search
         </button>

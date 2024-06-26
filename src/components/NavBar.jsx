@@ -31,7 +31,7 @@ const NavBar = () => {
   };
 
   return (
-    <header className="container fixed m-auto z-20 pt-2 rounded-none border-none text bg-white w-full shadow">
+    <header className="container fixed md:sticky m-auto z-20 pt-2 rounded-none border-none text bg-white w-full shadow">
       <nav className="relative mx-auto flex  items-center justify-between text-dark-100 px-3  sm:pl-0 ">
         <Link to="/" className="relative  flex">
           <img src={LogoName} alt="Logo" width={120} height={120} />
@@ -113,7 +113,7 @@ const NavBar = () => {
             aria-label="link cart"
           >
             <span
-              className={`text-[11px] md:text-[12px] font-bold transition-all ${
+              className={`text-[11px] md:text-[13px] font-bold transition-all ${
                 cart.items.length == 0 ? "scale-0" : "scale-100"
               }  absolute top-[-12px] md:top-[-15px] left-3 flex justify-center items-center bg-primary text-white px-1 rounded-full`}
             >
