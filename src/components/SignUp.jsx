@@ -4,7 +4,7 @@ import {
   fetchSignInMethodsForEmail,
 } from "firebase/auth";
 import { auth, db } from "../config/firebase";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import { doc, setDoc } from "firebase/firestore";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 // eslint-disable-next-line react/prop-types
@@ -104,7 +104,6 @@ const SignUp = ({ setSelect }) => {
   };
   return (
     <div className="w-[80%] h-[284px] flex justify-center  items-center flex-col lg:flex-row relative">
-      <ToastContainer />
       <form className="w-full gap-4 flex flex-col  " onSubmit={handleSignUp}>
         <input
           type="text"

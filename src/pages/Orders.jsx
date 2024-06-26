@@ -40,13 +40,13 @@ const Orders = () => {
   }, [dispatch, email]);
   return (
     <>
-      {orders.length !== 0 ? (
+      {orders.length == 0 ? (
         <div className="flex flex-col gap-6 items-center justify-center text-blue-gray-600 font-bold text-[20px] h-[70vh] bg-white p-6 m-2 mt-2 rounded-lg">
           <img src={Image} alt="image-order" width={240} />
           <h1 className="text-gray-700">No Orders yet !!</h1>
         </div>
       ) : (
-        <div className="p-2 sm:px-0 ">
+        <>
           <h1 className="text-2xl font-bold mb-4">
             Orders :
             <span className="text-gray-600 font-normal text-[19px]">
@@ -58,7 +58,7 @@ const Orders = () => {
             {orders.map((order) => (
               <div
                 key={order.randomName}
-                className="border shadow-[0_3px_6px_-1px_rgba(0,0,0,0.1)] bg-white rounded-md p-4 pb-1"
+                className="border shadow-[0_3px_6px_-1px_rgba(0,0,0,0.1)] bg-white rounded-md p-4 pb-1 h-fit"
               >
                 <div className="flex justify-between mb-2">
                   <h2 className="text-lg mb-2 font-bold">
@@ -83,10 +83,10 @@ const Orders = () => {
                       loading="lazy"
                       src={item.img}
                       alt={item.description}
-                      className="w-20  rounded-md mr-2"
+                      className="w-20 lg:w-28 rounded-md mr-2"
                     />
                     <div>
-                      <p className="font-semibold max-w-[300px] text-[12px] text-gray-900">
+                      <p className="font-semibold max-w-[300px] text-[12px] lg:text-[15px] text-gray-900">
                         {item.description}
                       </p>
                       <div className="flex items-center mt-1">
@@ -95,11 +95,11 @@ const Orders = () => {
                         </h2>
                         <p className="ml-2">x {item.count}</p>
                       </div>
-                      <div className="flex justify-end gap-5 text-gray-600 text-[12px] lg:text-[15px] leading-4 line-clamp-none my-2">
+                      <div className="flex justify-end gap-5 text-[#616161] text-[12px] lg:text-[14px] leading-4 line-clamp-none my-2">
                         <div className="flex flex-col md:flex-row">
                           Order Date: <span>{order.dates?.orderDate}</span>
                         </div>
-                        <div className="flex flex-col  md:flex-row">
+                        <div className="flex flex-col md:flex-row">
                           Delivery Date:
                           <span>{order.dates?.deliveryDate}</span>
                         </div>
@@ -110,7 +110,7 @@ const Orders = () => {
               </div>
             ))}
           </div>
-        </div>
+        </>
       )}
     </>
   );

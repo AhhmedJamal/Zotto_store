@@ -13,6 +13,7 @@ import { doc, updateDoc } from "firebase/firestore";
 import { db } from "../config/firebase";
 import { useParams } from "react-router-dom";
 import { GetDataUser } from "../store/user/user";
+
 const ProductCard = ({ product }) => {
   const { uid, id, img, price, rating, description, category } = product;
   const router = useNavigate();
@@ -92,17 +93,14 @@ const ProductCard = ({ product }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pathName]);
   return (
-    <div className=" rounded-md overflow-hidden border shadow-md relative flex flex-col lg:hover:shadow-lg lg:hover:scale-95 justify-between transition duration-300 bg-white text-black">
+    <div className="cursor-pointer rounded-md overflow-hidden border shadow-md relative flex flex-col lg:hover:shadow-lg lg:hover:scale-95 justify-between transition duration-300 bg-white text-black">
       {location.pathname === "/favorites" ? (
         <button
           aria-label="button delete favorite "
           onClick={() => handleDeleteFavorite()}
           className=" m-2 w-fit bg-white p-[6px] shadow-[0_0px_15px_-1px_rgb(0,0,0,0.3)] rounded-full outline-none"
         >
-          <AiTwotoneDelete
-            className="transition-colors"
-            size={20}
-          />
+          <AiTwotoneDelete className="transition-colors" size={20} />
         </button>
       ) : (
         <button

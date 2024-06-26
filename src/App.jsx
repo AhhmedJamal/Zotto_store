@@ -46,7 +46,7 @@ const App = () => {
   }, [dispatch, router]);
 
   return (
-    <div className="container m-auto overflow-y-scroll h-[100vh] sm:h-screen pb-20 sm:pb-0">
+    <div className="container m-auto overflow-y-scroll h-[100vh] sm:h-screen pb-20 sm:pb-0 md:px-8">
       <ToastContainer />
       <NavBar />
       <Categories />

@@ -11,7 +11,6 @@ import SignUp from "../components/SignUp";
 import LogoName from "/assets/ZottoLogo.png";
 import { auth, db, facebookProvider, googleProvider } from "../config/firebase";
 
-
 const Login = () => {
   const [email, setEmail] = useState("");
   const [pass, setPass] = useState("");
@@ -107,7 +106,7 @@ const Login = () => {
     <div className="overflow-hidden  w-full h-screen m-auto flex flex-col justify-center items-center gap-5 md:gap-0">
       <ToastContainer />
 
-      <img src={LogoName} alt="Logo" className="w-[200px] md:w-[260px]" />
+      <img src={LogoName} alt="Logo" width={220} height={200} />
 
       <div className="w-[80%] md:w-fit flex justify-center items-center relative ">
         <div className="sm:hidden size-[150px] bg-primary rounded-full absolute -top-12 -left-24 -z-20"></div>

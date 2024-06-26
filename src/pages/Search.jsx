@@ -54,7 +54,7 @@ const Search = () => {
   return (
     <div className="p-2 ">
       <form onSubmit={handleSubmit} className="flex justify-between w-full">
-        <div className="relative w-[70%]">
+        <div className="relative w-[75%]">
           <input
             ref={refInput}
             type="search"

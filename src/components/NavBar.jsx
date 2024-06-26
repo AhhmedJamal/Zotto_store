@@ -31,10 +31,10 @@ const NavBar = () => {
   };
 
   return (
-    <header className=" fixed  z-20  pt-2 rounded-none border-none text bg-white w-full container  shadow">
+    <header className="container fixed m-auto z-20 pt-2 rounded-none border-none text bg-white w-full shadow">
       <nav className="relative mx-auto flex  items-center justify-between text-dark-100 px-3  sm:pl-0 ">
         <Link to="/" className="relative  flex">
-          <img src={LogoName} alt="Logo" className="w-28 h-auto sm:w-32" />
+          <img src={LogoName} alt="Logo" width={120} height={120} />
         </Link>
         <div className="flex items-center gap-4">
           <button className="p-2 text-[12px] font-bold tracking-wider  text-start">

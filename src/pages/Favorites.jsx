@@ -15,7 +15,7 @@ function Favorites() {
     setLisLoading(true);
     setTimeout(() => {
       setLisLoading(false);
-    }, 800);
+    }, 500);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id, favorites]);
@@ -41,7 +41,7 @@ function Favorites() {
           ) : (
             <div className=" absolute  flex flex-col  items-center justify-center h-[70vh] w-full  rounded-lg bg-white">
               <img src={FavoriteEmpty} alt="cart" className="w-[230px]  " />
-              <p className="font-bold text-[17px] text-gray-700">
+              <p className="font-bold text-[17px] text-[#37474f]">
                 Favorite is empty !!
               </p>
             </div>
