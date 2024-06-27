@@ -17,6 +17,18 @@
       "dest": "/"
     },
     {
+      "src": "/phones",
+      "dest": "/"
+    },
+    {
+      "src": "/home",
+      "dest": "/"
+    },
+    {
+      "src": "/electroics",
+      "dest": "/"
+    },
+    {
       "src": "/cart",
       "dest": "/"
     },
