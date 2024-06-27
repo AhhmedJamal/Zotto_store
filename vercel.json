@@ -9,7 +9,7 @@
       "dest": "/"
     },
     {
-      "src": "/register",
+      "src": "/signUp",
       "dest": "/"
     },
     {
@@ -21,11 +21,19 @@
       "dest": "/"
     },
     {
-      "src": "/checkout",
+      "src": "/search",
       "dest": "/"
     },
     {
-      "src": "/profile",
+      "src": "/favorites",
+      "dest": "/"
+    },
+    {
+      "src": "/orders",
+      "dest": "/"
+    },
+    {
+      "src": "/account",
       "dest": "/"
     },
     {
