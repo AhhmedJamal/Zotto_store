@@ -1,56 +1,8 @@
 {
-  "routes": [
+  "rewrites": [
     {
-      "src": "/",
-      "dest": "/"
-    },
-    {
-      "src": "/login",
-      "dest": "/"
-    },
-    {
-      "src": "/signUp",
-      "dest": "/"
-    },
-    {
-      "src": "/forget",
-      "dest": "/"
-    },
-    {
-      "src": "/phones",
-      "dest": "/"
-    },
-    {
-      "src": "/home",
-      "dest": "/"
-    },
-    {
-      "src": "/electroics",
-      "dest": "/"
-    },
-    {
-      "src": "/cart",
-      "dest": "/"
-    },
-    {
-      "src": "/search",
-      "dest": "/"
-    },
-    {
-      "src": "/favorites",
-      "dest": "/"
-    },
-    {
-      "src": "/orders",
-      "dest": "/"
-    },
-    {
-      "src": "/account",
-      "dest": "/"
-    },
-    {
-      "src": "/not-found",
-      "dest": "/"
+      "source": "/(.*)",
+      "destination": "/"
     }
   ]
 }

@@ -2,7 +2,6 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import App from "../App.jsx";
 import Cart from "../pages/Cart.jsx";
 import Login from "../pages/Login.jsx";
-import SignUp from "../components/SignUp.jsx";
 import NotFoundPage from "../pages/NotFoundPage.jsx";
 import CategoryPage from "../pages/CategoryPage.jsx";
 import DetailsProduct from "../pages/DetailsProduct.jsx";
@@ -56,15 +55,12 @@ const RouterHandler = () => {
         },
       ],
     },
-  
+
     {
       path: "/login",
       element: <Login />,
     },
-    {
-      path: "/signUp",
-      element: <SignUp />,
-    },
+
     {
       path: "/forget",
       element: <Forget />,
