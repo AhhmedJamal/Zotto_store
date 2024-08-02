@@ -13,6 +13,7 @@ import { doc, updateDoc } from "firebase/firestore";
 import { db } from "../config/firebase";
 import { useParams } from "react-router-dom";
 import { GetDataUser } from "../store/user/user";
+import { confirmAlert } from "react-confirm-alert";
 
 const ProductCard = ({ product }) => {
   const { uid, id, img, price, rating, description, category } = product;
@@ -61,6 +62,23 @@ const ProductCard = ({ product }) => {
   };
 
   const addFavorite = async () => {
+    confirmAlert({
+      overlayClassName: "alert",
+      title: "You Should Login !",
+
+      buttons: [
+        {
+          label: "Login",
+          onClick: async () => {
+            console.log("done");
+          },
+        },
+        {
+          label: "Cancel",
+          onClick: () => {},
+        },
+      ],
+    });
     setBooleanIcon(true);
     dispatch(GetDataUser(user.email));
     if (user.email) {

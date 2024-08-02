@@ -141,15 +141,19 @@ const CheckoutForm = ({ totalForPayMentElement }) => {
     <>
       <form onSubmit={handleSubmit} className="mt-2 border p-3">
         <CardElement />
+
         <button
-          loading={loading}
           className={`bg-primary hover:shadow-lg transition-all hover:opacity-95 w-full mt-5  capitalize font-bold text-white py-2 rounded-lg flex justify-center ${
             totalForPayMentElement === 0 && "bg-primary/80"
           }`}
           type="submit"
         >
-          <span className="text-[17px]">
-            {totalForPayMentElement === 0 ? "No Items To Pay" : "Pay 💵"}
+          <span className="text-[18px]">
+            {loading ? (
+              <span className="border-4 border-t-transparent border-white size-[27px] block rounded-full animate-spin"></span>
+            ) : (
+              <>{totalForPayMentElement === 0 ? "No Items To Pay" : "Pay 💵"}</>
+            )}
           </span>
         </button>
       </form>
