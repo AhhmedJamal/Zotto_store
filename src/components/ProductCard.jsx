@@ -62,23 +62,23 @@ const ProductCard = ({ product }) => {
   };
 
   const addFavorite = async () => {
-    confirmAlert({
-      overlayClassName: "alert",
-      title: "You Should Login !",
+    // confirmAlert({
+    //   overlayClassName: "alert",
+    //   title: "You Should Login !",
 
-      buttons: [
-        {
-          label: "Login",
-          onClick: async () => {
-            console.log("done");
-          },
-        },
-        {
-          label: "Cancel",
-          onClick: () => {},
-        },
-      ],
-    });
+    //   buttons: [
+    //     {
+    //       label: "Login",
+    //       onClick: async () => {
+    //         console.log("done");
+    //       },
+    //     },
+    //     {
+    //       label: "Cancel",
+    //       onClick: () => {},
+    //     },
+    //   ],
+    // });
     setBooleanIcon(true);
     dispatch(GetDataUser(user.email));
     if (user.email) {
