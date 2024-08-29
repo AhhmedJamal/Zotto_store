@@ -2,6 +2,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../../config/firebase";
+import { confirmAlert } from "react-confirm-alert";
 
 const userSlice = createSlice({
   name: "user",
@@ -35,24 +36,43 @@ const userSlice = createSlice({
   },
 });
 
-export const GetDataUser = (email) => async (dispatch) => {
-  if (email) {
-    try {
-      const docRef = doc(db, "users", email);
-      const docSnapshot = await getDoc(docRef);
-      const userData = docSnapshot.data();
-      if (userData) {
-        dispatch(setUser(userData));
-      } else {
-        console.log("User data is undefined");
+export const GetDataUser =
+  (email, navigate = null) =>
+  async (dispatch) => {
+    if (email) {
+      try {
+        const docRef = doc(db, "users", email);
+        const docSnapshot = await getDoc(docRef);
+        const userData = docSnapshot.data();
+
+        if (userData) {
+          dispatch(setUser(userData));
+        } else {
+          console.log("User data is undefined");
+        }
+      } catch (error) {
+        console.error("Error getting user data:", error);
       }
-    } catch (error) {
-      console.error("Error getting user data:", error);
+    } else {
+      dispatch(clearUser());
+
+      confirmAlert({
+        overlayClassName: "alert",
+        title: "You Should Login !",
+        buttons: [
+          {
+            label: "Login",
+            onClick: () => {
+              navigate("/login");
+            },
+          },
+          {
+            label: "Cancel",
+            onClick: () => {},
+          },
+        ],
+      });
     }
-  } else {
-    dispatch(clearUser());
-    console.log("User is not authenticated");
-  }
-};
+  };
 export const { setUser, clearUser } = userSlice.actions;
 export default userSlice.reducer;

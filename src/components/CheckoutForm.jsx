@@ -69,72 +69,87 @@ const CheckoutForm = ({ totalForPayMentElement }) => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    setLoading(true);
-
-    if (!stripe || !elements) {
-      console.error("Stripe or elements not loaded");
-      setLoading(false);
-      return;
-    }
-
-    const cardElement = elements.getElement(CardElement);
-
-    try {
-      const result = await stripe.confirmCardPayment(clientSecret, {
-        payment_method: {
-          card: cardElement,
-          billing_details: {
-            name: email,
+    if (!email) {
+      confirmAlert({
+        overlayClassName: "alertPay",
+        title: "Note !",
+        message: "Please login to complete the checkout process.",
+        buttons: [
+          {
+            label: "OK",
+            onClick: () => router("/login"),
           },
-        },
+        ],
       });
-
-      if (result.error) {
-        console.error(result.error.message);
-        setLoading(false);
-      } else {
-        if (result.paymentIntent.status === "succeeded") {
-          console.log("Payment succeeded!");
-          const docRef = doc(db, "users", email);
-          const currentOrders = orders || [];
-
-          await updateDoc(docRef, {
-            orders: [
-              ...currentOrders,
-              { dates: dates, randomName: randomID(10), items: [...cart] }, // Add the new order
-            ],
-          })
-            .then(() => {
-              console.log("updateDoc successfully");
-            })
-            .catch((error) => {
-              console.error("Error updateDoc document:", error);
-            });
-
-          confirmAlert({
-            overlayClassName: "alert",
-            title: "The order is successfully ✅",
-
-            buttons: [
-              {
-                label: "Check The Order !",
-                onClick: async () => {
-                  router("/orders");
-                },
-              },
-              {
-                label: "No",
-                onClick: () => {},
-              },
-            ],
-          });
-          dispatch(removeAllCart(id));
-          setLoading(false);
-        }
-      }
-    } catch (error) {
-      console.error("Error confirming card payment:", error);
       setLoading(false);
+    } else {
+      setLoading(true);
+
+      if (!stripe || !elements) {
+        console.error("Stripe or elements not loaded");
+        setLoading(false);
+        return;
+      }
+
+      const cardElement = elements.getElement(CardElement);
+
+      try {
+        const result = await stripe.confirmCardPayment(clientSecret, {
+          payment_method: {
+            card: cardElement,
+            billing_details: {
+              name: email,
+            },
+          },
+        });
+
+        if (result.error) {
+          console.error(result.error.message);
+          setLoading(false);
+        } else {
+          if (result.paymentIntent.status === "succeeded") {
+            console.log("Payment succeeded!");
+            const docRef = doc(db, "users", email);
+            const currentOrders = orders || [];
+
+            await updateDoc(docRef, {
+              orders: [
+                ...currentOrders,
+                { dates: dates, randomName: randomID(10), items: [...cart] }, // Add the new order
+              ],
+            })
+              .then(() => {
+                console.log("updateDoc successfully");
+              })
+              .catch((error) => {
+                console.error("Error updateDoc document:", error);
+              });
+
+            confirmAlert({
+              overlayClassName: "alert",
+              title: "The order is successfully ✅",
+
+              buttons: [
+                {
+                  label: "Check The Order !",
+                  onClick: async () => {
+                    router("/orders");
+                  },
+                },
+                {
+                  label: "No",
+                  onClick: () => {},
+                },
+              ],
+            });
+            dispatch(removeAllCart(id));
+            setLoading(false);
+          }
+        }
+      } catch (error) {
+        console.error("Error confirming card payment:", error);
+        setLoading(false);
+      }
     }
   };
   return (

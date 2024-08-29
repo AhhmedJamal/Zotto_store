@@ -1,5 +1,4 @@
 /* eslint-disable react/prop-types */
-
 import { MdAddShoppingCart } from "react-icons/md";
 import { GoStarFill } from "react-icons/go";
 import { useNavigate } from "react-router-dom";
@@ -13,7 +12,6 @@ import { doc, updateDoc } from "firebase/firestore";
 import { db } from "../config/firebase";
 import { useParams } from "react-router-dom";
 import { GetDataUser } from "../store/user/user";
-import { confirmAlert } from "react-confirm-alert";
 
 const ProductCard = ({ product }) => {
   const { uid, id, img, price, rating, description, category } = product;
@@ -24,7 +22,6 @@ const ProductCard = ({ product }) => {
   const [isAnimationFavorite, setIsAnimationFavorite] = useState(false);
 
   const dispatch = useDispatch();
-
   const user = useSelector((state) => state.user);
 
   const handleClick = () => {
@@ -62,25 +59,7 @@ const ProductCard = ({ product }) => {
   };
 
   const addFavorite = async () => {
-    confirmAlert({
-      overlayClassName: "alert",
-      title: "You Should Login !",
-
-      buttons: [
-        {
-          label: "Login",
-          onClick: async () => {
-            console.log("done");
-          },
-        },
-        {
-          label: "Cancel",
-          onClick: () => {},
-        },
-      ],
-    });
-    setBooleanIcon(true);
-    dispatch(GetDataUser(user.email));
+    dispatch(GetDataUser(user.email, router));
     if (user.email) {
       try {
         const docRef = doc(db, "users", user.email);
@@ -89,6 +68,7 @@ const ProductCard = ({ product }) => {
         })
           .then(() => {
             console.log("updateDoc successfully");
+            setBooleanIcon(true);
           })
           .catch((error) => {
             console.error("Error updateDoc document:", error);
@@ -126,9 +106,7 @@ const ProductCard = ({ product }) => {
           onClick={handleFavorite}
           className="m-2 w-fit bg-white p-[6px] shadow-[0_0px_15px_-1px_rgb(0,0,0,0.3)] rounded-full outline-none"
         >
-          <div
-            className={` ${isAnimationFavorite ? "animate-favorite-icon" : ""}`}
-          >
+          <div className={isAnimationFavorite ? "animate-favorite-icon" : ""}>
             {booleanIcon ? (
               <MdOutlineFavorite size={20} className="text-primary" />
             ) : (

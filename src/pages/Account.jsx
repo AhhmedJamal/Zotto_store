@@ -16,36 +16,56 @@ const Account = () => {
 
   const handleLogOut = () => {
     signOut(auth);
-    router("/login");
+    router("/login", { replace: true });
   };
 
   return (
     <div className="px-2 md:px-0 h-[85%] flex flex-col justify-between gap-4 ">
       <div>
         <div className="relative flex flex-col justify-center my-[10px] bg-white p-2 rounded-md md:flex-row-reverse md:justify-around">
-          <button
-            onClick={handleLogOut}
-            type="button"
-            className="bg-primary absolute z-10 top-2 right-2 md:self-center text-white rounded-md p-1 pr-[2px]  self-end shadow-[0_0px_9px_0px_rgba(0,0,0,0.3)]"
-          >
-            <IoExitOutline size={22} />
-          </button>
+          {user.email == "" ? (
+            <div className=" w-[100%] flex flex-col gap-6  items-center">
+              <div>
+                <PiUserCircle size={80} />
+                <h1 className="font-bold text-[20px]">Hi Guest</h1>
+              </div>
 
-          <div className="flex flex-col md:flex-row md:justify- items-center relative gap-3 ">
-            {user.photoURL ? (
-              <img
-                src={user.photoURL}
-                alt="Image-user"
-                className="rounded-full w-[70px]"
-              />
-            ) : (
-              <PiUserCircle size={80} />
-            )}
-            <div className="text-center md:text-start">
-              <h1 className="font-bold  mb-1">{user.name}</h1>
-              <h4 className="text-gray-700 text-[12px] ">{user.email}</h4>
+              <button
+                onClick={() => {
+                  router("/login");
+                }}
+                className="bg-primary text-white rounded-md px-11 py-1 font-bold"
+              >
+                Login
+              </button>
             </div>
-          </div>
+          ) : (
+            <>
+              {" "}
+              <button
+                onClick={handleLogOut}
+                type="button"
+                className="bg-primary absolute z-10 top-2 right-2 md:self-center text-white rounded-md p-1 pr-[2px]  self-end shadow-[0_0px_9px_0px_rgba(0,0,0,0.3)]"
+              >
+                <IoExitOutline size={22} />
+              </button>
+              <div className="flex flex-col md:flex-row md:justify- items-center relative gap-3 ">
+                {user.photoURL ? (
+                  <img
+                    src={user.photoURL}
+                    alt="Image-user"
+                    className="rounded-full w-[70px]"
+                  />
+                ) : (
+                  <PiUserCircle size={80} />
+                )}
+                <div className="text-center md:text-start">
+                  <h1 className="font-bold  mb-1">{user.name}</h1>
+                  <h4 className="text-gray-700 text-[12px] ">{user.email}</h4>
+                </div>
+              </div>
+            </>
+          )}
         </div>
         <h4>REACH OUT TO US</h4>
         <div className="p-2 gap-1  flex flex-col">

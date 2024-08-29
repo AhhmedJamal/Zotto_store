@@ -3,7 +3,7 @@ import { Outlet, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "./config/firebase";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import Categories from "./components/Categories";
 import BottomBar from "./components/BottomBar";
 import { useDispatch } from "react-redux";
@@ -20,22 +20,16 @@ const App = () => {
     window.addEventListener("popstate", handleBackButton);
 
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
-      if (user) {
-        const storedToken = localStorage.getItem(`token=${user.uid}`);
-        if (storedToken === user.uid) {
-          try {
-            dispatch(GetDataUser(user.email));
-          } catch (error) {
-            console.error("Error fetching document:", error);
-          }
-        } else {
-          toast.error("Authorization Failed !!", {
-            position: toast.POSITION.BOTTOM_CENTER,
-          });
-          setTimeout(() => router("/login"), 5000);
+      const storedToken = localStorage.getItem(`token=${user?.uid}`);
+      if (storedToken !== null) {
+        try {
+          dispatch(GetDataUser(user.email));
+        } catch (error) {
+          console.error("Error fetching document:", error);
         }
+        console.log("User");
       } else {
-        router("/login");
+        console.log("Gust");
       }
     });
 

@@ -27,9 +27,23 @@ body {
   @apply !text-[#e61030];
 }
 
-.alert {
+.alert,
+.alertPay {
   @apply bg-[#7f7f7f67];
 }
 .react-confirm-alert-body {
-  @apply md:!min-w-[300px] flex flex-col justify-center items-center rounded-lg bg-white p-7 font-bold w-full text-[22px] lg:p-11 lg:text-[28px] overflow-hidden;
+  @apply md:!min-w-[600px] flex flex-col justify-center gap-4 items-center rounded-lg bg-white p-7 font-bold w-full text-[22px] lg:p-11 lg:text-[32px] overflow-hidden;
+}
+
+.alert button:nth-child(1),
+.alertPay button:nth-child(1) {
+  @apply bg-primary text-[white] px-[20px] py-[10px] border-[none] rounded-[5px] cursor-pointer text-[15px] md:text-[18px];
+}
+
+.alert button:nth-child(2) {
+  @apply bg-transparent border border-zinc-700 border-solid  text-black px-[20px] py-[10px]  rounded-[5px] cursor-pointer ml-[10px] text-[15px] md:text-[18px];
+}
+
+.alertPay .react-confirm-alert-body {
+  @apply md:!min-w-[600px] flex flex-col justify-center gap-4 items-center rounded-lg bg-white p-7 font-bold m-auto w-[90%] text-[22px] lg:p-11 lg:text-[32px] overflow-hidden;
 }
