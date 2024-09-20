@@ -20,15 +20,17 @@ function Favorites() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id, favorites]);
   return (
-    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 sm:mx-0 pb-3 m-2 relative">
+    <div>
       {favorites.length !== 0 ? (
-        favorites.map((favorite) => {
-          return <ProductCard key={favorite.uid} product={favorite} />;
-        })
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 sm:mx-0 pb-3 m-2 ">
+          {favorites.map((favorite) => {
+            return <ProductCard key={favorite.uid} product={favorite} />;
+          })}
+        </div>
       ) : (
-        <div className=" container m-auto w-full absolute left-0 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 sm:mx-0 pb-[60px]">
+        <div className=" container px-2 sm:px-0 pt-[8px] ">
           {isLoading ? (
-            <>
+            <div className="m-auto w-full absolute left-0 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 ">
               <ShimmerDetails />
               <ShimmerDetails />
               <ShimmerDetails />
@@ -37,9 +39,9 @@ function Favorites() {
               <ShimmerDetails />
               <ShimmerDetails />
               <ShimmerDetails />
-            </>
+            </div>
           ) : (
-            <div className=" absolute  flex flex-col  items-center justify-center h-[70vh] w-full  rounded-lg bg-white">
+            <div className="flex flex-col  items-center justify-center h-[70vh] w-full  rounded-lg bg-white">
               <img src={FavoriteEmpty} alt="cart" className="w-[230px]  " />
               <p className="font-bold text-[17px] text-[#37474f]">
                 Favorite is empty !!

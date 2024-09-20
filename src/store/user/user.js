@@ -55,23 +55,24 @@ export const GetDataUser =
       }
     } else {
       dispatch(clearUser());
-
-      confirmAlert({
-        overlayClassName: "alert",
-        title: "You Should Login !",
-        buttons: [
-          {
-            label: "Login",
-            onClick: () => {
-              navigate("/login");
+      if (window.location.pathname !== "/orders") {
+        confirmAlert({
+          overlayClassName: "alert",
+          title: "Hala! Let's get started",
+          buttons: [
+            {
+              label: "Login",
+              onClick: () => {
+                navigate("/login");
+              },
             },
-          },
-          {
-            label: "Cancel",
-            onClick: () => {},
-          },
-        ],
-      });
+            {
+              label: "Cancel",
+              onClick: () => {},
+            },
+          ],
+        });
+      }
     }
   };
 export const { setUser, clearUser } = userSlice.actions;

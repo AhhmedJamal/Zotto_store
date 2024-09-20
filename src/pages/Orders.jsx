@@ -41,7 +41,7 @@ const Orders = () => {
   return (
     <div className="px-2 md:px-0">
       {orders.length == 0 ? (
-        <div className="flex flex-col gap-6 items-center justify-center text-blue-gray-600 font-bold text-[20px] h-[70vh] bg-white p-6 m-2 mt-2 rounded-lg">
+        <div className="flex flex-col gap-6 items-center justify-center text-blue-gray-600 font-bold text-[20px] h-[70vh] bg-white p-6 my-2 mt-2 rounded-lg">
           <img src={Image} alt="image-order" width={240} />
           <h1 className="text-gray-700">No Orders yet !!</h1>
         </div>

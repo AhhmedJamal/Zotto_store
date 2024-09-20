@@ -8,6 +8,7 @@ import Categories from "./components/Categories";
 import BottomBar from "./components/BottomBar";
 import { useDispatch } from "react-redux";
 import { GetDataUser } from "./store/user/user";
+import Footer from "./components/Footer";
 
 const App = () => {
   const router = useNavigate();
@@ -40,11 +41,12 @@ const App = () => {
   }, [dispatch, router]);
 
   return (
-    <div className="container m-auto overflow-y-scroll h-[100vh] sm:h-screen pb-20 sm:pb-0 md:px-8">
+    <div className="container m-auto overflow-y-scroll h-[100vh] sm:h-screen pb-[70px] md:pb-0  md:px-8">
       <ToastContainer />
       <NavBar />
       <Categories />
       <Outlet />
+      <Footer />
       <BottomBar />
     </div>
   );

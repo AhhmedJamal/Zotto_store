@@ -70,14 +70,20 @@ const CheckoutForm = ({ totalForPayMentElement }) => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     if (!email) {
+      if (!totalForPayMentElement) return;
       confirmAlert({
-        overlayClassName: "alertPay",
-        title: "Note !",
-        message: "Please login to complete the checkout process.",
+        overlayClassName: "alert",
+        title: "Hala! Let's get started",
         buttons: [
           {
-            label: "OK",
-            onClick: () => router("/login"),
+            label: "Login",
+            onClick: () => {
+              router("/login");
+            },
+          },
+          {
+            label: "Cancel",
+            onClick: () => {},
           },
         ],
       });

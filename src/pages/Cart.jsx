@@ -37,7 +37,7 @@ const Cart = () => {
   }, [user]);
 
   return (
-    <div className="mt-2 flex flex-col lg:flex-row justify-between relative ">
+    <div className="my-2 flex flex-col lg:flex-row justify-between relative ">
       <div className="w-[100%] lg:w-[58%] ">
         <span className="text-[13px] md:text-[17px] font-bold  ml-2 ">
           Shopping Cart:{" "}
