@@ -30,6 +30,9 @@ body {
 .alert {
   @apply bg-[#7f7f7f67];
 }
+.react-confirm-alert {
+  @apply pt-[50px];
+}
 .react-confirm-alert-body {
   @apply md:!min-w-[600px] relative flex flex-col justify-center gap-4 items-center rounded-none bg-white p-7 font-bold w-full text-[22px] lg:p-11 lg:text-[32px];
 }
