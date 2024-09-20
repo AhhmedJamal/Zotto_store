@@ -40,7 +40,7 @@ body {
   width: 100%;
   height: 120px;
   background: white;
-  background-image: url("assets/image_alert.png");
+  background-image: url("/assets/image_alert.png");
   background-size: cover;
   background-repeat: no-repeat;
 }
