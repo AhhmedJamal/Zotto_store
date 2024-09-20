@@ -31,21 +31,13 @@ body {
   @apply bg-[#7f7f7f67];
 }
 .react-confirm-alert {
-  @apply pt-[50px];
+  @apply pt-[100px] relative;
 }
 .react-confirm-alert-body {
-  @apply md:!min-w-[600px] relative flex flex-col justify-center gap-4 items-center rounded-none bg-white p-7 font-bold w-full text-[22px] lg:p-11 lg:text-[32px];
+  @apply md:!min-w-[600px]  flex flex-col justify-center gap-4 items-center rounded-none bg-white p-7 font-bold w-full text-[22px] lg:p-11 lg:text-[32px];
 }
 .react-confirm-alert-body::before {
-  content: "";
-  position: absolute;
-  top: -115px;
-  width: 100%;
-  height: 120px;
-  background: white;
-  background-image: url("/assets/image_alert.png");
-  background-size: cover;
-  background-repeat: no-repeat;
+  @apply content-[""] absolute -top-[50px] w-full h-[160px]  bg-[white] bg-[url("/assets/image_alert.png")] bg-cover bg-no-repeat;
 }
 .alert button:nth-child(1) {
   @apply bg-primary text-[white] px-[20px] py-[10px] border-[none] rounded-[5px] cursor-pointer text-[15px] md:text-[18px];
